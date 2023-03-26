@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="643.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scheduler.controller.updateAppointmentController">
+    <children>
+        <Label layoutX="63.0" layoutY="38.0" text="Update An Appointment">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label fx:id="upAppID" layoutX="40.0" layoutY="112.0" text="ID:" />
+        <Label fx:id="upAppTitle" layoutX="44.0" layoutY="148.0" text="Title:" />
+        <Label fx:id="upAppDescription" layoutX="44.0" layoutY="184.0" text="Description:" />
+        <Label fx:id="upAppType" layoutX="47.0" layoutY="218.0" text="Type:" />
+        <Label fx:id="upApptStartDate" layoutX="37.0" layoutY="276.0" text="Start Date:" />
+        <Label fx:id="upAppStartTime" layoutX="37.0" layoutY="317.0" text="Start Time:" />
+        <Label fx:id="upAppEndDate" layoutX="37.0" layoutY="365.0" text="End Date:" />
+        <Label fx:id="upAppEndTime" layoutX="36.0" layoutY="403.0" text="End Time:" />
+        <Label fx:id="upAppCustomer" layoutX="35.0" layoutY="494.0" text="Customer ID:" />
+        <Label fx:id="upAppUser" layoutX="35.0" layoutY="533.0" text="User ID:" />
+        <Label fx:id="upAppContact" layoutX="35.0" layoutY="459.0" text="Contact:" />
+        <TextField fx:id="upAppIDText" layoutX="125.0" layoutY="108.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="upAppTitleText" layoutX="125.0" layoutY="144.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="upAppDescriptionText" layoutX="126.0" layoutY="180.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="upAppTypeText" layoutX="125.0" layoutY="214.0" prefHeight="25.0" prefWidth="239.0" />
+        <DatePicker fx:id="upAppStartDatePick" layoutX="125.0" layoutY="272.0" prefHeight="25.0" prefWidth="239.0" />
+        <DatePicker fx:id="upAppEndDatePick" layoutX="124.0" layoutY="361.0" prefHeight="25.0" prefWidth="239.0" />
+        <ComboBox fx:id="upAppStartTimePick" layoutX="125.0" layoutY="313.0" prefHeight="25.0" prefWidth="239.0" />
+        <ComboBox fx:id="upAppEndTimePick" layoutX="122.0" layoutY="399.0" prefHeight="25.0" prefWidth="239.0" />
+        <ComboBox fx:id="upAppContactPick" layoutX="125.0" layoutY="455.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="upAppCustomerText" layoutX="124.0" layoutY="490.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="upAppUserText" layoutX="125.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
+        <Button fx:id="upAppSave" layoutX="59.0" layoutY="585.0" mnemonicParsing="false" onAction="#upAppSaveClick" prefHeight="25.0" prefWidth="134.0" text="Save" />
+        <Button fx:id="upAppCancel" layoutX="227.0" layoutY="585.0" mnemonicParsing="false" onAction="#upAppCancelClick" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
+    </children>
+</AnchorPane>

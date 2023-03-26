@@ -3,6 +3,7 @@ package scheduler.controller;
 import javafx.event.ActionEvent;
 
 public class customersController {
+
     public void addCustomerClick(ActionEvent actionEvent) {
     }
 
@@ -14,4 +15,5 @@ public class customersController {
 
     public void backClick(ActionEvent actionEvent) {
     }
+
 }
