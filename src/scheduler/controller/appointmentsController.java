@@ -11,6 +11,9 @@ public class appointmentsController implements Initializable {
     public void addAppointmentClick(ActionEvent actionEvent) {
     }
 
+    public void updateAppointmentClick(ActionEvent actionEvent) {
+    }
+
     public void deleteAppointmentClick(ActionEvent actionEvent) {
     }
 
