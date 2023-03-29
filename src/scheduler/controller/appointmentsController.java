@@ -1,8 +1,12 @@
 package scheduler.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 
-public class appointmentsController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class appointmentsController implements Initializable {
 
     public void addAppointmentClick(ActionEvent actionEvent) {
     }
@@ -22,4 +26,8 @@ public class appointmentsController {
     public void allRadio(ActionEvent actionEvent) {
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("I implemented the appointments stuff.");
+    }
 }

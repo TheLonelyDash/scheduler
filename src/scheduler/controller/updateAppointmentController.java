@@ -1,8 +1,12 @@
 package scheduler.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 
-public class updateAppointmentController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class updateAppointmentController implements Initializable {
 
     public void upAppSaveClick(ActionEvent actionEvent) {
     }
@@ -10,4 +14,8 @@ public class updateAppointmentController {
     public void upAppCancelClick(ActionEvent actionEvent) {
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("I implemented the update appointment stuff.");
+    }
 }

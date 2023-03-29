@@ -1,8 +1,12 @@
 package scheduler.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 
-public class mainMenuController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class mainMenuController implements Initializable {
 
 
     public void mainMenuAppointmentsClick(ActionEvent actionEvent) {
@@ -18,4 +22,8 @@ public class mainMenuController {
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("I initialized the main Menuuuuuuu!");
+    }
 }

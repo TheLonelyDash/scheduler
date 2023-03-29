@@ -1,8 +1,12 @@
 package scheduler.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 
-public class customersController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class customersController implements Initializable {
 
     public void addCustomerClick(ActionEvent actionEvent) {
     }
@@ -16,4 +20,8 @@ public class customersController {
     public void backClick(ActionEvent actionEvent) {
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("I initialized the customers thing!");
+    }
 }
