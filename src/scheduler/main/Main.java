@@ -1,4 +1,4 @@
-package scheduler;
+package scheduler.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

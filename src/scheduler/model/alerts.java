@@ -1,4 +1,4 @@
-package scheduler.models;
+package scheduler.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
