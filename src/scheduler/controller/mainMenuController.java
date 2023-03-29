@@ -44,6 +44,11 @@ public class mainMenuController implements Initializable {
         stage.show();
     }
 
+    /***
+     * This creates an alert when the user clicks on the log out button from the main menue.  If they choose OK to log out, it will direct them back to the log in screen.  Otherwise it will remove the alert and allow them to continue.
+     * @param actionEvent The event that will be used to change scenes from the log out button.
+     * @throws IOException The exception handler for the log out button.
+     */
     public void mainMenuLogOutClick(ActionEvent actionEvent) throws IOException{
         if (alerts.alert("Log Out?", "Are you sure you'd like to log out?", "Your changes will NOT be lost.")){
             Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/loginMenu.fxml"));
@@ -55,7 +60,11 @@ public class mainMenuController implements Initializable {
         }
     }
 
-
+    /***
+     * This is the initializable method for the main menu.
+     * @param url this is the URL for the initializable method of the main menu.
+     * @param resourceBundle this is the resourceBundle for the main menu.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("I initialized the main Menuuuuuuu!");
