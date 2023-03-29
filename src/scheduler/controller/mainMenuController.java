@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import scheduler.model.alerts;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,12 +45,14 @@ public class mainMenuController implements Initializable {
     }
 
     public void mainMenuLogOutClick(ActionEvent actionEvent) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/loginMenu.fxml"));
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Log In!");
-        stage.show();
+        if (alerts.alert("Log Out?", "Are you sure you'd like to log out?", "Your changes will NOT be lost.")){
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/loginMenu.fxml"));
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Log In!");
+            stage.show();
+        }
     }
 
 
