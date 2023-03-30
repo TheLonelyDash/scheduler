@@ -20,13 +20,14 @@ public class Main extends Application {
 
     /***
      * The main method connects to the database prior to launching the main stage of fxml.
-     * @param args The arguement that launches the application.
+     * @param args The argument that launches the application.
      */
     public static void main(String[] args) {
-
+        //Connects the database
         JDBC.openConnection();
+        //Opens the application
         launch(args);
+        //Disconnects the database
         JDBC.closeConnection();
-
     }
 }

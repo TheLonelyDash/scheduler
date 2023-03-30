@@ -2,6 +2,8 @@ package scheduler.utilities;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class JDBC {
 
@@ -27,33 +29,58 @@ public class JDBC {
     private static final String userName = "sqlUser";
     private static final String password = "Passw0rd!";
 
-    //Create a connection varriable.
+    //Create a connection variable.
     public static Connection connection;
 
+    //Create a PreparedStatement variable.
+    private static PreparedStatement preparedStatement;
+
+    /***
+     * This is a method that creates the Prepared Statement object.
+     * @param connection to the database connection
+     * @param sqlStatement String for the SQL statement
+     * @throws SQLException Catches andy exception
+     */
+    public static void setPreparedStatement (Connection connection, String sqlStatement) throws SQLException{
+        preparedStatement = connection.prepareStatement(sqlStatement);
+    }
 
 
-    //Establish a database connection
+    /***
+     * This is the return method so that the prepared statement may be globally accessible.
+     * @return returns the prepared statement
+     */
+    public static PreparedStatement getPreparedStatement(){
+        return preparedStatement;
+    }
+
+
+    /***
+     * Establishes a database connection.
+     */
     public static void openConnection(){
         try {
             //locate the driver
             Class.forName(driver);
             //create a connection object to get connection to the database.
             connection = DriverManager.getConnection(jdbUrl, userName, password);
-            System.out.println("The connection was successfull to the DB");
+            System.out.println("The connection was successful to the DB");
         }
         catch(Exception e) {
-            System.out.println("ERRROR: " + e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 
-    //Close databse connection
+    /***
+     * Closes the database connection.
+     */
     public static void closeConnection(){
         try {
             connection.close();
             System.out.println("The connection was CLOSED");
         }
         catch(Exception e) {
-            System.out.println("ERRROR: " + e.getMessage());
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
 
