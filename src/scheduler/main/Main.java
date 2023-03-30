@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import scheduler.utilities.JDBC;
 
 public class Main extends Application {
 
@@ -17,7 +18,15 @@ public class Main extends Application {
         stage.show();
     }
 
+    /***
+     * The main method connects to the database prior to launching the main stage of fxml.
+     * @param args The arguement that launches the application.
+     */
     public static void main(String[] args) {
+
+        JDBC.openConnection();
         launch(args);
+        JDBC.closeConnection();
+
     }
 }
