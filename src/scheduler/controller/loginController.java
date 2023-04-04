@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -41,20 +42,43 @@ public class loginController implements Initializable {
     @FXML Label locationLabel;
     @FXML Button loginButton;
     @FXML Button exitButton;
+    @FXML TextField usernameTextField;
+    @FXML TextField passwordTextField;
 
     ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
 
 
     @FXML
     public void loginButtonClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Main Menu");}
-        else {stage.setTitle("Menu Principal");}
-        stage.show();
+        if (usernameTextField.getText().isEmpty()) {
+            if (Locale.getDefault().getLanguage() == "en") {
+                alerts.alert("Username", "No username was provided.", "Please enter a valid username!");
+            } else {
+                alerts.alert("Nom d'Utilisateur", "Aucun nom d'utilisateur fourni.", "Veuillez saisir un nom d'utilisateur valide!");
+            }
+        }
+        else if (passwordTextField.getText().isEmpty()) {
+            if (Locale.getDefault().getLanguage() == "en") {
+                alerts.alert("Password", "No password was provided.", "Please enter a valid password!");
+            } else {
+                alerts.alert("Mot de passe", "Aucun mot de passe n'a été fourni.", "Veuillez saisir un mot de passe valide!");
+            }
+        }
+        else {
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            if (Locale.getDefault().getLanguage() == "en") {
+                stage.setTitle("Main Menu");
+            } else {
+                stage.setTitle("Menu Principal");
+            }
+            stage.show();
+        }
     }
+
+
 
     @FXML
     public void exitButtonClick(ActionEvent actionEvent) {

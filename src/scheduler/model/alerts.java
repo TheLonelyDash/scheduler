@@ -3,7 +3,6 @@ package scheduler.model;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.util.Locale;
 import java.util.Optional;
 
 public class alerts {
@@ -16,5 +15,6 @@ public class alerts {
         Optional<ButtonType> result = alert.showAndWait();
         return (result.get() == ButtonType.OK);
     }
+
 
 }
