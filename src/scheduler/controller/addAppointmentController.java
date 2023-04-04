@@ -47,8 +47,6 @@ public class addAppointmentController implements Initializable {
                 stage.show();
             }
         }
-
-
     }
 
     public void addAppCancelClick(ActionEvent actionEvent) throws IOException {
