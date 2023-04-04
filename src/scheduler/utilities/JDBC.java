@@ -32,6 +32,10 @@ public class JDBC {
     //Create a connection variable.
     public static Connection connection;
 
+    public static Connection getConnection(){
+        return connection;
+    }
+
     //Create a PreparedStatement variable.
     private static PreparedStatement preparedStatement;
 

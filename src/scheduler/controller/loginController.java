@@ -19,6 +19,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import scheduler.model.alerts;
+import scheduler.utilities.DBQuery;
+import scheduler.utilities.userSearch;
+
 import java.lang.System;
 import java.util.*;
 import java.io.FileWriter;
@@ -44,12 +47,11 @@ public class loginController implements Initializable {
     @FXML Button exitButton;
     @FXML TextField usernameTextField;
     @FXML TextField passwordTextField;
-
-
+    @FXML TextField locationTextField;
 
 
     @FXML
-    public void loginButtonClick(ActionEvent actionEvent) throws IOException {
+    public void loginButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
         if (usernameTextField.getText().isEmpty()) {
             if (Locale.getDefault().getLanguage() == "en") {
                 alerts.alert("Username", "No username was provided.", "Please enter a valid username!");
@@ -65,16 +67,29 @@ public class loginController implements Initializable {
             }
         }
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            if (Locale.getDefault().getLanguage() == "en") {
-                stage.setTitle("Main Menu");
-            } else {
-                stage.setTitle("Menu Principal");
+            boolean condition = userSearch.checkNameAndPassword(usernameTextField.getText(), passwordTextField.getText());
+
+            if (condition == true) {
+                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                if (Locale.getDefault().getLanguage() == "en") {
+                    stage.setTitle("Main Menu");
+                } else {
+                    stage.setTitle("Menu Principal");
+                }
+                stage.show();
             }
-            stage.show();
+            else {
+                if (Locale.getDefault().getLanguage() == "en"){
+                    alerts.alert("Login Credentials", "Incorrect Username or Password.", "Please enter a valid username and password.");
+                }
+                else {
+                    alerts.alert("Identifiants de Connexion", "Identifiant ou mot de passe incorrect.", "Veuillez saisir un nom d'utilisateur et un mot de passe valides.");
+                }
+
+            }
         }
     }
 
@@ -104,6 +119,7 @@ public class loginController implements Initializable {
         locationLabel.setText(rb.getString("location"));
         loginButton.setText(rb.getString("login"));
         exitButton.setText(rb.getString("exit"));
+        locationTextField.setText(rb.getString("country"));
     }
 
 }
