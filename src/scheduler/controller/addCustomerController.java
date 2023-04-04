@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class addCustomer implements Initializable {
+public class addCustomerController implements Initializable {
 
     public void saveClick(ActionEvent actionEvent) throws IOException {
         if (alerts.alert("Add Customer?", "Are you sure you'd like to save?", "Your changes will be saved")){

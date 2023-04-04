@@ -42,8 +42,7 @@ public class loginController implements Initializable {
     @FXML Button loginButton;
     @FXML Button exitButton;
 
-    Locale currentLocale = Locale.getDefault();
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", currentLocale);
+    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
 
 
     @FXML
@@ -52,16 +51,23 @@ public class loginController implements Initializable {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Main Menu");
+        if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Main Menu");}
+        else {stage.setTitle("Menu Principal");}
         stage.show();
     }
 
     @FXML
     public void exitButtonClick(ActionEvent actionEvent) {
-        if (alerts.alert("Exit", "Would you like to close this application?", "You have not yet logged in.")){
+        if (Locale.getDefault().getLanguage() == "en"){
+                alerts.alert("Exit", "Would you like to close this application?", "You have not yet logged in.");
+                System.exit(0);
+            }
+        else {
+            alerts.alert("Sortie", "Souhaitez-vous fermer cette application?", "Vous n'êtes pas encore connecté.");
             System.exit(0);
         }
     }
+
 
 
     @Override
@@ -72,7 +78,6 @@ public class loginController implements Initializable {
         locationLabel.setText(rb.getString("location"));
         loginButton.setText(rb.getString("login"));
         exitButton.setText(rb.getString("exit"));
-        System.out.println("I got initialized!");
     }
 
 }
