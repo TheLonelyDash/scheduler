@@ -2,6 +2,8 @@ package scheduler.model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+
+import java.util.Locale;
 import java.util.Optional;
 
 public class alerts {
