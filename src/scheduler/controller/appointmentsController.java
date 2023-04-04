@@ -30,7 +30,7 @@ public class appointmentsController implements Initializable {
     @FXML RadioButton all;
 
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
+
 
     public void addAppointmentClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/addAppointment.fxml"));
@@ -73,7 +73,7 @@ public class appointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         appointmentsAppointmentsLabel.setText(rb.getString("appointments"));
         addAppointment.setText(rb.getString("addAppointment"));
         updateAppointment.setText(rb.getString("updateAppointment"));

@@ -24,7 +24,6 @@ public class customersController implements Initializable {
     @FXML Button addCustomer;
     @FXML Label customerRecords;
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
 
     public void addCustomerClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/addCustomer.fxml"));
@@ -58,6 +57,7 @@ public class customersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         customerRecords.setText(rb.getString("customerRecords"));
         back.setText(rb.getString("back"));
         deleteCustomer.setText(rb.getString("deleteCustomer"));

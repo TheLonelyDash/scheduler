@@ -25,7 +25,7 @@ public class reportsController implements Initializable {
     @FXML Tab totalAppTab;
     @FXML Tab totalCountryTab;
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
+
 
     public void reportBackButtonClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en") {
@@ -48,6 +48,7 @@ public class reportsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         reportBackButton.setText(rb.getString("back"));
         reportScheduler.setText(rb.getString("reportScheduler"));
         scheduleTab.setText(rb.getString("schedule"));

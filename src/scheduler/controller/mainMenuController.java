@@ -22,7 +22,7 @@ public class mainMenuController implements Initializable {
     @FXML Button mainMenuReports;
     @FXML Button mainMenuExit;
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
+
 
     public void mainMenuAppointmentsClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
@@ -92,7 +92,7 @@ public class mainMenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         mainMenuAppointments.setText(rb.getString("appointments"));
         mainMenuCustomers.setText(rb.getString("customers"));
         mainMenuReports.setText((rb.getString("reports")));

@@ -45,7 +45,7 @@ public class loginController implements Initializable {
     @FXML TextField usernameTextField;
     @FXML TextField passwordTextField;
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
+
 
 
     @FXML
@@ -96,6 +96,8 @@ public class loginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         loginLabel.setText(rb.getString("login"));
         userNameLabel.setText(rb.getString("username"));
         passwordLabel.setText(rb.getString("password"));

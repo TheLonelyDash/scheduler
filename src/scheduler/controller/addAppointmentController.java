@@ -23,8 +23,6 @@ public class addAppointmentController implements Initializable {
     @FXML Button addAppCancel;
     @FXML Label addAnAppointment;
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
-
 
     public void addAppSaveClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en"){
@@ -74,6 +72,7 @@ public class addAppointmentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         addAppSave.setText(rb.getString("addAppSave"));
         addAppCancel.setText(rb.getString("addAppCancel"));
         addAnAppointment.setText(rb.getString("addAnAppointment"));

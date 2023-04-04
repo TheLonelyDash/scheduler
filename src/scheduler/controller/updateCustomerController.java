@@ -23,7 +23,6 @@ public class updateCustomerController implements Initializable {
     @FXML Button cancel;
     @FXML Label updateCustomer;
 
-    ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
 
     public void saveClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en"){
@@ -73,6 +72,7 @@ public class updateCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         updateCustomer.setText(rb.getString("updateCustomer"));
         save.setText(rb.getString("addAppSave"));
         cancel.setText(rb.getString("addAppCancel"));

@@ -58,7 +58,7 @@ public class JDBC {
     /***
      * Establishes a database connection.
      */
-    public static void openConnection(){
+    public static Connection openConnection(){
         try {
             //locate the driver
             Class.forName(driver);
@@ -69,6 +69,7 @@ public class JDBC {
         catch(Exception e) {
             System.out.println("ERROR: " + e.getMessage());
         }
+        return connection;
     }
 
     /***
