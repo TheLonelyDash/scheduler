@@ -13,13 +13,13 @@
         </Label>
         <TableView fx:id="customerTableView" layoutX="14.0" layoutY="88.0" prefHeight="293.0" prefWidth="740.0">
             <columns>
-                <TableColumn fx:id="id" prefWidth="39.0" text="ID" />
-                <TableColumn fx:id="name" prefWidth="161.0" text="Name" />
-                <TableColumn fx:id="postalCode" prefWidth="91.0" text="Postal Code" />
-                <TableColumn fx:id="phoneNumber" prefWidth="121.0" text="Phone Number" />
-                <TableColumn fx:id="country" prefWidth="103.0" text="Country" />
-                <TableColumn fx:id="stateProvince" prefWidth="102.0" text="State/Province" />
-                <TableColumn fx:id="firstLevelData" prefWidth="120.0" text="First Level Data" />
+                <TableColumn fx:id="customerIdCol" prefWidth="39.0" text="Customer_ID" />
+                <TableColumn fx:id="customerNameCol" prefWidth="161.0" text="Name" />
+                <TableColumn fx:id="customerPostalCodeCol" prefWidth="91.0" text="Postal Code" />
+                <TableColumn fx:id="customerPhoneNumberCol" prefWidth="121.0" text="Phone Number" />
+                <TableColumn fx:id="customerCountryCol" prefWidth="103.0" text="Country" />
+                <TableColumn fx:id="customerAddressCol" prefWidth="102.0" text="Address" />
+                <TableColumn fx:id="customerDivisionID" prefWidth="120.0" text="Division_ID" />
             </columns>
         </TableView>
         <Button fx:id="addCustomer" layoutX="14.0" layoutY="401.0" mnemonicParsing="false" onAction="#addCustomerClick" prefHeight="47.0" prefWidth="211.0" text="Add Customer">

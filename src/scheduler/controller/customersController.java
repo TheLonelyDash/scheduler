@@ -1,5 +1,6 @@
 package scheduler.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,8 @@ public class customersController implements Initializable {
     @FXML Button updateCustomer;
     @FXML Button addCustomer;
     @FXML Label customerRecords;
+
+    //static ObservableList<> customers;
 
 
     public void addCustomerClick(ActionEvent actionEvent) throws IOException {
