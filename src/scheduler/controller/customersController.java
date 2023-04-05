@@ -8,19 +8,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import scheduler.model.customer;
 import scheduler.utilities.customerSearch;
+import scheduler.model.alerts;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class customersController implements Initializable {
@@ -60,8 +59,83 @@ public class customersController implements Initializable {
         stage.show();
     }
 
+
+
+
     public void deleteCustomerClick(ActionEvent actionEvent) {
+
+        customer selected = customerTableView.getSelectionModel().getSelectedItem();
+        boolean condition = checkForAppointments(selected);
+
+        if (selected == null){
+            if (Locale.getDefault().getLanguage() == "en") {
+                alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");
+            }
+            else {
+                alerts.alert("Pas de choix.", "Un client n'a pas été sélectionné!", "Veuillez faire une sélection à supprimer.");
+            }
+        }
+        else {
+            if (Locale.getDefault().getLanguage() == "en") {
+                alerts.alert("Are you sure?", "You are about to delete a customer.", "All customer information will be lost.");
+                if (checkForAppointments(selected) == true){
+                    try {
+                        customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
+                        customers = customerSearch.getAllCustomers();
+                        customerTableView.setItems(customers);
+                        customerTableView.refresh();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else {
+                alerts.alert("es-tu sûr?", "Vous êtes sur le point de supprimer un client.", "Toutes les informations client seront perdues.");
+                checkForAppointments(selected);
+                if (checkForAppointments(selected) == true){
+                    try {
+                        customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
+                        customers = customerSearch.getAllCustomers();
+                        customerTableView.setItems(customers);
+                        customerTableView.refresh();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+
     }
+
+
+
+    private boolean checkForAppointments(customer selectedCustomer) {
+        return true;
+        /*
+        try {
+            ObservableList appointments = AppointmentsQuery.getAppointmentsByCustomerID(selectedCustomer.getCustomerId());
+            if (appointments != null && appointments.size() < 1) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+        */
+    }
+
+
+
+
+
+
+
+
+
 
     public void backClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));

@@ -65,5 +65,18 @@ public class customerSearch {
         }
     }
 
+    public static void deleteCustomer(int customerId) throws SQLException{
+        String statement = "DELETE from customers WHERE Customer_Id=?";
+        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        preparedStatement.setInt(1, customerId);
+        try {
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            System.out.println("Huh, for some reason it didn't get deleted.");
+            e.printStackTrace();
+        }
+    }
+
 
 }
