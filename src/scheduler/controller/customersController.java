@@ -74,7 +74,7 @@ public class customersController implements Initializable {
     public void deleteCustomerClick(ActionEvent actionEvent) {
 
         customer selected = customerTableView.getSelectionModel().getSelectedItem();
-        boolean condition = checkForAppointments(selected);
+        //boolean condition = checkForAppointments(selected);
 
         if (selected == null){
             if (Locale.getDefault().getLanguage() == "en") {

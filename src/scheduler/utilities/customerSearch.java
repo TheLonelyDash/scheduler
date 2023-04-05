@@ -65,6 +65,28 @@ public class customerSearch {
         }
     }
 
+
+    public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, String division) throws SQLException{
+        division newDivision = divisionSearch.getDivisionID(division);
+        String statement = "UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
+        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, address);
+        preparedStatement.setString(3, postalCode);
+        preparedStatement.setString(4, phone);
+        preparedStatement.setInt(5, newDivision.getDivisionId());
+        preparedStatement.setInt(6, customerId);
+        try{
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     public static void deleteCustomer(int customerId) throws SQLException{
         String statement = "DELETE from customers WHERE Customer_Id=?";
         DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
