@@ -1,5 +1,6 @@
 package scheduler.controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,13 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
+import scheduler.utilities.appointmentSearch;
+import scheduler.model.appointment;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +31,9 @@ public class appointmentsController implements Initializable {
     @FXML RadioButton weekly;
     @FXML RadioButton monthly;
     @FXML RadioButton all;
+
+    static ObservableList<appointment> appointments;
+    @FXML TableView<appointment> appointmentsTableView;
 
     @FXML private TableColumn<?, ?> appointment_IDCol;
     @FXML private TableColumn<?, ?> titleCol;
@@ -98,17 +101,18 @@ public class appointmentsController implements Initializable {
         all.setText(rb.getString("all"));
 
         try {
-
-            appointment_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointment_Id"));
-            titleCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            descriptionCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            locationCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            contactCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            typeCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            startDateCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            endDateCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            customer_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-            user_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            appointments = appointmentSearch.getAllAppointments();
+            appointmentsTableView.setItems(appointments);
+            appointment_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointment_ID"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+            endDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+            customer_IDCol.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
+            user_IDCol.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
         }
         catch (Exception e){
             e.printStackTrace();

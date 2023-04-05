@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class appointment {
+    private int user_ID;
     private String description;
     private String location;
     private String type;
@@ -17,7 +18,8 @@ public class appointment {
     private String title;
     private int appointment_ID;
 
-    public appointment (int appointment_ID,
+    public appointment (
+                        int appointment_ID,
                         String title,
                         String description,
                         String location,
@@ -27,6 +29,7 @@ public class appointment {
                         LocalDate endDate,
                         LocalDateTime endTime,
                         int customer_ID,
+                        int user_ID,
                         int contact_ID,
                         String contactName){
         this.appointment_ID = appointment_ID;
@@ -39,8 +42,13 @@ public class appointment {
         this.endDate = endDate;
         this.endTime = endTime;
         this.customer_ID = customer_ID;
+        this.user_ID = user_ID;
         this.contact_ID = contact_ID;
         this.contactName = contactName;
+    }
+
+    public int getUser_ID(){
+        return user_ID;
     }
 
     public int getAppointment_ID(){
@@ -140,4 +148,7 @@ public class appointment {
         this.appointment_ID = appointment_ID;
     }
 
+    public void setUser_ID(){
+        this.user_ID = user_ID;
+    }
 }
