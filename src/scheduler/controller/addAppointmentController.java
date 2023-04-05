@@ -7,13 +7,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
+import scheduler.model.time;
+import java.time.*;
+import java.time.chrono.ChronoZonedDateTime;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -21,7 +26,22 @@ public class addAppointmentController implements Initializable {
 
     @FXML Button addAppSave;
     @FXML Button addAppCancel;
+
     @FXML Label addAnAppointment;
+
+    @FXML TextField addAppIDText;
+    @FXML TextField addAppDescriptionText;
+    @FXML TextField addAppTitleText;
+    @FXML TextField addAppTypeText;
+    @FXML TextField addAppCustomerText;
+    @FXML TextField addAppUserText;
+
+    @FXML ComboBox addAppStartTimePick;
+    @FXML ComboBox addAppEndTimePick;
+    @FXML ComboBox addAppContactPick;
+
+    @FXML DatePicker addAppStartDatePick;
+    @FXML DatePicker addAppEndDatePick;
 
 
     public void addAppSaveClick(ActionEvent actionEvent) throws IOException {
