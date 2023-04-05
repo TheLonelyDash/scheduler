@@ -118,6 +118,7 @@ public class updateCustomerController implements Initializable {
         divisionIdComboBox.setItems(ListOfDivisionIds);
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
