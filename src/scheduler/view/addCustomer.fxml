@@ -17,14 +17,14 @@
         <Label fx:id="postalCode" layoutX="36.0" layoutY="229.0" text="Postal Code:" />
         <Label fx:id="phone" layoutX="38.0" layoutY="165.0" text="Phone #:" />
         <Label fx:id="country" layoutX="39.0" layoutY="266.0" text="Country:" />
-        <Label fx:id="stateProvince" layoutX="36.0" layoutY="301.0" text="State/Province:" />
+        <Label fx:id="divisionId" layoutX="36.0" layoutY="301.0" text="Division ID:" />
         <TextField fx:id="idText" layoutX="141.0" layoutY="96.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField fx:id="nameText" layoutX="141.0" layoutY="129.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField fx:id="phoneText" layoutX="141.0" layoutY="161.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField fx:id="addressText" layoutX="141.0" layoutY="194.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField fx:id="postalCodeText" layoutX="141.0" layoutY="225.0" prefHeight="25.0" prefWidth="212.0" />
-        <ComboBox fx:id="countryCombo" layoutX="141.0" layoutY="262.0" prefHeight="25.0" prefWidth="212.0" />
-        <ComboBox fx:id="stateProvinceCombo" layoutX="141.0" layoutY="297.0" prefHeight="25.0" prefWidth="212.0" />
+        <ComboBox fx:id="countryComboBox" layoutX="141.0" layoutY="262.0" prefHeight="25.0" prefWidth="212.0" />
+        <ComboBox fx:id="divisionIdComboBox" layoutX="141.0" layoutY="297.0" prefHeight="25.0" prefWidth="212.0" />
         <Button fx:id="save" layoutX="85.0" layoutY="357.0" mnemonicParsing="false" onAction="#saveClick" prefHeight="25.0" prefWidth="93.0" text="Save" />
         <Button fx:id="cancel" layoutX="215.0" layoutY="357.0" mnemonicParsing="false" onAction="#cancelClick" prefHeight="25.0" prefWidth="93.0" text="Cancel" />
     </children>
