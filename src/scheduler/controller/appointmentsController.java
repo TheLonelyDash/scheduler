@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
 
@@ -29,6 +31,16 @@ public class appointmentsController implements Initializable {
     @FXML RadioButton monthly;
     @FXML RadioButton all;
 
+    @FXML private TableColumn<?, ?> appointment_IDCol;
+    @FXML private TableColumn<?, ?> titleCol;
+    @FXML private TableColumn<?, ?> descriptionCol;
+    @FXML private TableColumn<?, ?> locationCol;
+    @FXML private TableColumn<?, ?> contactCol;
+    @FXML private TableColumn<?, ?> typeCol;
+    @FXML private TableColumn<?, ?> startDateCol;
+    @FXML private TableColumn<?, ?> endDateCol;
+    @FXML private TableColumn<?, ?> customer_IDCol;
+    @FXML private TableColumn<?, ?> user_IDCol;
 
 
 
@@ -73,6 +85,7 @@ public class appointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         appointmentsAppointmentsLabel.setText(rb.getString("appointments"));
         addAppointment.setText(rb.getString("addAppointment"));
@@ -82,5 +95,20 @@ public class appointmentsController implements Initializable {
         weekly.setText(rb.getString("weekly"));
         monthly.setText(rb.getString("monthly"));
         all.setText(rb.getString("all"));
+
+        try {
+
+            appointment_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointment_Id"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            startDateCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            endDateCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            customer_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            user_IDCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        }
+
     }
 }
