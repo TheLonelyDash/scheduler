@@ -10,10 +10,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import scheduler.model.customer;
+import scheduler.utilities.customerSearch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -25,7 +31,15 @@ public class customersController implements Initializable {
     @FXML Button addCustomer;
     @FXML Label customerRecords;
 
-    //static ObservableList<> customers;
+    static ObservableList<customer> customers;
+    @FXML private TableView<customer> customerTableView;
+    @FXML TableColumn<?,?> customerIdCol;
+    @FXML TableColumn<?,?> customerNameCol;
+    @FXML TableColumn<?,?> customerPostalCodeCol;
+    @FXML TableColumn<?,?> customerPhoneNumberCol;
+    @FXML TableColumn<?,?> customerCountryCol;
+    @FXML TableColumn<?,?> customerAddressCol;
+    @FXML TableColumn<?,?> customerDivisionID;
 
 
     public void addCustomerClick(ActionEvent actionEvent) throws IOException {
@@ -60,11 +74,28 @@ public class customersController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         customerRecords.setText(rb.getString("customerRecords"));
         back.setText(rb.getString("back"));
         deleteCustomer.setText(rb.getString("deleteCustomer"));
         updateCustomer.setText(rb.getString("updateCustomer"));
         addCustomer.setText(rb.getString("addCustomer"));
+
+        try{
+            customers = customerSearch.getAllCustomers();
+            customerTableView.setItems(customers);
+            customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+            customerPostalCodeCol.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+            customerPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
+            customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+            customerCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
+            customerDivisionID.setCellValueFactory(new PropertyValueFactory<>("customerDivisionID"));
+        }
+        catch(SQLException e){
+            System.out.println("Oh no! Not another error!");
+            e.printStackTrace();
+        }
     }
 }

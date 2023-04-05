@@ -11,14 +11,15 @@ public class customer {
     //private String customerStateProvince;
     private int customerDivisionID;
 
-    public customer(int customerID,
-                    String customerName,
-                    String customerPostalCode,
-                    String customerPhoneNumber,
-                    String customerAddress,
-                    String customerCountry,
-                    //String customerStateProvince,
-                    int customerDivisionID
+    public customer(
+            int customerID,
+            String customerName,
+            String customerPostalCode,
+            String customerPhoneNumber,
+            String customerAddress,
+            String customerCountry,
+            //String customerStateProvince,
+            int customerDivisionID
     ){
         this.customerAddress = customerAddress;
         this.customerCountry = customerCountry;
@@ -86,7 +87,7 @@ public class customer {
         return customerAddress;
     }
 
-    public String getCustomerCOuntry(){
+    public String getCustomerCountry(){
         return customerCountry;
     }
 
