@@ -12,9 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
 import scheduler.model.country;
+import scheduler.model.customer;
 import scheduler.model.division;
 import scheduler.utilities.countrySearch;
 import scheduler.utilities.divisionSearch;
@@ -32,6 +34,17 @@ public class updateCustomerController implements Initializable {
     @FXML Label updateCustomer;
     @FXML ComboBox<String> countryComboBox;
     @FXML ComboBox<String> divisionIdComboBox;
+    @FXML TextField idText;
+    @FXML TextField nameText;
+    @FXML TextField phoneText;
+    @FXML TextField postalCodeText;
+    @FXML TextField addressText;
+
+    private static customer selected;
+
+    public static void getSelected(customer customer){
+        selected = customer;
+    }
 
 
     public void saveClick(ActionEvent actionEvent) throws IOException {
@@ -129,6 +142,15 @@ public class updateCustomerController implements Initializable {
 
         setCountryComboBox();
         setDivisionIdComboBox();
+
+        idText.setText(Integer.toString(selected.getCustomerID()));
+        nameText.setText(selected.getCustomerName());
+        phoneText.setText(selected.getCustomerPhoneNumber());
+        addressText.setText(selected.getCustomerAddress());
+        postalCodeText.setText(selected.getCustomerPostalCode());
+        countryComboBox.getSelectionModel().select(selected.getCustomerCountry());
+        divisionIdComboBox.getSelectionModel().select(selected.getCustomerDivisionID());
+
     }
 
 }

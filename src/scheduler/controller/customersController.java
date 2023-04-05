@@ -51,12 +51,19 @@ public class customersController implements Initializable {
     }
 
     public void updateCustomerClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Update Customer");
-        stage.show();
+        updateCustomerController.getSelected(customerTableView.getSelectionModel().getSelectedItem());
+        if (customerTableView.getSelectionModel().getSelectedItem() == null){
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("Make a Selection", "You did not choose a customer to update.", "Please choose a customer.");}
+            else {alerts.alert("Choisissez", "Vous n'avez pas choisi de client à mettre à jour.", "Veuillez choisir un client.");}
+        }
+        else {
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Update Customer");
+            stage.show();
+        }
     }
 
 
@@ -106,8 +113,6 @@ public class customersController implements Initializable {
                 }
             }
         }
-
-
     }
 
 
