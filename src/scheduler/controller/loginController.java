@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import scheduler.model.alerts;
 import scheduler.utilities.userSearch;
+import java.time.ZoneId;
 
 import java.lang.System;
 import java.util.*;
@@ -42,6 +43,7 @@ public class loginController implements Initializable {
     @FXML TextField usernameTextField;
     @FXML TextField passwordTextField;
     @FXML TextField locationTextField;
+    @FXML TextField zoneIDTextField;
 
 
     @FXML
@@ -164,10 +166,11 @@ public class loginController implements Initializable {
         loginLabel.setText(rb.getString("login"));
         userNameLabel.setText(rb.getString("username"));
         passwordLabel.setText(rb.getString("password"));
-        locationLabel.setText(rb.getString("location"));
+        locationLabel.setText(rb.getString("language"));
         loginButton.setText(rb.getString("login"));
         exitButton.setText(rb.getString("exit"));
         locationTextField.setText(rb.getString("country"));
+        zoneIDTextField.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
     }
 }
 

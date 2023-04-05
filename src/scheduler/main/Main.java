@@ -7,15 +7,26 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import scheduler.utilities.JDBC;
 
+import java.util.Locale;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/loginMenu.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Log In!");
-        stage.show();
+        if (Locale.getDefault().getLanguage() == "en"){
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/loginMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Log In!");
+            stage.show();
+        }
+        else {
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/loginMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("Connectez-vous!");
+            stage.show();
+        }
     }
 
     /***
