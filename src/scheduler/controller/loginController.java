@@ -24,14 +24,7 @@ import scheduler.utilities.userSearch;
 import java.lang.System;
 import java.util.*;
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.Optional;
 
 interface LogActivity {
     public String getFileName();
@@ -110,21 +103,9 @@ public class loginController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     LogActivity logActivity = () -> {
         return "login_activity.txt";
     };
-
 
     private void createFile(){
         try {
@@ -146,7 +127,7 @@ public class loginController implements Initializable {
             FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
-            fileWriter.write("The Login was SUCCESSFUL. \n Username: " + usernameTextField.getText() + "\nPassword: " + passwordTextField.getText() + "\nTimestamp: " + simpleDateFormat.format(date) + "\n\n");
+            fileWriter.write("The Login was SUCCESSFUL! \nUsername: " + usernameTextField.getText() + "\nPassword: " + passwordTextField.getText() + "\nTimestamp: " + simpleDateFormat.format(date) + "\n\n");
             fileWriter.close();
             System.out.println("Successful Login");
         } catch (IOException e) {
@@ -159,7 +140,7 @@ public class loginController implements Initializable {
             FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
-            fileWriter.write("The Login was UNSUCCESSFUL. \n Username: " + usernameTextField.getText() + "\nPassword: " + passwordTextField.getText() + "\nTimestamp: " + simpleDateFormat.format(date) + "\n\n");
+            fileWriter.write("The Login was UNSUCCESSFUL! \nUsername: " + usernameTextField.getText() + "\nPassword: " + passwordTextField.getText() + "\nTimestamp: " + simpleDateFormat.format(date) + "\n\n");
             fileWriter.close();
             System.out.println("Unuccessful Login");
         } catch (IOException e) {
