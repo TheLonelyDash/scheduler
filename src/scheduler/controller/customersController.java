@@ -60,8 +60,10 @@ public class customersController implements Initializable {
     }
 
 
-
-
+    /***
+     * This is a method that is used to deleted a customer from the customer table.  It will check to see if the customer has any upcoming appointments first.
+     * @param actionEvent
+     */
     public void deleteCustomerClick(ActionEvent actionEvent) {
 
         customer selected = customerTableView.getSelectionModel().getSelectedItem();
@@ -109,7 +111,11 @@ public class customersController implements Initializable {
     }
 
 
-
+    /***
+     * This method is used to check to see if a specific customer has any upcoming appointments prior to their deletion.
+     * @param selectedCustomer
+     * @return
+     */
     private boolean checkForAppointments(customer selectedCustomer) {
         return true;
         /*
@@ -129,14 +135,11 @@ public class customersController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
+    /***
+     * This method closes the customer stage and returns the user to the main menu.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
