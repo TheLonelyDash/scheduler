@@ -8,7 +8,6 @@ public class customer {
     private String customerPhoneNumber;
     private String customerAddress;
     private String customerCountry;
-    //private String customerStateProvince;
     private int customerDivisionID;
 
     public customer(
@@ -18,7 +17,6 @@ public class customer {
             String customerPhoneNumber,
             String customerAddress,
             String customerCountry,
-            //String customerStateProvince,
             int customerDivisionID
     ){
         this.customerAddress = customerAddress;
@@ -27,7 +25,6 @@ public class customer {
         this.customerID = customerID;
         this.customerName = customerName;
         this.customerPostalCode = customerPostalCode;
-        //this.customerStateProvince = customerStateProvince;
         this.customerPhoneNumber = customerPhoneNumber;
     }
 
@@ -55,17 +52,9 @@ public class customer {
         this.customerCountry = customerCountry;
     }
 
-    /*
-    public void setCustomerStateProvince(){
-        this.customerStateProvince = customerStateProvince;
-    }
-    */
-
     public void setCustomerDivisionID(){
         this.customerDivisionID = customerDivisionID;
     }
-
-
 
     public Integer getCustomerID(){
         return customerID;

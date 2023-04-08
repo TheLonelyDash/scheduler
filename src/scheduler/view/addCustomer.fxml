@@ -23,7 +23,7 @@
         <TextField fx:id="phoneText" layoutX="141.0" layoutY="161.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField fx:id="addressText" layoutX="141.0" layoutY="194.0" prefHeight="25.0" prefWidth="212.0" />
         <TextField fx:id="postalCodeText" layoutX="141.0" layoutY="225.0" prefHeight="25.0" prefWidth="212.0" />
-        <ComboBox fx:id="countryComboBox" layoutX="141.0" layoutY="262.0" prefHeight="25.0" prefWidth="212.0" />
+        <ComboBox fx:id="countryComboBox" onAction="#countryComboClick" layoutX="141.0" layoutY="262.0" prefHeight="25.0" prefWidth="212.0" />
         <ComboBox fx:id="divisionIdComboBox" layoutX="141.0" layoutY="297.0" prefHeight="25.0" prefWidth="212.0" />
         <Button fx:id="save" layoutX="85.0" layoutY="357.0" mnemonicParsing="false" onAction="#saveClick" prefHeight="25.0" prefWidth="93.0" text="Save" />
         <Button fx:id="cancel" layoutX="215.0" layoutY="357.0" mnemonicParsing="false" onAction="#cancelClick" prefHeight="25.0" prefWidth="93.0" text="Cancel" />

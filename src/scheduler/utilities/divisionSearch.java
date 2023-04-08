@@ -1,6 +1,5 @@
 package scheduler.utilities;
 
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import scheduler.model.country;
@@ -32,6 +31,7 @@ public class divisionSearch {
         }
     }
 
+
     /***
      * This is a method that retrieves a division ID.
      * @param division the division is the parameter and argument
@@ -60,16 +60,11 @@ public class divisionSearch {
 
     public static ObservableList<division> getDivisionsByCountry(String country) throws SQLException {
         country newCountry = countrySearch.getCountryId(country);
-
         ObservableList<division> divisions = FXCollections.observableArrayList();
-
         String queryStatement = "SELECT * FROM first_level_divisions WHERE COUNTRY_ID=?;";
-
         DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-
         preparedStatement.setInt(1, newCountry.getCountryId());
-
         try {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
@@ -82,7 +77,6 @@ public class divisionSearch {
                         resultSet.getString("Division"),
                         resultSet.getInt("COUNTRY_ID")
                 );
-
                 divisions.add(newDivision);
             }
             return divisions;
@@ -91,5 +85,4 @@ public class divisionSearch {
             return null;
         }
     }
-
 }

@@ -44,12 +44,24 @@ public class updateCustomerController implements Initializable {
     private static customer selected;
 
     /***
-     * This method retrieves the selected customer from the customersController.
-     * @param customer
+     * Updates the division dropdown box with divisions based on the country selected.
+     * @param event
      */
-    public static void getSelected(customer customer){
-        selected = customer;
+    public void countryComboClick(ActionEvent event){
+        ObservableList<String> listOfDivisions = FXCollections.observableArrayList();
+        try {
+            ObservableList<division> divisions = divisionSearch.getDivisionsByCountry(countryComboBox.getSelectionModel().getSelectedItem());
+            if (divisions != null) {
+                for (division division: divisions) {
+                    listOfDivisions.add(division.getDivision());
+                }
+            }
+            divisionIdComboBox.setItems(listOfDivisions);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
+
 
 
     public void saveClick(ActionEvent actionEvent) throws IOException {
@@ -98,71 +110,7 @@ public class updateCustomerController implements Initializable {
         }
     }
 
-    /***
-     * This method makes no changes to any of the update fields but redirects the user back to the customers stage gui.
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void cancelClick(ActionEvent actionEvent) throws IOException {
-        if (Locale.getDefault().getLanguage() == "en") {
-            if (alerts.alert("Cancel?", "Are you sure you'd like to cancel?", "Your changes will be lost.")) {
-                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/customers.fxml"));
-                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Customers");
-                stage.show();
-            }
-        }
-        else {
-            if (alerts.alert("Annuler?", "Voulez-vous vraiment annuler?", "Vos modifications seront perdues.")){
-                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/customers.fxml"));
-                Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Clients");
-                stage.show();
-            }
-        }
-    }
 
-    /***
-     * Method that populates the combo box on the add and update customer stage with the three available countries for the company.
-     */
-    private void setCountryComboBox(){
-        ObservableList<String> ListOfCountries = FXCollections.observableArrayList();
-        try {
-            ObservableList<country> countries = countrySearch.getAllCountries();
-            if (countries != null) {
-                for (country country: countries){
-                    ListOfCountries.add(country.getCountry());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Yikes! Another error...");
-            e.printStackTrace();
-        }
-        countryComboBox.setItems(ListOfCountries);
-    }
-
-    /***
-     * Method that populates the combo box on the add and update customer stage with the available divisions for the company.
-     */
-    private void setDivisionIdComboBox(){
-        ObservableList<String> ListOfDivisionIds = FXCollections.observableArrayList();
-        try{
-            ObservableList<division> divisions = divisionSearch.getAllDivisions();
-            if (divisions != null){
-                for (division division: divisions){
-                    ListOfDivisionIds.add(division.getDivision());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Well, that didn't work...");
-            e.printStackTrace();
-        }
-        divisionIdComboBox.setItems(ListOfDivisionIds);
-    }
 
     /***
      * this method takes the input from the textFields and ensures that they are filled out.
@@ -212,32 +160,96 @@ public class updateCustomerController implements Initializable {
         return true;
     }
 
-public void countryComboClick(ActionEvent event){
-    ObservableList<String> listOfDivisions = FXCollections.observableArrayList();
-    try {
-        ObservableList<division> divisions = divisionSearch.getDivisionsByCountry(countryComboBox.getSelectionModel().getSelectedItem());
-        if (divisions != null) {
-            for (division division: divisions) {
-                listOfDivisions.add(division.getDivision());
+    /***
+     * This method retrieves the selected customer from the customersController.
+     * @param customer
+     */
+    public static void getSelected(customer customer){
+        selected = customer;
+    }
+
+
+    /***
+     * This method makes no changes to any of the update fields but redirects the user back to the customers stage gui.
+     * @param actionEvent
+     * @throws IOException
+     */
+    public void cancelClick(ActionEvent actionEvent) throws IOException {
+        if (Locale.getDefault().getLanguage() == "en") {
+            if (alerts.alert("Cancel?", "Are you sure you'd like to cancel?", "Your changes will be lost.")) {
+                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/customers.fxml"));
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Customers");
+                stage.show();
             }
         }
-        divisionIdComboBox.setItems(listOfDivisions);
-    } catch (SQLException e){
-        e.printStackTrace();
+        else {
+            if (alerts.alert("Annuler?", "Voulez-vous vraiment annuler?", "Vos modifications seront perdues.")){
+                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/customers.fxml"));
+                Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Clients");
+                stage.show();
+            }
+        }
     }
-}
+
+
+    /***
+     * Method that populates the combo box on the add and update customer stage with the available divisions for the company.
+     */
+    private void setDivisionIdComboBox(){
+        ObservableList<String> ListOfDivisionIds = FXCollections.observableArrayList();
+        try{
+            ObservableList<division> divisions = divisionSearch.getAllDivisions();
+            if (divisions != null){
+                for (division division: divisions){
+                    ListOfDivisionIds.add(division.getDivision());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Well, that didn't work...");
+            e.printStackTrace();
+        }
+        divisionIdComboBox.setItems(ListOfDivisionIds);
+    }
+
+
+    /***
+     * Method that populates the combo box on the add and update customer stage with the three available countries for the company.
+     */
+    private void setCountryComboBox(){
+        ObservableList<String> ListOfCountries = FXCollections.observableArrayList();
+        try {
+            ObservableList<country> countries = countrySearch.getAllCountries();
+            if (countries != null) {
+                for (country country: countries){
+                    ListOfCountries.add(country.getCountry());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Yikes! Another error...");
+            e.printStackTrace();
+        }
+        countryComboBox.setItems(ListOfCountries);
+    }
+
+
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        setCountryComboBox();
+        setDivisionIdComboBox();
+
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         updateCustomer.setText(rb.getString("updateCustomer"));
         save.setText(rb.getString("addAppSave"));
         cancel.setText(rb.getString("addAppCancel"));
-
-        setCountryComboBox();
-        setDivisionIdComboBox();
 
         idText.setText(Integer.toString(selected.getCustomerID()));
         nameText.setText(selected.getCustomerName());
@@ -246,8 +258,6 @@ public void countryComboClick(ActionEvent event){
         postalCodeText.setText(selected.getCustomerPostalCode());
         countryComboBox.getSelectionModel().select(selected.getCustomerCountry());
         divisionIdComboBox.getSelectionModel().select(selected.getCustomerDivisionID());
-
-
 
     }
 

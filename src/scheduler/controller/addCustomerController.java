@@ -182,22 +182,34 @@ public class addCustomerController implements Initializable {
         return true;
     }
 
+
+    public void countryComboClick(ActionEvent event){
+        ObservableList<String> listOfDivisions = FXCollections.observableArrayList();
+        try {
+            ObservableList<division> divisions = divisionSearch.getDivisionsByCountry(countryComboBox.getSelectionModel().getSelectedItem());
+            if (divisions != null) {
+                for (division division: divisions) {
+                    listOfDivisions.add(division.getDivision());
+                }
+            }
+            divisionIdComboBox.setItems(listOfDivisions);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        setDivisionIdComboBox();
+        setCountryComboBox();
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         addCustomer.setText(rb.getString("addCustomer"));
         save.setText(rb.getString("addAppSave"));
         cancel.setText(rb.getString("addAppCancel"));
 
-        setCountryComboBox();
-        setDivisionIdComboBox();
 
 
     }
-
-
-
-
-
 }

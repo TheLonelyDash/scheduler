@@ -38,7 +38,7 @@ public class customersController implements Initializable {
     @FXML TableColumn<?,?> customerPhoneNumberCol;
     @FXML TableColumn<?,?> customerCountryCol;
     @FXML TableColumn<?,?> customerAddressCol;
-    @FXML TableColumn<?,?> customerDivisionID;
+    @FXML TableColumn<?,?> customerDivisionIDCol;
 
 
     public void addCustomerClick(ActionEvent actionEvent) throws IOException {
@@ -57,12 +57,22 @@ public class customersController implements Initializable {
             else {alerts.alert("Choisissez", "Vous n'avez pas choisi de client à mettre à jour.", "Veuillez choisir un client.");}
         }
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle("Update Customer");
-            stage.show();
+            if (Locale.getDefault().getLanguage() == "en"){
+                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Update Customer");
+                stage.show();
+            }
+            else {
+                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
+                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.setTitle("Mettre à Jour le Client");
+                stage.show();
+            }
         }
     }
 
@@ -72,10 +82,8 @@ public class customersController implements Initializable {
      * @param actionEvent
      */
     public void deleteCustomerClick(ActionEvent actionEvent) {
-
         customer selected = customerTableView.getSelectionModel().getSelectedItem();
         //boolean condition = checkForAppointments(selected);
-
         if (selected == null){
             if (Locale.getDefault().getLanguage() == "en") {
                 alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");
@@ -173,7 +181,7 @@ public class customersController implements Initializable {
             customerPhoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
             customerAddressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
             customerCountryCol.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
-            customerDivisionID.setCellValueFactory(new PropertyValueFactory<>("customerDivisionID"));
+            customerDivisionIDCol.setCellValueFactory(new PropertyValueFactory<>("customerDivisionID"));
         }
         catch(SQLException e){
             System.out.println("Oh no! Not another error!");
