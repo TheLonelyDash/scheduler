@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.ToggleGroup?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1198.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scheduler.controller.appointmentsController">
     <children>
@@ -45,21 +46,27 @@
                 <Font size="34.0" />
             </font>
         </Button>
-        <RadioButton fx:id="weekly" layoutX="797.0" layoutY="37.0" mnemonicParsing="false" onAction="#weeklyRadio" prefHeight="25.0" prefWidth="151.0" text="Weekly">
+
+
+        <RadioButton fx:id="weekly" layoutX="797.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" prefHeight="25.0" prefWidth="151.0" text="Weekly">
+            <font>
+                <Font size="16.0" />
+            </font>
+            <toggleGroup>
+                <ToggleGroup fx:id="toggleView"/>
+            </toggleGroup></RadioButton>
+        <RadioButton fx:id="monthly" toggleGroup="$toggleView" layoutX="958.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" prefHeight="25.0" prefWidth="117.0" text="Monthly">
             <font>
                 <Font size="16.0" />
             </font>
         </RadioButton>
-        <RadioButton fx:id="monthly" layoutX="958.0" layoutY="37.0" mnemonicParsing="false" onAction="#monthlyRadio" prefHeight="25.0" prefWidth="117.0" text="Monthly">
+        <RadioButton fx:id="all" toggleGroup="$toggleView" layoutX="1108.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" selected="true" text="All">
             <font>
                 <Font size="16.0" />
             </font>
         </RadioButton>
-        <RadioButton fx:id="all" layoutX="1108.0" layoutY="37.0" mnemonicParsing="false" onAction="#allRadio" selected="true" text="All">
-            <font>
-                <Font size="16.0" />
-            </font>
-        </RadioButton>
+
+
       <Label fx:id="appointmentsAppointmentsLabel" layoutX="446.0" layoutY="11.0" text="Appointments">
          <font>
             <Font size="36.0" />

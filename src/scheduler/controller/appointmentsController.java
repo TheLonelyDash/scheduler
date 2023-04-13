@@ -31,6 +31,7 @@ public class appointmentsController implements Initializable {
     @FXML RadioButton weekly;
     @FXML RadioButton monthly;
     @FXML RadioButton all;
+    @FXML private ToggleGroup toggleView;
 
     static ObservableList<appointment> appointments;
     @FXML TableView<appointment> appointmentsTableView;
@@ -46,7 +47,18 @@ public class appointmentsController implements Initializable {
     @FXML private TableColumn<?, ?> customer_IDCol;
     @FXML private TableColumn<?, ?> user_IDCol;
 
+    public void weeklyRadio(ActionEvent actionEvent) {
+    }
 
+    public void monthlyRadio(ActionEvent actionEvent) {
+    }
+
+    public void allRadio(ActionEvent actionEvent) {
+    }
+
+    @FXML void viewsToggle(ActionEvent event){
+
+    }
 
     public void addAppointmentClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/addAppointment.fxml"));
@@ -78,17 +90,14 @@ public class appointmentsController implements Initializable {
         stage.show();
     }
 
-    public void weeklyRadio(ActionEvent actionEvent) {
-    }
 
-    public void monthlyRadio(ActionEvent actionEvent) {
-    }
-
-    public void allRadio(ActionEvent actionEvent) {
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        weekly.setToggleGroup(toggleView);
+        monthly.setToggleGroup(toggleView);
+        all.setToggleGroup(toggleView);
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         appointmentsAppointmentsLabel.setText(rb.getString("appointments"));
