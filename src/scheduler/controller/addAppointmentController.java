@@ -1,5 +1,7 @@
 package scheduler.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,17 +34,25 @@ public class addAppointmentController implements Initializable {
     @FXML TextField addAppIDText;
     @FXML TextField addAppDescriptionText;
     @FXML TextField addAppTitleText;
-    @FXML TextField addAppTypeText;
     @FXML TextField addAppCustomerText;
     @FXML TextField addAppUserText;
 
     @FXML ComboBox addAppStartTimePick;
     @FXML ComboBox addAppEndTimePick;
     @FXML ComboBox addAppContactPick;
+    @FXML ComboBox addAppTypeCombo;
 
     @FXML DatePicker addAppStartDatePick;
     @FXML DatePicker addAppEndDatePick;
 
+    /***
+     * Converts the local date and time to Eastern Standard Time.
+     * @param time the local time passed into the argument to be converted to EST
+     * @return returns the time in Eastern Standard Time
+     */
+    private ZonedDateTime convertToEST(LocalDateTime time){
+        return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
+    }
 
     public void addAppSaveClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en"){
@@ -90,8 +100,20 @@ public class addAppointmentController implements Initializable {
         }
     }
 
+    /***
+     * Method to populate the type combo box with options.
+     */
+    private void typeComboBox() {
+        ObservableList<String> types = FXCollections.observableArrayList();
+        types.addAll("Planning Session", "De-Briefing", "other");
+        addAppTypeCombo.setItems(types);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        typeComboBox();
+
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         addAppSave.setText(rb.getString("addAppSave"));
         addAppCancel.setText(rb.getString("addAppCancel"));

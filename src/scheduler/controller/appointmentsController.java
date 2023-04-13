@@ -47,17 +47,35 @@ public class appointmentsController implements Initializable {
     @FXML private TableColumn<?, ?> customer_IDCol;
     @FXML private TableColumn<?, ?> user_IDCol;
 
-    public void weeklyRadio(ActionEvent actionEvent) {
-    }
-
-    public void monthlyRadio(ActionEvent actionEvent) {
-    }
-
-    public void allRadio(ActionEvent actionEvent) {
-    }
 
     @FXML void viewsToggle(ActionEvent event){
-
+        if (toggleView.getSelectedToggle().equals(all)){
+            try {
+                appointments = appointmentSearch.getAllAppointments();
+                appointmentsTableView.setItems(appointments);
+                appointmentsTableView.refresh();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        else if (toggleView.getSelectedToggle().equals(monthly)){
+            try {
+                appointments = appointmentSearch.getAppointmentsByMonth();
+                appointmentsTableView.setItems(appointments);
+                appointmentsTableView.refresh();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        else if (toggleView.getSelectedToggle().equals(weekly)){
+            try {
+                appointments = appointmentSearch.getAppointmentsByWeek();
+                appointmentsTableView.setItems(appointments);
+                appointmentsTableView.refresh();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public void addAppointmentClick(ActionEvent actionEvent) throws IOException{
@@ -65,20 +83,31 @@ public class appointmentsController implements Initializable {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Add Appointment");
+        if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Add Appointment");}
+        else {stage.setTitle("Ajouter un rendez-vous");}
         stage.show();
     }
 
     public void updateAppointmentClick(ActionEvent actionEvent) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Add Appointment");
-        stage.show();
+        if (appointmentsTableView.getSelectionModel().getSelectedItem() != null){
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Update Appointment");}
+            else { stage.setTitle("Mettre à jour le rendez-vous");}
+            stage.show();
+        }
+        else {
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("Make a selection.", "Hey! You didn't choose an appointment to modify!", "Seriously, just choose one.");}
+            else{alerts.alert("Choisissez.", "Hé! Vous n'avez pas choisi de rendez-vous à modifier!", "Sérieusement, choisissez-en un.");}
+
+        }
+
     }
 
     public void deleteAppointmentClick(ActionEvent actionEvent) {
+
     }
 
     public void backAppointmentClick(ActionEvent actionEvent) throws IOException {
@@ -86,7 +115,8 @@ public class appointmentsController implements Initializable {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Main Menu");
+        if(Locale.getDefault().getLanguage() == "en"){stage.setTitle("Main Menu");}
+        else{stage.setTitle("Menu principal");}
         stage.show();
     }
 

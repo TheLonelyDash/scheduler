@@ -47,24 +47,26 @@
             </font>
         </Button>
 
-
-        <RadioButton fx:id="weekly" layoutX="797.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" prefHeight="25.0" prefWidth="151.0" text="Weekly">
+        <RadioButton fx:id="all"  layoutX="1108.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" selected="true" text="All">
             <font>
                 <Font size="16.0" />
             </font>
             <toggleGroup>
                 <ToggleGroup fx:id="toggleView"/>
-            </toggleGroup></RadioButton>
+            </toggleGroup>
+        </RadioButton>
         <RadioButton fx:id="monthly" toggleGroup="$toggleView" layoutX="958.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" prefHeight="25.0" prefWidth="117.0" text="Monthly">
             <font>
                 <Font size="16.0" />
             </font>
         </RadioButton>
-        <RadioButton fx:id="all" toggleGroup="$toggleView" layoutX="1108.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" selected="true" text="All">
+        <RadioButton fx:id="weekly" toggleGroup="$toggleView" layoutX="797.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewsToggle" prefHeight="25.0" prefWidth="151.0" text="Weekly">
             <font>
                 <Font size="16.0" />
             </font>
-        </RadioButton>
+            </RadioButton>
+
+
 
 
       <Label fx:id="appointmentsAppointmentsLabel" layoutX="446.0" layoutY="11.0" text="Appointments">
