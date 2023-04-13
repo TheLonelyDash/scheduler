@@ -12,8 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
+import scheduler.model.customer;
 import scheduler.model.time;
 import scheduler.model.user;
+import scheduler.utilities.customerSearch;
 import scheduler.utilities.userSearch;
 
 import java.sql.SQLException;
@@ -38,8 +40,8 @@ public class addAppointmentController implements Initializable {
     @FXML TextField addAppIDText;
     @FXML TextField addAppDescriptionText;
     @FXML TextField addAppTitleText;
-    @FXML TextField addAppCustomerText;
 
+    @FXML ComboBox customerIDCombo;
     @FXML ComboBox addAppUserIDCombo;
     @FXML ComboBox addAppStartTimePick;
     @FXML ComboBox addAppEndTimePick;
@@ -113,8 +115,7 @@ public class addAppointmentController implements Initializable {
         addAppTypeCombo.setItems(types);
     }
 
-    @FXML
-    private void userIDComboBox() throws SQLException {
+    private void userIDComboBox() {
         ObservableList<Integer> userIDs = FXCollections.observableArrayList();
         try {
             ObservableList<user> users = userSearch.getUsers();
@@ -129,15 +130,27 @@ public class addAppointmentController implements Initializable {
         addAppUserIDCombo.setItems(userIDs);
     }
 
+    private void customerIDComboBox() {
+        ObservableList<Integer> customerIDComboList = FXCollections.observableArrayList();
+        try {
+            ObservableList<customer> customers = customerSearch.getAllCustomers();
+            if (customers != null) {
+                for (customer customer: customers) {
+                    customerIDComboList.add(customer.getCustomerID());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        customerIDCombo.setItems(customerIDComboList);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         typeComboBox();
-        try {
-            userIDComboBox();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        userIDComboBox();
+        customerIDComboBox();
 
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
