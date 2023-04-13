@@ -247,11 +247,7 @@ public class updateCustomerController implements Initializable {
 
         setCountryComboBox();
         setDivisionIdComboBox();
-        try {
-            ObservableList<division> allDivs = divisionSearch.getAllDivisions();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         updateCustomer.setText(rb.getString("updateCustomer"));
@@ -264,6 +260,7 @@ public class updateCustomerController implements Initializable {
         addressText.setText(selected.getCustomerAddress());
         postalCodeText.setText(selected.getCustomerPostalCode());
         countryComboBox.getSelectionModel().select(selected.getCustomerCountry());
+        //LAMBDA EXPRESSION: Used as a work around so that the correct DivisionID is matched in the combo box when the box is populated.
         try {
             divisionSearch.getAllDivisions().forEach(d-> {
                 if (d.getDivisionId() == selected.getCustomerDivisionID()){
