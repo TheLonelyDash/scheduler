@@ -13,6 +13,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
 import scheduler.model.time;
+import scheduler.model.user;
+import scheduler.utilities.userSearch;
+
+import java.sql.SQLException;
 import java.time.*;
 import java.time.chrono.ChronoZonedDateTime;
 
@@ -35,8 +39,8 @@ public class addAppointmentController implements Initializable {
     @FXML TextField addAppDescriptionText;
     @FXML TextField addAppTitleText;
     @FXML TextField addAppCustomerText;
-    @FXML TextField addAppUserText;
 
+    @FXML ComboBox addAppUserIDCombo;
     @FXML ComboBox addAppStartTimePick;
     @FXML ComboBox addAppEndTimePick;
     @FXML ComboBox addAppContactPick;
@@ -109,10 +113,32 @@ public class addAppointmentController implements Initializable {
         addAppTypeCombo.setItems(types);
     }
 
+    @FXML
+    private void userIDComboBox() throws SQLException {
+        ObservableList<Integer> userIDs = FXCollections.observableArrayList();
+        try {
+            ObservableList<user> users = userSearch.getUsers();
+            if (users != null) {
+                for (user user: users) {
+                    userIDs.add(user.getUserID());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        addAppUserIDCombo.setItems(userIDs);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         typeComboBox();
+        try {
+            userIDComboBox();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         addAppSave.setText(rb.getString("addAppSave"));

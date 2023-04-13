@@ -2,6 +2,7 @@ package scheduler.utilities;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import scheduler.model.user;
 
 import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
@@ -30,5 +31,24 @@ public class userSearch {
         }
     }
 
+    public static ObservableList<user> getUsers() throws SQLException {
+        ObservableList<user> users = FXCollections.observableArrayList();
+        String statement = "SELECT * FROM users;";
+        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                user newUser = new user(resultSet.getInt("User_ID"), resultSet.getString("User_Name"), resultSet.getString("Password"));
+                users.add(newUser);
+            }
+            return users;
+        }
+        catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
 
 }
