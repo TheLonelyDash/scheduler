@@ -44,10 +44,56 @@ public class updateCustomerController implements Initializable {
     private static customer selected;
 
     /***
+     * This method retrieves the selected customer from the customersController.
+     * @param customer
+     */
+    public static void getSelected(customer customer){
+        selected = customer;
+    }
+    
+    /***
+     * Method that populates the combo box on the add and update customer stage with the three available countries for the company.
+     */
+    private void setCountryComboBox(){
+        ObservableList<String> ListOfCountries = FXCollections.observableArrayList();
+        try {
+            ObservableList<country> countries = countrySearch.getAllCountries();
+            if (countries != null) {
+                for (country country: countries){
+                    ListOfCountries.add(country.getCountry());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Yikes! Another error...");
+            e.printStackTrace();
+        }
+        countryComboBox.setItems(ListOfCountries);
+    }
+
+    /***
+     * Method that populates the combo box on the add and update customer stage with the available divisions for the company.
+     */
+    private void setDivisionIdComboBox(){
+        ObservableList<String> ListOfDivisionIds = FXCollections.observableArrayList();
+        try{
+            ObservableList<division> divisions = divisionSearch.getAllDivisions();
+            if (divisions != null){
+                for (division division: divisions){
+                    ListOfDivisionIds.add(division.getDivision());
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Well, that didn't work...");
+            e.printStackTrace();
+        }
+        divisionIdComboBox.setItems(ListOfDivisionIds);
+    }
+
+    /***
      * Updates the division dropdown box with divisions based on the country selected.
      * @param event
      */
-    public void countryComboClick(ActionEvent event){
+   public void countryComboClick(ActionEvent event){
         ObservableList<String> listOfDivisions = FXCollections.observableArrayList();
         try {
             ObservableList<division> divisions = divisionSearch.getDivisionsByCountry(countryComboBox.getSelectionModel().getSelectedItem());
@@ -61,6 +107,8 @@ public class updateCustomerController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
 
 
@@ -160,13 +208,7 @@ public class updateCustomerController implements Initializable {
         return true;
     }
 
-    /***
-     * This method retrieves the selected customer from the customersController.
-     * @param customer
-     */
-    public static void getSelected(customer customer){
-        selected = customer;
-    }
+
 
 
     /***
@@ -198,46 +240,6 @@ public class updateCustomerController implements Initializable {
     }
 
 
-    /***
-     * Method that populates the combo box on the add and update customer stage with the available divisions for the company.
-     */
-    private void setDivisionIdComboBox(){
-        ObservableList<String> ListOfDivisionIds = FXCollections.observableArrayList();
-        try{
-            ObservableList<division> divisions = divisionSearch.getAllDivisions();
-            if (divisions != null){
-                for (division division: divisions){
-                    ListOfDivisionIds.add(division.getDivision());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Well, that didn't work...");
-            e.printStackTrace();
-        }
-        divisionIdComboBox.setItems(ListOfDivisionIds);
-    }
-
-
-    /***
-     * Method that populates the combo box on the add and update customer stage with the three available countries for the company.
-     */
-    private void setCountryComboBox(){
-        ObservableList<String> ListOfCountries = FXCollections.observableArrayList();
-        try {
-            ObservableList<country> countries = countrySearch.getAllCountries();
-            if (countries != null) {
-                for (country country: countries){
-                    ListOfCountries.add(country.getCountry());
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Yikes! Another error...");
-            e.printStackTrace();
-        }
-        countryComboBox.setItems(ListOfCountries);
-    }
-
-
 
 
     @Override
@@ -245,6 +247,11 @@ public class updateCustomerController implements Initializable {
 
         setCountryComboBox();
         setDivisionIdComboBox();
+        try {
+            ObservableList<division> allDivs = divisionSearch.getAllDivisions();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         updateCustomer.setText(rb.getString("updateCustomer"));
@@ -257,7 +264,16 @@ public class updateCustomerController implements Initializable {
         addressText.setText(selected.getCustomerAddress());
         postalCodeText.setText(selected.getCustomerPostalCode());
         countryComboBox.getSelectionModel().select(selected.getCustomerCountry());
-        divisionIdComboBox.getSelectionModel().select(selected.getCustomerDivisionID());
+        try {
+            divisionSearch.getAllDivisions().forEach(d-> {
+                if (d.getDivisionId() == selected.getCustomerDivisionID()){
+                    divisionIdComboBox.getSelectionModel().select(d.getDivision());
+                }
+            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //divisionIdComboBox.getSelectionModel().select(selected.getCustomerDivisionID());
 
     }
 

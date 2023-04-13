@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class customersController implements Initializable {
