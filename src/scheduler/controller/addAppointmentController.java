@@ -11,10 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import scheduler.model.alerts;
-import scheduler.model.customer;
-import scheduler.model.time;
-import scheduler.model.user;
+import scheduler.model.*;
+import scheduler.utilities.contactSearch;
 import scheduler.utilities.customerSearch;
 import scheduler.utilities.userSearch;
 
@@ -131,18 +129,50 @@ public class addAppointmentController implements Initializable {
     }
 
     private void customerIDComboBox() {
-        ObservableList<Integer> customerIDComboList = FXCollections.observableArrayList();
+        ObservableList<Integer> customerIDs = FXCollections.observableArrayList();
         try {
             ObservableList<customer> customers = customerSearch.getAllCustomers();
             if (customers != null) {
                 for (customer customer: customers) {
-                    customerIDComboList.add(customer.getCustomerID());
+                    customerIDs.add(customer.getCustomerID());
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        customerIDCombo.setItems(customerIDComboList);
+        customerIDCombo.setItems(customerIDs);
+    }
+
+    private void contactComboBox() {
+        ObservableList<String> contacts = FXCollections.observableArrayList();
+
+        try {
+            ObservableList<contactInfo> contactsList = contactSearch.getAllContacts();
+            if (contacts != null){
+                for (contactInfo contact: contactsList) {
+                    if (!contacts.contains(contact.getContactName())) {
+                        contacts.add(contact.getContactName());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        addAppContactPick.setItems(contacts);
+    }
+
+    private void timeComboBoxes() {
+        ObservableList<String> time = FXCollections.observableArrayList();
+        LocalTime startTime = LocalTime.of(6, 0);
+        LocalTime endTime = LocalTime.of(20, 0);
+        time.add(startTime.toString());
+        while (startTime.isBefore(endTime)) {
+            startTime = startTime.plusMinutes(5);
+            time.add(startTime.toString());
+        }
+
+        addAppStartTimePick.setItems(time);
+        addAppEndTimePick.setItems(time);
     }
 
     @Override
@@ -151,6 +181,8 @@ public class addAppointmentController implements Initializable {
         typeComboBox();
         userIDComboBox();
         customerIDComboBox();
+        contactComboBox();
+        timeComboBoxes();
 
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
