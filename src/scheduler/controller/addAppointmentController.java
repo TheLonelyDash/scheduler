@@ -70,7 +70,6 @@ public class addAppointmentController implements Initializable {
                 addAppLocation.getText(),
                 addAppIDText.getText()
                 );
-
         if (condition == true){
             boolean valid = appointmentSearch.addAppointment(
                     addAppContactPick.getSelectionModel().getSelectedItem(),
@@ -104,7 +103,6 @@ public class addAppointmentController implements Initializable {
         for(int i = 0; i < appointmentSearch.getAllAppointments().size(); i++){
             arr[i] = appointmentSearch.getAllAppointments().get(i).getAppointment_ID();
         }
-
         int n = arr.length;
         int n1 = n+1;
         int answer = n*n1/2;
@@ -163,6 +161,7 @@ public class addAppointmentController implements Initializable {
             else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de type!", "Veuillez choisir un type.");}
             return false;
         }
+
         LocalTime startTime = LocalTime.parse((CharSequence) addAppStartTimePick.getSelectionModel().getSelectedItem());
         LocalTime endTime = LocalTime.parse((CharSequence) addAppEndTimePick.getSelectionModel().getSelectedItem());
 

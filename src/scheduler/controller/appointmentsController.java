@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class appointmentsController implements Initializable {
@@ -106,8 +107,25 @@ public class appointmentsController implements Initializable {
 
     }
 
-    public void deleteAppointmentClick(ActionEvent actionEvent) {
-
+    public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
+        appointment selected = appointmentsTableView.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            if (Locale.getDefault().getLanguage() == "en") {
+                alerts.alert("No Selection", "You did not make a selection.", "Please make a selection.");}
+            else {alerts.alert("Pas de choix", "Vous n'avez pas fait de sélection.", "Veuillez faire une sélection.");}
+        }
+        else {
+            if (Locale.getDefault().getLanguage() == "en") {
+                alerts.alert("Delete?", "Are you sure you would like to delete this appointment?", "This change will be permanent.");
+            }
+            else {
+                alerts.alert("Delete?", "Voulez-vous vraiment supprimer ce rendez-vous ?", "Ce changement sera définitif.");
+                appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
+                appointments = appointmentSearch.getAllAppointments();
+                appointmentsTableView.setItems(appointments);
+                appointmentsTableView.refresh();
+            }
+        }
     }
 
     public void backAppointmentClick(ActionEvent actionEvent) throws IOException {
