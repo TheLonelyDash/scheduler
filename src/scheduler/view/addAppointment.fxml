@@ -11,10 +11,10 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="addAppID" layoutX="40.0" layoutY="112.0" text="ID:" />
-        <Label fx:id="addAppTitle" layoutX="44.0" layoutY="148.0" text="Title:" />
-        <Label fx:id="addAppDescription" layoutX="44.0" layoutY="184.0" text="Description:" />
-        <Label fx:id="addAppType" layoutX="47.0" layoutY="218.0" text="Type:" />
+        <Label fx:id="addAppID" layoutX="40.0" layoutY="103.0" text="ID:" />
+        <Label fx:id="addAppTitle" layoutX="38.0" layoutY="140.0" text="Title:" />
+        <Label fx:id="addAppDescription" layoutX="38.0" layoutY="176.0" text="Description:" />
+        <Label fx:id="addAppType" layoutX="41.0" layoutY="210.0" text="Type:" />
         <Label fx:id="addApptStartDate" layoutX="37.0" layoutY="276.0" text="Start Date:" />
         <Label fx:id="addAppStartTime" layoutX="37.0" layoutY="317.0" text="Start Time:" />
         <Label fx:id="addAppEndDate" layoutX="37.0" layoutY="365.0" text="End Date:" />
@@ -22,9 +22,9 @@
         <Label fx:id="addAppCustomer" layoutX="35.0" layoutY="494.0" text="Customer ID:" />
         <Label fx:id="addAppUser" layoutX="35.0" layoutY="533.0" text="User ID:" />
         <Label fx:id="addAppContact" layoutX="35.0" layoutY="459.0" text="Contact:" />
-        <TextField fx:id="addAppIDText" layoutX="125.0" layoutY="108.0" prefHeight="25.0" prefWidth="239.0" />
-        <TextField fx:id="addAppTitleText" layoutX="125.0" layoutY="144.0" prefHeight="25.0" prefWidth="239.0" />
-        <TextField fx:id="addAppDescriptionText" layoutX="126.0" layoutY="180.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="addAppIDText" editable="false" layoutX="125.0" layoutY="99.0" prefHeight="25.0" prefWidth="239.0" text="Auto Generated" />
+        <TextField fx:id="addAppTitleText" layoutX="125.0" layoutY="135.0" prefHeight="25.0" prefWidth="239.0" />
+        <TextField fx:id="addAppDescriptionText" layoutX="126.0" layoutY="171.0" prefHeight="25.0" prefWidth="239.0" />
         <DatePicker fx:id="addAppStartDatePick" layoutX="125.0" layoutY="272.0" prefHeight="25.0" prefWidth="239.0" />
         <DatePicker fx:id="addAppEndDatePick" layoutX="124.0" layoutY="361.0" prefHeight="25.0" prefWidth="239.0" />
         <ComboBox fx:id="addAppStartTimePick" layoutX="125.0" layoutY="313.0" prefHeight="25.0" prefWidth="239.0" />
@@ -32,8 +32,10 @@
         <ComboBox fx:id="addAppContactPick" layoutX="125.0" layoutY="455.0" prefHeight="25.0" prefWidth="239.0" />
         <Button fx:id="addAppSave" layoutX="59.0" layoutY="585.0" mnemonicParsing="false" onAction="#addAppSaveClick" prefHeight="25.0" prefWidth="134.0" text="Save" />
         <Button fx:id="addAppCancel" layoutX="227.0" layoutY="585.0" mnemonicParsing="false" onAction="#addAppCancelClick" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
-      <ComboBox fx:id="addAppTypeCombo" layoutX="125.0" layoutY="214.0" prefHeight="25.0" prefWidth="239.0" />
+      <ComboBox fx:id="addAppTypeCombo" layoutX="125.0" layoutY="205.0" prefHeight="25.0" prefWidth="239.0" />
       <ComboBox fx:id="addAppUserIDCombo" layoutX="126.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
       <ComboBox fx:id="customerIDCombo" layoutX="125.0" layoutY="490.0" prefHeight="25.0" prefWidth="239.0" />
+      <TextField fx:id="addAppLocation" layoutX="125.0" layoutY="239.0" prefHeight="25.0" prefWidth="239.0" />
+      <Label layoutX="40.0" layoutY="243.0" text="Location:" />
     </children>
 </AnchorPane>

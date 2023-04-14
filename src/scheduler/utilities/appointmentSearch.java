@@ -136,12 +136,9 @@ public class appointmentSearch {
 
     public static boolean addAppointment(String contactName, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customer_ID, Integer user_ID) throws SQLException{
         contactInfo contact = contactSearch.getContactId(contactName);
-
         String insertStatement = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Customer_ID, Contact_ID, User_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
         DBQuery.setPreparedStatement(JDBC.getConnection(), insertStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-
         preparedStatement.setString(1, title);
         preparedStatement.setString(2, description);
         preparedStatement.setString(3, location);
@@ -184,5 +181,45 @@ public static boolean deleteAppointment(int appointmentId) throws SQLException{
         return false;
     }
 }
+
+
+    public static ObservableList<appointment> getAppointmentsByCustomerID(int CustomerID) throws SQLException {
+        ObservableList<appointment> appointments = FXCollections.observableArrayList();
+
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Customer_ID=?;";
+
+        DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        preparedStatement.setInt(1, CustomerID);
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                appointment newAppointment = new appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
+                );
+                appointments.add(newAppointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
 
 }
