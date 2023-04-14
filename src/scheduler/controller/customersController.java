@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import scheduler.model.customer;
+import scheduler.utilities.appointmentSearch;
 import scheduler.utilities.customerSearch;
 import scheduler.model.alerts;
 
@@ -82,19 +83,15 @@ public class customersController implements Initializable {
      */
     public void deleteCustomerClick(ActionEvent actionEvent) {
         customer selected = customerTableView.getSelectionModel().getSelectedItem();
-        //boolean condition = checkForAppointments(selected);
+        boolean condition = checkForAppointments(selected);
         if (selected == null){
-            if (Locale.getDefault().getLanguage() == "en") {
-                alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");
-            }
-            else {
-                alerts.alert("Pas de choix.", "Un client n'a pas été sélectionné!", "Veuillez faire une sélection à supprimer.");
-            }
+            if (Locale.getDefault().getLanguage() == "en") {alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");}
+            else {alerts.alert("Pas de choix.", "Un client n'a pas été sélectionné!", "Veuillez faire une sélection à supprimer.");}
         }
         else {
             if (Locale.getDefault().getLanguage() == "en") {
                 alerts.alert("Are you sure?", "You are about to delete a customer.", "All customer information will be lost.");
-                if (checkForAppointments(selected) == true){
+                if (condition == true){
                     try {
                         customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
                         customers = customerSearch.getAllCustomers();
@@ -104,11 +101,11 @@ public class customersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+                else{alerts.alert("Error", "You cannot delete a customer who has an active appointment.", "Please remove all appointments first.");}
             }
             else {
                 alerts.alert("es-tu sûr?", "Vous êtes sur le point de supprimer un client.", "Toutes les informations client seront perdues.");
-                checkForAppointments(selected);
-                if (checkForAppointments(selected) == true){
+                if (condition == true){
                     try {
                         customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
                         customers = customerSearch.getAllCustomers();
@@ -118,21 +115,16 @@ public class customersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+                else{alerts.alert("Erreur", "Vous ne pouvez pas supprimer un client qui a un rendez-vous actif.", "Veuillez d'abord supprimer tous les rendez-vous.");}
             }
         }
     }
 
 
-    /***
-     * This method is used to check to see if a specific customer has any upcoming appointments prior to their deletion.
-     * @param selectedCustomer
-     * @return
-     */
-    private boolean checkForAppointments(customer selectedCustomer) {
-        return true;
-        /*
+
+    private boolean checkForAppointments(customer selected) {
         try {
-            ObservableList appointments = AppointmentsQuery.getAppointmentsByCustomerID(selectedCustomer.getCustomerId());
+            ObservableList appointments = appointmentSearch.getAppointmentsByCustomerID(selected.getCustomerID());
             if (appointments != null && appointments.size() < 1) {
                 return true;
             } else {
@@ -143,7 +135,7 @@ public class customersController implements Initializable {
             e.printStackTrace();
             return false;
         }
-        */
+
     }
 
 
