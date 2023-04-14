@@ -131,22 +131,38 @@ public class appointmentsController implements Initializable {
     }
 
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
-        appointment selected = appointmentsTableView.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            if (Locale.getDefault().getLanguage() == "en") {
-                alerts.alert("No Selection", "You did not make a selection.", "Please make a selection.");}
-            else {alerts.alert("Pas de choix", "Vous n'avez pas fait de sélection.", "Veuillez faire une sélection.");}
-        }
-        else {
-            if (Locale.getDefault().getLanguage() == "en") {
-                alerts.alert("Delete?", "Are you sure you would like to delete this appointment?", "This change will be permanent.");
-            }
-            else {
-                alerts.alert("Delete?", "Voulez-vous vraiment supprimer ce rendez-vous ?", "Ce changement sera définitif.");
-                appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
-                appointments = appointmentSearch.getAllAppointments();
-                appointmentsTableView.setItems(appointments);
-                appointmentsTableView.refresh();
+        appointment selectedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
+        if (selectedAppointment == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("You must select an appointment to delete.");
+            alert.showAndWait();
+        } else if (appointmentsTableView.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete the selected appointment. Do you wish to continue?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                try {
+                    boolean deleteSuccessful = appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
+
+                    if (deleteSuccessful) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Successful Delete");
+                        alert.setContentText("Successfully deleted Appointment ID: " + selectedAppointment.getAppointment_ID() + " Type: " + selectedAppointment.getType());
+                        alert.showAndWait();
+
+                        appointments = appointmentSearch.getAllAppointments();
+                        appointmentsTableView.setItems(appointments);
+                        appointmentsTableView.refresh();
+                    } else {
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Dialog");
+                        alert.setContentText("Could not delete appointment.");
+                        alert.showAndWait();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
