@@ -32,9 +32,9 @@
         <ComboBox fx:id="upAppContactPick" layoutX="125.0" layoutY="455.0" prefHeight="25.0" prefWidth="239.0" />
         <Button fx:id="upAppSave" layoutX="59.0" layoutY="585.0" mnemonicParsing="false" onAction="#upAppSaveClick" prefHeight="25.0" prefWidth="134.0" text="Save" />
         <Button fx:id="upAppCancel" layoutX="227.0" layoutY="585.0" mnemonicParsing="false" onAction="#upAppCancelClick" prefHeight="25.0" prefWidth="134.0" text="Cancel" />
-      <ComboBox layoutX="125.0" layoutY="490.0" prefHeight="25.0" prefWidth="239.0" />
-      <ComboBox layoutX="125.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
-      <ComboBox layoutX="124.0" layoutY="189.0" prefHeight="25.0" prefWidth="239.0" />
+      <ComboBox fx:id="upCustomerCombo" layoutX="125.0" layoutY="490.0" prefHeight="25.0" prefWidth="239.0" />
+      <ComboBox fx:id="upUserIDCombo" layoutX="125.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
+      <ComboBox fx:id="upTypeCombo" layoutX="124.0" layoutY="189.0" prefHeight="25.0" prefWidth="239.0" />
       <Label layoutX="47.0" layoutY="232.0" text="Location:" />
       <TextField layoutX="125.0" layoutY="228.0" prefHeight="25.0" prefWidth="239.0" />
     </children>

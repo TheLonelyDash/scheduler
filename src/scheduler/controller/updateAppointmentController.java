@@ -33,6 +33,12 @@ public class updateAppointmentController implements Initializable {
     @FXML Label updateAnAppointment;
     @FXML Button upAppSave;
     @FXML Button upAppCancel;
+    @FXML ComboBox upTypeCombo;
+    @FXML ComboBox upUserIDCombo;
+    @FXML ComboBox upAppContactPick;
+    @FXML ComboBox upCustomerCombo;
+    @FXML ComboBox upAppStartTimePick;
+    @FXML ComboBox upAppEndTimePick;
 
 
 
@@ -85,7 +91,7 @@ public class updateAppointmentController implements Initializable {
     private void typeComboBox() {
         ObservableList<String> types = FXCollections.observableArrayList();
         types.addAll("Planning Session", "De-Briefing", "other");
-        addAppTypeCombo.setItems(types);
+        upTypeCombo.setItems(types);
     }
 
     private void userIDComboBox() {
@@ -100,7 +106,7 @@ public class updateAppointmentController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        addAppUserIDCombo.setItems(userIDs);
+        upUserIDCombo.setItems(userIDs);
     }
 
     private void customerIDComboBox() {
@@ -115,7 +121,7 @@ public class updateAppointmentController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        customerIDCombo.setItems(customerIDs);
+        upCustomerCombo.setItems(customerIDs);
     }
 
     private void contactComboBox() {
@@ -133,7 +139,7 @@ public class updateAppointmentController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        addAppContactPick.setItems(contacts);
+        upAppContactPick.setItems(contacts);
     }
 
     private void timeComboBoxes() {
@@ -146,8 +152,8 @@ public class updateAppointmentController implements Initializable {
             time.add(startTime.toString());
         }
 
-        addAppStartTimePick.setItems(time);
-        addAppEndTimePick.setItems(time);
+        upAppStartTimePick.setItems(time);
+        upAppEndTimePick.setItems(time);
     }
 
     @Override
