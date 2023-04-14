@@ -254,4 +254,45 @@ public static boolean deleteAppointment(int appointmentId) throws SQLException{
 
 
 
+
+
+
+
+
+
+    public static boolean updateAppointment(String contactName, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID, Integer appointmentID) throws SQLException {
+        contactInfo contact = contactSearch.getContactId(contactName);
+
+        String updateStatement = "UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Customer_ID=?, Contact_ID=?, User_ID=? WHERE Appointment_ID = ?;";
+
+        DBQuery.setPreparedStatement(JDBC.getConnection(), updateStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setString(1, title);
+        preparedStatement.setString(2, description);
+        preparedStatement.setString(3, location);
+        preparedStatement.setString(4, type);
+        preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
+        preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
+        preparedStatement.setInt(7, customerId);
+        preparedStatement.setInt(8, contact.getContact_ID());
+        preparedStatement.setInt(9, userID);
+        preparedStatement.setInt(10, appointmentID);
+
+        try {
+            preparedStatement.execute();
+            if (preparedStatement.getUpdateCount() > 0) {
+                System.out.println("Rows affected: " + preparedStatement.getUpdateCount());
+            } else {
+                System.out.println("No change");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+
+
 }

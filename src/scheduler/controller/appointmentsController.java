@@ -112,9 +112,6 @@ public class appointmentsController implements Initializable {
             alert.setContentText("You must select an appointment to update.");
             alert.showAndWait();
         }
-
-
-
         /*
         if (appointmentsTableView.getSelectionModel().getSelectedItem() != null){
             Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
