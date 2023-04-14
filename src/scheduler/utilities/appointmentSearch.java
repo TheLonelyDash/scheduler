@@ -219,7 +219,4 @@ public static boolean deleteAppointment(int appointmentId) throws SQLException{
         }
     }
 
-
-
-
 }
