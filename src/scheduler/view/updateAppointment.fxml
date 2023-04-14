@@ -36,6 +36,6 @@
       <ComboBox fx:id="upUserIDCombo" layoutX="125.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
       <ComboBox fx:id="upTypeCombo" layoutX="124.0" layoutY="189.0" prefHeight="25.0" prefWidth="239.0" />
       <Label layoutX="47.0" layoutY="232.0" text="Location:" />
-      <TextField layoutX="125.0" layoutY="228.0" prefHeight="25.0" prefWidth="239.0" />
+      <TextField fx:id="locationCombo" layoutX="125.0" layoutY="228.0" prefHeight="25.0" prefWidth="239.0" />
     </children>
 </AnchorPane>

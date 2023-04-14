@@ -9,14 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import scheduler.model.alerts;
-import scheduler.model.contactInfo;
-import scheduler.model.customer;
-import scheduler.model.user;
+import scheduler.model.*;
+import scheduler.utilities.appointmentSearch;
 import scheduler.utilities.contactSearch;
 import scheduler.utilities.customerSearch;
 import scheduler.utilities.userSearch;
@@ -24,9 +20,13 @@ import scheduler.utilities.userSearch;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class updateAppointmentController implements Initializable {
 
@@ -39,8 +39,23 @@ public class updateAppointmentController implements Initializable {
     @FXML ComboBox upCustomerCombo;
     @FXML ComboBox upAppStartTimePick;
     @FXML ComboBox upAppEndTimePick;
+    @FXML TextField upAppTitleText;
+    @FXML TextField upAppDescriptionText;
+    @FXML TextField locationCombo;
+    @FXML TextField upAppIDText;
 
+    @FXML DatePicker upAppStartDatePick;
+    @FXML DatePicker upAppEndDatePick;
 
+    private static appointment selectedAppointment;
+
+    public static void getSelectedAppointment(appointment appointment) {
+        selectedAppointment = appointment;
+    }
+
+    private ZonedDateTime convertTZ(LocalDateTime time, String zoneId) {
+        return ZonedDateTime.of(time, ZoneId.of(zoneId));
+    }
 
     public void upAppSaveClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en"){
@@ -168,5 +183,31 @@ public class updateAppointmentController implements Initializable {
         upAppCancel.setText(rb.getString("addAppCancel"));
         upAppSave.setText(rb.getString("addAppSave"));
         updateAnAppointment.setText(rb.getString("updateAnAppointment"));
+
+
+        try {
+            appointment appointment = appointmentSearch.getAppByID(selectedAppointment.getAppointment_ID());
+            ZonedDateTime zonedStartTime = convertTZ(appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+            ZonedDateTime zonedEndTime = convertTZ(appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+
+            if (appointment != null) {
+                upAppContactPick.getSelectionModel().select(appointment.getContactName());
+                upAppTitleText.setText(appointment.getTitle());
+                upAppDescriptionText.setText(appointment.getDescription());
+                locationCombo.setText(appointment.getLocation());
+                upTypeCombo.getSelectionModel().select(appointment.getType());
+                upUserIDCombo.getSelectionModel().select(Integer.valueOf(appointment.getUser_ID()));
+                upAppIDText.setText(String.valueOf(appointment.getAppointment_ID()));
+                upAppStartDatePick.setValue(appointment.getStartDate());
+                upAppStartTimePick.getSelectionModel().select(String.valueOf(zonedStartTime.toLocalTime()));
+                upAppEndDatePick.setValue(appointment.getEndDate());
+                upAppEndTimePick.getSelectionModel().select(String.valueOf(zonedEndTime.toLocalTime()));
+                upCustomerCombo.getSelectionModel().select(Integer.valueOf(appointment.getCustomer_ID()));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

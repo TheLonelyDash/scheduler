@@ -89,7 +89,33 @@ public class appointmentsController implements Initializable {
         stage.show();
     }
 
-    public void updateAppointmentClick(ActionEvent actionEvent) throws IOException{
+    public void updateAppointmentClick(ActionEvent event) throws IOException{
+        updateAppointmentController.getSelectedAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
+
+        if (appointmentsTableView.getSelectionModel().getSelectedItem() != null) {
+            try {
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                Parent scene = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.setTitle("Update Existing Appointment");
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setContentText("Load Screen Error.");
+                alert.showAndWait();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("You must select an appointment to update.");
+            alert.showAndWait();
+        }
+
+
+
+        /*
         if (appointmentsTableView.getSelectionModel().getSelectedItem() != null){
             Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
             Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -104,7 +130,7 @@ public class appointmentsController implements Initializable {
             else{alerts.alert("Choisissez.", "Hé! Vous n'avez pas choisi de rendez-vous à modifier!", "Sérieusement, choisissez-en un.");}
 
         }
-
+*/
     }
 
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
