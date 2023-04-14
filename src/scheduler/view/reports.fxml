@@ -65,9 +65,9 @@
                         <TextField fx:id="october" editable="false" layoutX="327.0" layoutY="209.0" prefHeight="25.0" prefWidth="80.0" />
                         <TextField fx:id="november" editable="false" layoutX="327.0" layoutY="245.0" prefHeight="25.0" prefWidth="79.0" />
                         <TextField fx:id="december" editable="false" layoutX="327.0" layoutY="285.0" prefHeight="25.0" prefWidth="80.0" />
-                        <TextField fx:id="planningSessionsField" layoutX="720.0" layoutY="100.0" prefHeight="25.0" prefWidth="127.0" />
-                        <TextField fx:id="debriefingField" layoutX="720.0" layoutY="152.0" prefHeight="25.0" prefWidth="128.0" />
-                        <TextField fx:id="otherField" layoutX="720.0" layoutY="201.0" prefHeight="25.0" prefWidth="126.0" />
+                        <TextField fx:id="planningSessionsField" editable="false" layoutX="720.0" layoutY="100.0" prefHeight="25.0" prefWidth="127.0" />
+                        <TextField fx:id="debriefingField" editable="false" layoutX="720.0" layoutY="152.0" prefHeight="25.0" prefWidth="128.0" />
+                        <TextField fx:id="otherField" editable="false" layoutX="720.0" layoutY="201.0" prefHeight="25.0" prefWidth="126.0" />
                         <Label layoutX="626.0" layoutY="35.0" text="Appointments by Type">
                            <font>
                               <Font size="22.0" />
@@ -83,14 +83,43 @@
                 <Tab fx:id="totalCountryTab" text="Total Country">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView fx:id="countryTableView" layoutX="306.0" layoutY="31.0" prefHeight="268.0" prefWidth="409.0">
-                                    <columns>
-                                        <TableColumn fx:id="countryCol" prefWidth="304.0" text="Country" />
-                                        <TableColumn fx:id="countryTotalCol" prefWidth="104.0" text="Total" />
-                                    </columns>
-                                </TableView>
-                            </children>
+                     <children>
+                        <Label layoutX="338.0" layoutY="30.0" text="Customers Per Country">
+                           <font>
+                              <Font size="39.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="201.0" layoutY="125.0" text="Canada">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="514.0" layoutY="125.0" text="USA">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="805.0" layoutY="125.0" text="U.K.">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="canadaText" editable="false" layoutX="167.0" layoutY="182.0" prefHeight="51.0" prefWidth="131.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="usaText" editable="false" layoutX="462.0" layoutY="182.0" prefHeight="51.0" prefWidth="128.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="ukText" editable="false" layoutX="751.0" layoutY="182.0" prefHeight="51.0" prefWidth="114.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                     </children>
                         </AnchorPane>
                     </content>
                 </Tab>

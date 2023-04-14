@@ -13,7 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import scheduler.model.appointment;
+import scheduler.model.country;
+import scheduler.model.customer;
 import scheduler.utilities.appointmentSearch;
+import scheduler.utilities.countrySearch;
+import scheduler.utilities.customerSearch;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +61,35 @@ public class reportsController implements Initializable {
     @FXML TextField november;
     @FXML TextField december;
 
+    @FXML TextField canadaText;
+    @FXML TextField usaText;
+    @FXML TextField ukText;
+
+
+    public void totalCountries() {
+        ObservableList<Integer> usa = FXCollections.observableArrayList();
+        ObservableList<Integer> uk = FXCollections.observableArrayList();
+        ObservableList<Integer> canada = FXCollections.observableArrayList();
+
+        try {
+            ObservableList<customer> customers = customerSearch.getAllCustomers();
+            if (customers != null) {
+                for (customer customer : customers) {
+                    String count = customer.getCustomerCountry();
+                    if (count.equals("U.S")){usa.add(1);}
+                    if (count.equals("UK")){uk.add(1);}
+                    if (count.equals("Canada")){canada.add(1);}
+                }
+            }
+            canadaText.setText(String.valueOf(canada.size()));
+            usaText.setText(String.valueOf(usa.size()));
+            ukText.setText(String.valueOf(uk.size()));
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void totalAppointments() {
 
@@ -83,24 +116,24 @@ public class reportsController implements Initializable {
             if (appointments != null) {
                 for (appointment appointment : appointments) {
                     String type = appointment.getType();
-                    LocalDate date = appointment.getStartDate();
+                    LocalDate month = appointment.getStartDate();
 
                     if (type.equals("Planning Session")) {planningSessions.add(type);}
                     if (type.equals("De-Briefing")) {debriefings.add(type);}
                     if (type.equals("other")) {other.add(type);}
 
-                    if (date.getMonth().equals(Month.of(1))) {jan.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(2))) {feb.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(3))) {mar.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(4))) {apr.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(5))) {mayMonth.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(6))) {jun.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(7))) {jul.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(8))) {aug.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(9))) {sep.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(10))) {oct.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(11))) {nov.add(date.getMonthValue());}
-                    if (date.getMonth().equals(Month.of(12))) {dec.add(date.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(1))) {jan.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(2))) {feb.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(3))) {mar.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(4))) {apr.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(5))) {mayMonth.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(6))) {jun.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(7))) {jul.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(8))) {aug.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(9))) {sep.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(10))) {oct.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(11))) {nov.add(month.getMonthValue());}
+                    if (month.getMonth().equals(Month.of(12))) {dec.add(month.getMonthValue());}
                 }
             }
             planningSessionsField.setText(String.valueOf(planningSessions.size()));
@@ -142,6 +175,7 @@ public class reportsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         totalAppointments();
+        totalCountries();
 
         try {
             appointments = appointmentSearch.getAllAppointments();
