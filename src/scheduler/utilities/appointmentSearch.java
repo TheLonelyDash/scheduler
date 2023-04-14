@@ -53,21 +53,19 @@ public class appointmentSearch {
     }
 
     public static ObservableList<appointment> getAppointmentsByMonth() throws SQLException {
-
-        LocalDateTime today = LocalDateTime.now();
-        LocalDateTime prevMonth = today.minusMonths(1);
-
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
-        String statement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = JDBC.getPreparedStatement();
-        preparedStatement.setDate(1, java.sql.Date.valueOf(today.toLocalDate()));
-        preparedStatement.setDate(2, java.sql.Date.valueOf(prevMonth.toLocalDate()));
-
+        LocalDateTime todaysDate = LocalDateTime.now();
+        LocalDateTime lastMonth = todaysDate.minusDays(30);
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
+        DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        preparedStatement.setDate(1, java.sql.Date.valueOf(todaysDate.toLocalDate()));
+        preparedStatement.setDate(2, java.sql.Date.valueOf(lastMonth.toLocalDate()));
         try {
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
-            while (resultSet.next()){
+
+            while (resultSet.next()) {
                 appointment newAppointment = new appointment(
                         resultSet.getInt("Appointment_ID"),
                         resultSet.getString("Title"),
@@ -86,29 +84,26 @@ public class appointmentSearch {
                 appointments.add(newAppointment);
             }
             return appointments;
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             return null;
         }
     }
 
 
     public static ObservableList<appointment> getAppointmentsByWeek() throws SQLException {
-
-        LocalDateTime today = LocalDateTime.now();
-        LocalDateTime prevWeek = today.minusDays(7);
-
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
-        String statement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = JDBC.getPreparedStatement();
-        preparedStatement.setDate(1, java.sql.Date.valueOf(today.toLocalDate()));
-        preparedStatement.setDate(2, java.sql.Date.valueOf(prevWeek.toLocalDate()));
-
+        LocalDateTime todaysDate = LocalDateTime.now();
+        LocalDateTime lastWeek = todaysDate.minusDays(7);
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
+        DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        preparedStatement.setDate(1, java.sql.Date.valueOf(todaysDate.toLocalDate()));
+        preparedStatement.setDate(2, java.sql.Date.valueOf(lastWeek.toLocalDate()));
         try {
-            preparedStatement.executeQuery();
+            preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 appointment newAppointment = new appointment(
                         resultSet.getInt("Appointment_ID"),
                         resultSet.getString("Title"),
@@ -127,8 +122,8 @@ public class appointmentSearch {
                 appointments.add(newAppointment);
             }
             return appointments;
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             return null;
         }
     }

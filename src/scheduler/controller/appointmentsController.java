@@ -49,31 +49,30 @@ public class appointmentsController implements Initializable {
     @FXML private TableColumn<?, ?> user_IDCol;
 
 
-    @FXML void viewsToggle(ActionEvent event){
-        if (toggleView.getSelectedToggle().equals(all)){
+    @FXML
+    void viewToggle(ActionEvent event) {
+        if (all.isSelected()) {
             try {
                 appointments = appointmentSearch.getAllAppointments();
                 appointmentsTableView.setItems(appointments);
                 appointmentsTableView.refresh();
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else if (toggleView.getSelectedToggle().equals(monthly)){
+        } else if (toggleView.getSelectedToggle().equals(monthly)) {
             try {
                 appointments = appointmentSearch.getAppointmentsByMonth();
                 appointmentsTableView.setItems(appointments);
                 appointmentsTableView.refresh();
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else if (toggleView.getSelectedToggle().equals(weekly)){
+        } else if (toggleView.getSelectedToggle().equals(weekly)) {
             try {
                 appointments = appointmentSearch.getAppointmentsByWeek();
                 appointmentsTableView.setItems(appointments);
                 appointmentsTableView.refresh();
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -91,73 +90,53 @@ public class appointmentsController implements Initializable {
 
     public void updateAppointmentClick(ActionEvent event) throws IOException{
         updateAppointmentController.getSelectedAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
-
         if (appointmentsTableView.getSelectionModel().getSelectedItem() != null) {
             try {
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 Parent scene = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
                 stage.setScene(new Scene(scene));
-                stage.setTitle("Update Existing Appointment");
+                if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Update Appointment");}
+                else{stage.setTitle("Mettre à jour le rendez-vous");}
                 stage.show();
             } catch (Exception e) {
                 e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setContentText("Load Screen Error.");
-                alert.showAndWait();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("You must select an appointment to update.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("No Selection", "You must make a selection.", "Please choose an appointment to update.");}
+            else{alerts.alert("Pas de choix", "Vous devez faire une sélection.", "Veuillez choisir un rendez-vous à mettre à jour.");}
         }
-        /*
-        if (appointmentsTableView.getSelectionModel().getSelectedItem() != null){
-            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateAppointment.fxml"));
-            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Update Appointment");}
-            else { stage.setTitle("Mettre à jour le rendez-vous");}
-            stage.show();
-        }
-        else {
-            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("Make a selection.", "Hey! You didn't choose an appointment to modify!", "Seriously, just choose one.");}
-            else{alerts.alert("Choisissez.", "Hé! Vous n'avez pas choisi de rendez-vous à modifier!", "Sérieusement, choisissez-en un.");}
-
-        }
-*/
     }
 
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
         appointment selectedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
         if (selectedAppointment == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("You must select an appointment to delete.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("No Selection", "You must make a selection.", "Please choose an appointment to delete.");}
+            else{alerts.alert("Pas de choix", "Vous devez faire une sélection.", "Veuillez choisir un rendez-vous à supprimer.");}
         } else if (appointmentsTableView.getSelectionModel().getSelectedItem() != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete the selected appointment. Do you wish to continue?");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to continue? Deleting this appointment is permanent.");
             Optional<ButtonType> result = alert.showAndWait();
-
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 try {
                     boolean deleteSuccessful = appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
 
                     if (deleteSuccessful) {
                         alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Successful Delete");
-                        alert.setContentText("Successfully deleted Appointment ID: " + selectedAppointment.getAppointment_ID() + " Type: " + selectedAppointment.getType());
+                        if (Locale.getDefault().getLanguage() == "en"){
+                            alert.setTitle("Delete Complete!");
+                            alert.setContentText("The " + selectedAppointment.getType() + " appointment with " + selectedAppointment.getContactName() + " has been cancelled!");
+                        }
+                        else {
+                            alert.setTitle("Supprimer terminé!");
+                            alert.setContentText("Le rendez-vous " + selectedAppointment.getType() + " avec " + selectedAppointment.getContactName() +" a été annulé.");
+                        }
                         alert.showAndWait();
-
                         appointments = appointmentSearch.getAllAppointments();
                         appointmentsTableView.setItems(appointments);
                         appointmentsTableView.refresh();
                     } else {
                         alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error Dialog");
-                        alert.setContentText("Could not delete appointment.");
+                        alert.setTitle("Error/Erreur");
+                        alert.setContentText("Something happened.  It didn't work. Sorry, no deleting today./Quelque chose est arrivé. Cela n'a pas fonctionné. Désolé, pas de suppression aujourd'hui.");
                         alert.showAndWait();
                     }
                 } catch (SQLException e) {
