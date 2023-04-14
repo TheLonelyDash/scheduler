@@ -1,5 +1,7 @@
 package scheduler.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,12 +10,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import scheduler.model.alerts;
+import scheduler.model.contactInfo;
+import scheduler.model.customer;
+import scheduler.model.user;
+import scheduler.utilities.contactSearch;
+import scheduler.utilities.customerSearch;
+import scheduler.utilities.userSearch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -71,8 +82,82 @@ public class updateAppointmentController implements Initializable {
         }
     }
 
+    private void typeComboBox() {
+        ObservableList<String> types = FXCollections.observableArrayList();
+        types.addAll("Planning Session", "De-Briefing", "other");
+        addAppTypeCombo.setItems(types);
+    }
+
+    private void userIDComboBox() {
+        ObservableList<Integer> userIDs = FXCollections.observableArrayList();
+        try {
+            ObservableList<user> users = userSearch.getUsers();
+            if (users != null) {
+                for (user user: users) {
+                    userIDs.add(user.getUserID());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        addAppUserIDCombo.setItems(userIDs);
+    }
+
+    private void customerIDComboBox() {
+        ObservableList<Integer> customerIDs = FXCollections.observableArrayList();
+        try {
+            ObservableList<customer> customers = customerSearch.getAllCustomers();
+            if (customers != null) {
+                for (customer customer: customers) {
+                    customerIDs.add(customer.getCustomerID());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        customerIDCombo.setItems(customerIDs);
+    }
+
+    private void contactComboBox() {
+        ObservableList<String> contacts = FXCollections.observableArrayList();
+
+        try {
+            ObservableList<contactInfo> contactsList = contactSearch.getAllContacts();
+            if (contacts != null){
+                for (contactInfo contact: contactsList) {
+                    if (!contacts.contains(contact.getContactName())) {
+                        contacts.add(contact.getContactName());
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        addAppContactPick.setItems(contacts);
+    }
+
+    private void timeComboBoxes() {
+        ObservableList<String> time = FXCollections.observableArrayList();
+        LocalTime startTime = LocalTime.of(6, 0);
+        LocalTime endTime = LocalTime.of(20, 0);
+        time.add(startTime.toString());
+        while (startTime.isBefore(endTime)) {
+            startTime = startTime.plusMinutes(5);
+            time.add(startTime.toString());
+        }
+
+        addAppStartTimePick.setItems(time);
+        addAppEndTimePick.setItems(time);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        typeComboBox();
+        userIDComboBox();
+        customerIDComboBox();
+        contactComboBox();
+        timeComboBoxes();
+
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         upAppCancel.setText(rb.getString("addAppCancel"));
         upAppSave.setText(rb.getString("addAppSave"));
