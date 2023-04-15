@@ -107,7 +107,7 @@ public class addAppointmentController implements Initializable {
 
 
     private String getID() throws SQLException {
-        int [] arr = new int[appointmentSearch.getAllAppointments().size()];
+        int[] arr = new int[appointmentSearch.getAllAppointments().size()];
         for(int i = 0; i < appointmentSearch.getAllAppointments().size(); i++){
             arr[i] = appointmentSearch.getAllAppointments().get(i).getAppointment_ID();
         }
@@ -120,8 +120,28 @@ public class addAppointmentController implements Initializable {
         return String.valueOf(answer);
     }
 
-
+    /***
+     * This method check that all the pickers and combo boxes have been utilized and returns an alert if they have not.
+     * @param title
+     * @param description
+     * @param location
+     * @param appointmentID
+     * @return
+     */
     private boolean appointmentCheck(String title, String description, String location, String appointmentID){
+
+        if(addAppStartTimePick.getSelectionModel().isEmpty()){
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a start time!", "Please choose a start time.");}
+            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de start time!", "Veuillez choisir un start time.");}
+            return false;
+        }
+
+        if (addAppEndTimePick.getSelectionModel().isEmpty()){
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose an end time!", "Please choose a end time.");}
+            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de end time!", "Veuillez choisir un end time.");}
+            return false;
+        }
+
         if (addAppContactPick.getSelectionModel().isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a contact!", "Please choose a contact.");}
             else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de contact!", "Veuillez choisir un contact.");}
@@ -170,6 +190,18 @@ public class addAppointmentController implements Initializable {
             return false;
         }
 
+        if (addAppStartDatePick.getValue() == null){
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a start date!", "Please choose a start date.");}
+            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de start date!", "Veuillez choisir un start date.");}
+            return false;
+        }
+
+        if (addAppEndDatePick.getValue() == null){
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a end date!", "Please choose a end date.");}
+            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de end date!", "Veuillez choisir un end date.");}
+            return false;
+        }
+
         LocalTime startTime = LocalTime.parse((CharSequence) addAppStartTimePick.getSelectionModel().getSelectedItem());
         LocalTime endTime = LocalTime.parse((CharSequence) addAppEndTimePick.getSelectionModel().getSelectedItem());
 
@@ -188,33 +220,9 @@ public class addAppointmentController implements Initializable {
             return false;
         };
 
-        if (addAppStartDatePick.getValue() == null){
-            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a start date!", "Please choose a start date.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de start date!", "Veuillez choisir un start date.");}
-            return false;
-        }
-
-        if(addAppStartTimePick.getSelectionModel().isEmpty()){
-            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a start time!", "Please choose a start time.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de start time!", "Veuillez choisir un start time.");}
-            return false;
-        }
-
-        if (addAppEndDatePick.getValue() == null){
-            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a end date!", "Please choose a end date.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de end date!", "Veuillez choisir un end date.");}
-            return false;
-        }
-
         if (addAppEndDatePick.getValue().isBefore(addAppStartDatePick.getValue())){
-            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Check your start and end dates.", "Check your start and end dates.");}
+            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Check your start an end dates.", "Check your start and end dates.");}
             else {alerts.alert("Informations manquantes", "Vérifiez vos dates de début et de fin.", "Vérifiez vos dates de début et de fin.");}
-            return false;
-        }
-
-        if (addAppEndTimePick.getSelectionModel().isEmpty()){
-            if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a end time!", "Please choose a end time.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de end time!", "Veuillez choisir un end time.");}
             return false;
         }
 
@@ -224,7 +232,7 @@ public class addAppointmentController implements Initializable {
         LocalDateTime possAppointmentEnd;
 
         try {
-            ObservableList<appointment> appointments = appointmentSearch.getAppointmentsByCustomerID((Integer) customerIDCombo.getSelectionModel().getSelectedItem());
+            ObservableList<appointment> appointments = appointmentSearch.getAppointmentsByCustomerID(customerIDCombo.getSelectionModel().getSelectedItem());
             for (appointment appointment: appointments) {
                 possAppointmentStart = appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime());
                 possAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
@@ -277,8 +285,11 @@ public class addAppointmentController implements Initializable {
     }
 
 
-
-
+    /***
+     * This method moves the user back to the appointments stage without making any changes at all.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addAppCancelClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en"){
             if (alerts.alert("Cancel?", "Are you sure you'd like to cancel?", "Your changes will be lost.")){
@@ -326,6 +337,9 @@ public class addAppointmentController implements Initializable {
         addAppUserIDCombo.setItems(userIDs);
     }
 
+    /***
+     * Method to populate the customer ID combo box.
+     */
     private void customerIDComboBox() {
         ObservableList<Integer> customerIDs = FXCollections.observableArrayList();
         try {
@@ -341,6 +355,9 @@ public class addAppointmentController implements Initializable {
         customerIDCombo.setItems(customerIDs);
     }
 
+    /***
+     * Method to populate the contacts combo box.
+     */
     private void contactComboBox() {
         ObservableList<String> contacts = FXCollections.observableArrayList();
 
@@ -359,10 +376,13 @@ public class addAppointmentController implements Initializable {
         addAppContactPick.setItems(contacts);
     }
 
+    /***
+     * Method that populates the time combobox
+     */
     private void timeComboBoxes() {
         ObservableList<String> time = FXCollections.observableArrayList();
-        LocalTime startTime = LocalTime.of(6, 0);
-        LocalTime endTime = LocalTime.of(20, 0);
+        LocalTime startTime = LocalTime.of(7, 0);
+        LocalTime endTime = LocalTime.of(21, 0);
         time.add(startTime.toString());
         while (startTime.isBefore(endTime)) {
             startTime = startTime.plusMinutes(5);

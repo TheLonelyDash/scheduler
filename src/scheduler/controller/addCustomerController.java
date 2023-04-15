@@ -72,7 +72,12 @@ public class addCustomerController implements Initializable {
         }
     }
 
-
+    /***
+     * This method asks the user if they are sure they would like to cancel their add customer action.  If so, it redirects them to the
+     * customers screen. Otherwise, it allows tehm to continue to add a customer.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void cancelClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en") {
             if (alerts.alert("Cancel?", "Are you sure you'd like to cancel?", "Your changes will be lost.")) {
@@ -144,45 +149,42 @@ public class addCustomerController implements Initializable {
      */
     private boolean evaluateEmptyTextField(String name, String address, String postalCode, String phone){
         if (name.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Name", "The Name TextField is Empty!", "Please provide a Name.");
-            }
-            else{
-                alerts.alert("Sans nom", "Le champ de texte du nom est vide", "Veuillez fournir un nom.");
-            }
-            return false;
-        }
-        if (address.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Address", "The Address TextField is Empty!", "Please provide an Address.");
-            }
-            else{
-                alerts.alert("pas d'adresse", "le champ de texte de l'adresse est vide.", "Merci de fournir une adresse.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Name", "The Name TextField is Empty!", "Please provide a Name.");}
+            else{alerts.alert("Sans nom", "Le champ de texte du nom est vide", "Veuillez fournir un nom.");}
             return false;
         }
         if (phone.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Phone Number", "The Phone Number TextField is Empty!", "Please provide a Phone Number.");
-            }
-            else{
-                alerts.alert("Pas de numéro de téléphone", "Le champ de texte du numéro de téléphone est vide !", "Veuillez fournir un numéro de téléphone.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Phone Number", "The Phone Number TextField is Empty!", "Please provide a Phone Number.");}
+            else{alerts.alert("Pas de numéro de téléphone", "Le champ de texte du numéro de téléphone est vide!", "Veuillez fournir un numéro de téléphone.");}
+            return false;
+        }
+        if (address.isEmpty()){
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Address", "The Address TextField is Empty!", "Please provide an Address.");}
+            else{alerts.alert("pas d'adresse", "le champ de texte de l'adresse est vide.", "Merci de fournir une adresse.");}
             return false;
         }
         if (postalCode.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Postal Code", "The Postal Code TextField is Empty!", "Please provide a postal code.");
-            }
-            else{
-                alerts.alert("Aucun code postal", "Le champ de texte du code postal est vide !", "Veuillez fournir un code postal.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Postal Code", "The Postal Code TextField is Empty!", "Please provide a postal code.");}
+            else{alerts.alert("Aucun code postal", "Le champ de texte du code postal est vide!", "Veuillez fournir un code postal.");}
+            return false;
+        }
+        if (countryComboBox.getSelectionModel().isEmpty()){
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No country", "You didn't choose a country", "Please provide a country.");}
+            else{alerts.alert("Aucun pays", "Vous n'avez pas choisi de pays!", "Veuillez fournir un pays.");}
+            return false;
+        }
+        if (divisionIdComboBox.getSelectionModel().isEmpty()){
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No division", "You didn't choose a division", "Please provide a division.");}
+            else{alerts.alert("Aucun division", "Vous n'avez pas choisi de division!", "Veuillez fournir un division.");}
             return false;
         }
         return true;
     }
 
-
+    /***
+     * This method populates the division combobox so the user may choose what is available in their country.
+     * @param event
+     */
     public void countryComboClick(ActionEvent event){
         ObservableList<String> listOfDivisions = FXCollections.observableArrayList();
         try {
