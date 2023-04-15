@@ -34,6 +34,19 @@ public class addAppointmentController implements Initializable {
     @FXML private Button addAppCancel;
 
     @FXML private Label addAnAppointment;
+    @FXML private Label addAppTitle;
+    @FXML private Label addAppDescription;
+    @FXML private Label addLocation;
+    @FXML private Label addApptStartDate;
+    @FXML private Label addAppStartTime;
+    @FXML private Label addAppEndDate;
+    @FXML private Label addAppEndTime;
+    @FXML private Label addAppContact;
+    @FXML private Label addAppType;
+    @FXML private Label addAppCustomer;
+    @FXML private Label addAppUser;
+
+
 
     @FXML private ComboBox<Integer> customerIDCombo;
     @FXML private ComboBox<Integer> addAppUserIDCombo;
@@ -407,5 +420,17 @@ public class addAppointmentController implements Initializable {
         addAppSave.setText(rb.getString("addAppSave"));
         addAppCancel.setText(rb.getString("addAppCancel"));
         addAnAppointment.setText(rb.getString("addAnAppointment"));
+        addAppTitle.setText(rb.getString("title"));
+        addAppDescription.setText(rb.getString("description"));
+        addLocation.setText(rb.getString("location"));
+        addAppType.setText(rb.getString("type"));
+        addApptStartDate.setText(rb.getString("startdate"));
+        addAppStartTime.setText(rb.getString("starttime"));
+        addAppEndDate.setText(rb.getString("enddate"));
+        addAppEndTime.setText(rb.getString("endtime"));
+        addAppContact.setText(rb.getString("contact"));
+        addAppCustomer.setText(rb.getString("customerID"));
+        addAppUser.setText(rb.getString("userID"));
+
     }
 }

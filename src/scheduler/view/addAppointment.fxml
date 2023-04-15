@@ -11,7 +11,7 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="addAppID" layoutX="40.0" layoutY="103.0" text="ID:" />
+        <Label fx:id="addAppID" layoutX="40.0" layoutY="103.0" text="ID" />
         <Label fx:id="addAppTitle" layoutX="38.0" layoutY="140.0" text="Title:" />
         <Label fx:id="addAppDescription" layoutX="38.0" layoutY="176.0" text="Description:" />
         <Label fx:id="addAppType" layoutX="41.0" layoutY="210.0" text="Type:" />
@@ -36,6 +36,6 @@
       <ComboBox fx:id="addAppUserIDCombo" layoutX="126.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
       <ComboBox fx:id="customerIDCombo" layoutX="125.0" layoutY="490.0" prefHeight="25.0" prefWidth="239.0" />
       <TextField fx:id="addAppLocation" layoutX="125.0" layoutY="239.0" prefHeight="25.0" prefWidth="239.0" />
-      <Label layoutX="40.0" layoutY="243.0" text="Location:" />
+      <Label fx:id="addLocation" layoutX="40.0" layoutY="243.0" text="Location:" />
     </children>
 </AnchorPane>

@@ -11,7 +11,7 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="upAppID" layoutX="39.0" layoutY="87.0" text="ID:" />
+        <Label fx:id="upAppID" layoutX="39.0" layoutY="87.0" text="ID" />
         <Label fx:id="upAppTitle" layoutX="43.0" layoutY="123.0" text="Title:" />
         <Label fx:id="upAppDescription" layoutX="43.0" layoutY="159.0" text="Description:" />
         <Label fx:id="upAppType" layoutX="46.0" layoutY="193.0" text="Type:" />
@@ -20,7 +20,7 @@
         <Label fx:id="upAppEndDate" layoutX="37.0" layoutY="365.0" text="End Date:" />
         <Label fx:id="upAppEndTime" layoutX="36.0" layoutY="403.0" text="End Time:" />
         <Label fx:id="upAppCustomer" layoutX="35.0" layoutY="494.0" text="Customer ID:" />
-        <Label fx:id="upAppUser" layoutX="35.0" layoutY="533.0" text="User ID:" />
+        <Label fx:id="upAppUser" layoutX="30.0" layoutY="533.0" text="User ID:" />
         <Label fx:id="upAppContact" layoutX="35.0" layoutY="459.0" text="Contact:" />
         <TextField fx:id="upAppIDText" disable="true" editable="false" layoutX="124.0" layoutY="83.0" prefHeight="25.0" prefWidth="239.0" text="Auto Generated" />
         <TextField fx:id="upAppTitleText" layoutX="124.0" layoutY="119.0" prefHeight="25.0" prefWidth="239.0" />
@@ -35,7 +35,7 @@
       <ComboBox fx:id="upCustomerCombo" layoutX="125.0" layoutY="490.0" prefHeight="25.0" prefWidth="239.0" />
       <ComboBox fx:id="upUserIDCombo" layoutX="125.0" layoutY="529.0" prefHeight="25.0" prefWidth="239.0" />
       <ComboBox fx:id="upTypeCombo" layoutX="124.0" layoutY="189.0" prefHeight="25.0" prefWidth="239.0" />
-      <Label layoutX="47.0" layoutY="232.0" text="Location:" />
+      <Label fx:id="upAppLocation" layoutX="47.0" layoutY="232.0" text="Location:" />
       <TextField fx:id="locationCombo" layoutX="125.0" layoutY="228.0" prefHeight="25.0" prefWidth="239.0" />
     </children>
 </AnchorPane>

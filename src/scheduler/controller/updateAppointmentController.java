@@ -31,19 +31,31 @@ public class updateAppointmentController implements Initializable {
     private ZonedDateTime StartDateTimeConversion;
     private ZonedDateTime EndDateTimeConversion;
 
-    @FXML Label updateAnAppointment;
-    @FXML Button upAppSave;
-    @FXML Button upAppCancel;
-    @FXML ComboBox<String> upTypeCombo;
-    @FXML ComboBox<Integer> upUserIDCombo;
-    @FXML ComboBox<String> upAppContactPick;
-    @FXML ComboBox<Integer> upCustomerCombo;
-    @FXML ComboBox<String> upAppStartTimePick;
-    @FXML ComboBox<String> upAppEndTimePick;
-    @FXML TextField upAppTitleText;
-    @FXML TextField upAppDescriptionText;
-    @FXML TextField locationCombo;
-    @FXML TextField upAppIDText;
+    @FXML private Label updateAnAppointment;
+    @FXML private Label upAppTitle;
+    @FXML private Label upAppDescription;
+    @FXML private Label upAppType;
+    @FXML private Label upAppLocation;
+    @FXML private Label upApptStartDate;
+    @FXML private Label upAppStartTime;
+    @FXML private Label upAppEndDate;
+    @FXML private Label upAppEndTime;
+    @FXML private Label upAppContact;
+    @FXML private Label upAppCustomer;
+    @FXML private Label upAppUser;
+
+    @FXML private Button upAppSave;
+    @FXML private Button upAppCancel;
+    @FXML private ComboBox<String> upTypeCombo;
+    @FXML private ComboBox<Integer> upUserIDCombo;
+    @FXML private ComboBox<String> upAppContactPick;
+    @FXML private ComboBox<Integer> upCustomerCombo;
+    @FXML private ComboBox<String> upAppStartTimePick;
+    @FXML private ComboBox<String> upAppEndTimePick;
+    @FXML private TextField upAppTitleText;
+    @FXML private TextField upAppDescriptionText;
+    @FXML private TextField locationCombo;
+    @FXML private TextField upAppIDText;
 
     @FXML DatePicker upAppStartDatePick;
     @FXML DatePicker upAppEndDatePick;
@@ -414,6 +426,19 @@ public class updateAppointmentController implements Initializable {
         upAppCancel.setText(rb.getString("addAppCancel"));
         upAppSave.setText(rb.getString("addAppSave"));
         updateAnAppointment.setText(rb.getString("updateAnAppointment"));
+
+        upAppTitle.setText(rb.getString("title"));
+        upAppDescription.setText(rb.getString("description"));
+        upAppType.setText(rb.getString("type"));
+        upAppLocation.setText(rb.getString("location"));
+        upApptStartDate.setText(rb.getString("startdate"));
+        upAppStartTime.setText(rb.getString("starttime"));
+        upAppEndDate.setText(rb.getString("enddate"));
+        upAppEndTime.setText(rb.getString("endtime"));
+        upAppContact.setText(rb.getString("contact"));
+        upAppCustomer.setText(rb.getString("customerID"));
+        upAppUser.setText(rb.getString("userID"));
+
 
 
         try {
