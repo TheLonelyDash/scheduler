@@ -78,6 +78,11 @@ public class appointmentsController implements Initializable {
         }
     }
 
+    /***
+     * Method that takes the user to the add appointments gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addAppointmentClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/addAppointment.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -88,6 +93,12 @@ public class appointmentsController implements Initializable {
         stage.show();
     }
 
+    /***
+     * Method that takes the user to the update appointments gui by first taking the selected item.  If no item has
+     * been selected, it throws an alert telling the user to make a selection.
+     * @param event
+     * @throws IOException
+     */
     public void updateAppointmentClick(ActionEvent event) throws IOException{
         updateAppointmentController.getSelectedAppointment(appointmentsTableView.getSelectionModel().getSelectedItem());
         if (appointmentsTableView.getSelectionModel().getSelectedItem() != null) {
@@ -107,18 +118,29 @@ public class appointmentsController implements Initializable {
         }
     }
 
+    /***
+     * This method deletes an appointment from the appointments table.  If the user does not make a selection, an alert is thrown
+     * reminding them to make a selection.  An alert is also thrown asking the user if they are sure they would like to delete the
+     * appointment. If the deletion is successful, an alert will tell the user the appointment information that was deleted.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void deleteAppointmentClick(ActionEvent actionEvent) throws SQLException {
         appointment selectedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
+        Optional<ButtonType> result;
+        Alert alert;
         if (selectedAppointment == null) {
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("No Selection", "You must make a selection.", "Please choose an appointment to delete.");}
             else{alerts.alert("Pas de choix", "Vous devez faire une sélection.", "Veuillez choisir un rendez-vous à supprimer.");}
         } else if (appointmentsTableView.getSelectionModel().getSelectedItem() != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to continue? Deleting this appointment is permanent.");
-            Optional<ButtonType> result = alert.showAndWait();
+            if (Locale.getDefault().getLanguage()=="en"){
+                alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you wish to continue? Deleting this appointment is permanent.");
+                result = alert.showAndWait();}
+            else {alert = new Alert(Alert.AlertType.CONFIRMATION, "Souhaitez-vous continuer? La suppression de ce rendez-vous est définitive.");
+                result = alert.showAndWait();}
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 try {
                     boolean deleteSuccessful = appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
-
                     if (deleteSuccessful) {
                         alert = new Alert(Alert.AlertType.INFORMATION);
                         if (Locale.getDefault().getLanguage() == "en"){
@@ -146,6 +168,11 @@ public class appointmentsController implements Initializable {
         }
     }
 
+    /***
+     * Method that takes the user back to the main menu.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backAppointmentClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
