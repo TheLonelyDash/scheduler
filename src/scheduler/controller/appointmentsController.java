@@ -192,6 +192,13 @@ public class appointmentsController implements Initializable {
         weekly.setText(rb.getString("weekly"));
         monthly.setText(rb.getString("monthly"));
         all.setText(rb.getString("all"));
+        descriptionCol.setText(rb.getString("description"));
+        titleCol.setText(rb.getString("title"));
+        locationCol.setText(rb.getString("location"));
+        contactCol.setText(rb.getString("contact"));
+        typeCol.setText(rb.getString("type"));
+        startDateCol.setText(rb.getString("startdateandtime"));
+        endDateCol.setText(rb.getString("enddateandtime"));
 
         try {
             appointments = appointmentSearch.getAllAppointments();
