@@ -40,16 +40,27 @@ public class customersController implements Initializable {
     @FXML TableColumn<?,?> customerAddressCol;
     @FXML TableColumn<?,?> customerDivisionIDCol;
 
-
+    /***
+     * A method that directs the user to the add customer gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void addCustomerClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/addCustomer.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Add Customer");
+        if(Locale.getDefault().getLanguage()=="en"){stage.setTitle("Add Customer");}
+        else{stage.setTitle("Ajouter un Client");}
         stage.show();
     }
 
+    /***
+     * A method that directs the user to the update customer gui.  It first checks to see if the user has selected a customer
+     * to update.  If not, it throws an alert telling them to do so.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void updateCustomerClick(ActionEvent actionEvent) throws IOException {
         updateCustomerController.getSelected(customerTableView.getSelectionModel().getSelectedItem());
         if (customerTableView.getSelectionModel().getSelectedItem() == null){
@@ -57,22 +68,13 @@ public class customersController implements Initializable {
             else {alerts.alert("Choisissez", "Vous n'avez pas choisi de client à mettre à jour.", "Veuillez choisir un client.");}
         }
         else {
-            if (Locale.getDefault().getLanguage() == "en"){
-                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
-                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Update Customer");
-                stage.show();
-            }
-            else {
-                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
-                Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Mettre à Jour le Client");
-                stage.show();
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/updateCustomer.fxml"));
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            if (Locale.getDefault().getLanguage() == "en"){stage.setTitle("Update Customer");}
+            else{stage.setTitle("Mettre à jour le client");}
+            stage.show();
         }
     }
 
@@ -82,13 +84,13 @@ public class customersController implements Initializable {
      * @param actionEvent
      */
     public void deleteCustomerClick(ActionEvent actionEvent) {
-        customer selected = customerTableView.getSelectionModel().getSelectedItem();
-        boolean condition = checkForAppointments(selected);
-        if (selected == null){
+        customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null){
             if (Locale.getDefault().getLanguage() == "en") {alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");}
             else {alerts.alert("Pas de choix.", "Un client n'a pas été sélectionné!", "Veuillez faire une sélection à supprimer.");}
         }
         else {
+            boolean condition = checkForAppointments(selectedCustomer);
             if (Locale.getDefault().getLanguage() == "en") {
                 alerts.alert("Are you sure?", "You are about to delete a customer.", "All customer information will be lost.");
                 if (condition == true){
@@ -121,7 +123,11 @@ public class customersController implements Initializable {
     }
 
 
-
+    /***
+     * This method is supposed to check if there are current appointments for a customer.
+     * @param selected
+     * @return
+     */
     private boolean checkForAppointments(customer selected) {
         try {
             ObservableList appointments = appointmentSearch.getAppointmentsByCustomerID(selected.getCustomerID());
@@ -135,7 +141,6 @@ public class customersController implements Initializable {
             e.printStackTrace();
             return false;
         }
-
     }
 
 
@@ -149,7 +154,8 @@ public class customersController implements Initializable {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Main Menu");
+        if(Locale.getDefault().getLanguage()=="en"){stage.setTitle("Main Menu");}
+        else{stage.setTitle("Menu principal");}
         stage.show();
     }
 

@@ -16,5 +16,20 @@ public class alerts {
         return (result.get() == ButtonType.OK);
     }
 
+    public static void alertI(String x, String y, String z){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(x);
+        alert.setHeaderText(y);
+        alert.setContentText(z);
+        alert.showAndWait();
+    }
+
+    public static void alertE(String x, String y, String z){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(x);
+        alert.setHeaderText(y);
+        alert.setContentText(z);
+        alert.showAndWait();
+    }
 
 }

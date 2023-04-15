@@ -142,24 +142,15 @@ public class appointmentsController implements Initializable {
                 try {
                     boolean deleteSuccessful = appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
                     if (deleteSuccessful) {
-                        alert = new Alert(Alert.AlertType.INFORMATION);
-                        if (Locale.getDefault().getLanguage() == "en"){
-                            alert.setTitle("Delete Complete!");
-                            alert.setContentText("The " + selectedAppointment.getType() + " appointment with " + selectedAppointment.getContactName() + " has been cancelled!");
-                        }
-                        else {
-                            alert.setTitle("Supprimer terminé!");
-                            alert.setContentText("Le rendez-vous " + selectedAppointment.getType() + " avec " + selectedAppointment.getContactName() +" a été annulé.");
-                        }
-                        alert.showAndWait();
+                        if(Locale.getDefault().getLanguage()=="en"){alerts.alertI("Delete Complete!", "The " + selectedAppointment.getType() + " appointment with " + selectedAppointment.getContactName() + " has been cancelled!", "It's done.");}
+                        else{alerts.alertI("Supprimer terminé!", "Le rendez-vous " + selectedAppointment.getType() + " avec " + selectedAppointment.getContactName() +" a été annulé.", "C'est fait.");}
                         appointments = appointmentSearch.getAllAppointments();
                         appointmentsTableView.setItems(appointments);
                         appointmentsTableView.refresh();
-                    } else {
-                        alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error/Erreur");
-                        alert.setContentText("Something happened.  It didn't work. Sorry, no deleting today./Quelque chose est arrivé. Cela n'a pas fonctionné. Désolé, pas de suppression aujourd'hui.");
-                        alert.showAndWait();
+                    }
+                    else {
+                        if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error!", "Something happened.  It didn't work. Sorry, no deleting today.", "It's done.");}
+                        else{alerts.alertE("Erreur!", "Quelque chose est arrivé. Cela n'a pas fonctionné. Désolé, pas de suppression aujourd'hui.", "C'est fait.");}
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
