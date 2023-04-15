@@ -58,18 +58,21 @@ public class updateAppointmentController implements Initializable {
         return ZonedDateTime.of(time, ZoneId.of(zoneId));
     }
 
+    /***
+     * This method saves the updates of a selected appointment.
+     * @param event
+     * @throws IOException
+     */
     public void upAppSaveClick(ActionEvent event) throws IOException {
-        boolean valid = validateAppointment(
+        boolean condition = validateAppointment(
                 upAppTitleText.getText(),
                 upAppDescriptionText.getText(),
                 locationCombo.getText(),
                 upAppIDText.getText()
         );
-
-        if (valid) {
+        if (condition == true) {
             try {
-
-                boolean success = appointmentSearch.updateAppointment(
+                boolean condition2 = appointmentSearch.updateAppointment(
                         upAppContactPick.getSelectionModel().getSelectedItem(),
                         upAppTitleText.getText(),
                         upAppDescriptionText.getText(),
@@ -81,10 +84,9 @@ public class updateAppointmentController implements Initializable {
                         upUserIDCombo.getSelectionModel().getSelectedItem(),
                         Integer.parseInt(upAppIDText.getText()));
 
-                if (success) {
+                if (condition2 == true) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Successfully updated appointment");
                     Optional<ButtonType> result = alert.showAndWait();
-
                     if (result.isPresent() && (result.get() ==  ButtonType.OK)) {
                         try {
                             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -93,47 +95,16 @@ public class updateAppointmentController implements Initializable {
                             stage.show();
                         } catch (Exception e) {
                             e.printStackTrace();
-                            alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Error Dialog");
-                            alert.setContentText("Load Screen Error.");
-                            alert.showAndWait();
                         }
                     }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Failed to update appointment");
-                    Optional<ButtonType> result = alert.showAndWait();
-
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Failed to update appointment", "Honesly, nobody knows why.");}
+                    else{alerts.alertE("Erreur", "Échec de la mise à jour du rendez-vous", "Honnêtement, personne ne sait pourquoi.");}
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-
-        /*
-        if (Locale.getDefault().getLanguage() == "en"){
-            if (alerts.alert("Add Appointment?", "Are you sure you'd like to save?", "Your changes will be saved")){
-                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
-                Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Appointments");
-                stage.show();
-            }
-        }
-        else {
-            if (alerts.alert("Ajouter un rendez-vous?", "Voulez-vous vraiment enregistrer?", "Vos modifications seront enregistrées")){
-                Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
-                Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.setTitle("Rendez-Vous");
-                stage.show();
-            }
-        }
-
-         */
     }
 
 
@@ -162,12 +133,18 @@ public class updateAppointmentController implements Initializable {
         }
     }
 
+    /***
+     * This method populates the type combo box with options.
+     */
     private void typeComboBox() {
         ObservableList<String> types = FXCollections.observableArrayList();
         types.addAll("Planning Session", "De-Briefing", "other");
         upTypeCombo.setItems(types);
     }
 
+    /***
+     * This method populates the User ID combo box with the available user IDs
+     */
     private void userIDComboBox() {
         ObservableList<Integer> userIDs = FXCollections.observableArrayList();
         try {
@@ -183,6 +160,9 @@ public class updateAppointmentController implements Initializable {
         upUserIDCombo.setItems(userIDs);
     }
 
+    /***
+     * This method populates the customer ID combo box with the available customer information.
+     */
     private void customerIDComboBox() {
         ObservableList<Integer> customerIDs = FXCollections.observableArrayList();
         try {
@@ -198,6 +178,9 @@ public class updateAppointmentController implements Initializable {
         upCustomerCombo.setItems(customerIDs);
     }
 
+    /***
+     * This method populates the contact combo box with the names of the available contacts.
+     */
     private void contactComboBox() {
         ObservableList<String> contacts = FXCollections.observableArrayList();
 
@@ -216,143 +199,116 @@ public class updateAppointmentController implements Initializable {
         upAppContactPick.setItems(contacts);
     }
 
+    /***
+     * This method populates the time comboboxes with available times
+     */
     private void timeComboBoxes() {
         ObservableList<String> time = FXCollections.observableArrayList();
-        LocalTime startTime = LocalTime.of(6, 0);
+        LocalTime startTime = LocalTime.of(7, 30);
         LocalTime endTime = LocalTime.of(20, 0);
         time.add(startTime.toString());
         while (startTime.isBefore(endTime)) {
             startTime = startTime.plusMinutes(5);
             time.add(startTime.toString());
         }
-
         upAppStartTimePick.setItems(time);
         upAppEndTimePick.setItems(time);
     }
 
-
-
-
-
-
-
-
-
+    /***
+     * This method checks all the inputs to ensure that they are completed.  If not completed, an alert informs the
+     * user what is missing.
+     * @param title
+     * @param description
+     * @param location
+     * @param appointmentId
+     * @return
+     */
     private boolean validateAppointment(String title, String description, String location, String appointmentId){
         if (upAppContactPick.getSelectionModel().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Contact is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Contact is a requirement.", "Please provide a contact.");}
+            else{alerts.alertE("Erreur", "Le contact est une exigence.", "Veuillez fournir un contact.");}
             return false;
         }
 
         if (title.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Title is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Title is a requirement", "Please provide a title.");}
+            else{alerts.alertE("Erreur", "Le titre est une exigence", "Veuillez fournir un titre.");}
             return false;
         }
 
         if (description.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Description is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Description is a requirement", "Please provide a description.");}
+            else{alerts.alertE("Erreur", "La description est obligatoire", "Veuillez fournir une description.");}
             return false;
         }
 
         if (location.isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Location is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Location is a requirement", "Please provide a location.");}
+            else{alerts.alertE("Erreur", "L'emplacement est une exigence", "Veuillez fournir un emplacement.");}
             return false;
         }
 
         if (upTypeCombo.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Type is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Type is a requirement", "Please provide a type.");}
+            else{alerts.alertE("Erreur", "Le type est une exigence", "Veuillez fournir un type.");}
             return false;
         }
 
         if (appointmentId.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointment ID is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointment ID is a requirement", "Please provide an Appointment ID.");}
+            else{alerts.alertE("Erreur", "L'ID de rendez-vous est obligatoire", "Veuillez fournir un ID de rendez-vous.");}
             return false;
         }
 
         if (upAppStartDatePick.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Start Date is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Start Date is a requirement", "Please provide a Start Date.");}
+            else{alerts.alertE("Erreur", "La date de début est une exigence", "Veuillez fournir une date de début.");}
             return false;
         }
 
         if (upAppStartTimePick.getSelectionModel().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Start Time is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Start Time is a requirement", "Please provide a Start Time.");}
+            else{alerts.alertE("Erreur", "L'heure de début est une exigence", "Veuillez fournir une heure de début.");}
             return false;
         }
 
         if (upAppEndDatePick.getValue() == null){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("End Date is required.");
-            alert.showAndWait();
-            return false;
-        }
-
-        if (upAppEndDatePick.getValue().isBefore(upAppStartDatePick.getValue())) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("End Date must be after Start Date.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "End Date is a requirement", "Please provide a End Date.");}
+            else{alerts.alertE("Erreur", "La date de fin est une exigence", "Veuillez fournir une date de fin.");}
             return false;
         }
 
         if (upAppEndTimePick.getSelectionModel().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("End Time is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "End Time is a requirement", "Please provide a End Time.");}
+            else{alerts.alertE("Erreur", "L'heure de fin est une exigence", "Veuillez fournir une heure de fin.");}
+            return false;
+        }
+
+        if (upAppEndDatePick.getValue().isBefore(upAppStartDatePick.getValue())) {
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Start Date must be before End Date", "Please check your dates.");}
+            else{alerts.alertE("Erreur", "La date de début doit être antérieure à la date de fin", "Veuillez vérifier vos dates.");}
             return false;
         }
 
         if (upCustomerCombo.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Customer ID is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Customer ID is a requirement", "Please provide a Customer ID.");}
+            else{alerts.alertE("Erreur", "L'identifiant client est obligatoire", "Veuillez fournir un identifiant client.");}
             return false;
         }
 
         if (upUserIDCombo.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("User ID is required.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "User ID is a requirement", "Please provide a User ID.");}
+            else{alerts.alertE("Erreur", "L'ID utilisateur est requis", "Veuillez fournir un ID utilisateur.");}
             return false;
         }
-
-        // additional date validation
 
         LocalTime startTime = LocalTime.parse((CharSequence) upAppStartTimePick.getSelectionModel().getSelectedItem());
         LocalTime endTime = LocalTime.parse((CharSequence) upAppEndTimePick.getSelectionModel().getSelectedItem());
 
         if (endTime.isBefore(startTime)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointment start time must be before end time.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Start time must be prior to end time!", "Please provide correct times.");}
+            else{alerts.alertE("Erreur", "L'heure de début doit être antérieure à l'heure de fin !", "Veuillez fournir des heures correctes.");}
             return false;
         };
 
@@ -360,12 +316,12 @@ public class updateAppointmentController implements Initializable {
         LocalDate endDate = upAppEndDatePick.getValue();
 
         if (!startDate.equals(endDate)){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointments must start and end on the same date.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Your appointment dates need to be on the same day.", "Please provide correct dates.");}
+            else{alerts.alertE("Erreur", "Vos dates de rendez-vous doivent être le même jour.", "Veuillez fournir des dates correctes.");}
             return false;
         };
+
+
 
         // Check for overlapping appointments
 
@@ -383,16 +339,12 @@ public class updateAppointmentController implements Initializable {
                 proposedAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
 
                 if (proposedAppointmentStart.isAfter(selectedStart) && proposedAppointmentStart.isBefore(selectedEnd)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Appointments must not overlap with existing customer appointments.");
-                    alert.showAndWait();
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
                 } else if (proposedAppointmentEnd.isAfter(selectedStart) && proposedAppointmentEnd.isBefore(selectedEnd)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Appointments must not overlap with existing customer appointments.");
-                    alert.showAndWait();
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
                 }
             }
@@ -400,50 +352,48 @@ public class updateAppointmentController implements Initializable {
             e.printStackTrace();
         }
 
-        // check if between business hours
         StartDateTimeConversion = convertToEST(LocalDateTime.of(upAppStartDatePick.getValue(), LocalTime.parse((CharSequence) upAppStartTimePick.getSelectionModel().getSelectedItem())));
         EndDateTimeConversion = convertToEST(LocalDateTime.of(upAppEndDatePick.getValue(), LocalTime.parse((CharSequence) upAppEndTimePick.getSelectionModel().getSelectedItem())));
 
         if (StartDateTimeConversion.toLocalTime().isAfter(LocalTime.of(22, 0))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointments must be within business hours 8AM - 10PM EST.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
+            else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
-
         if (EndDateTimeConversion.toLocalTime().isAfter(LocalTime.of(22, 0))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointments must be within business hours 8AM - 10PM EST.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
+            else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
-
         if (StartDateTimeConversion.toLocalTime().isBefore(LocalTime.of(8, 0))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointments must be within business hours 8AM - 10PM EST.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
+            else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
-
         if (EndDateTimeConversion.toLocalTime().isBefore(LocalTime.of(8, 0))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Appointments must be within business hours 8AM - 10PM EST.");
-            alert.showAndWait();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
+            else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
 
         return true;
     }
 
-
+    /***
+     * This is a method that converts a time into Easter Standard Time
+     * @param time
+     * @return
+     */
     private ZonedDateTime convertToEST(LocalDateTime time) {
         return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
     }
 
+    /***
+     * This method converts any time into another. General conversion.
+     * @param time
+     * @param zoneId
+     * @return
+     */
     private ZonedDateTime convertToTimeZone(LocalDateTime time, String zoneId) {
         return ZonedDateTime.of(time, ZoneId.of(zoneId));
     }

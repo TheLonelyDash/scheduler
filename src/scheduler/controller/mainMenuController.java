@@ -23,7 +23,11 @@ public class mainMenuController implements Initializable {
     @FXML Button mainMenuExit;
 
 
-
+    /***
+     * This method takes the user to the appointments gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void mainMenuAppointmentsClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -34,6 +38,11 @@ public class mainMenuController implements Initializable {
         stage.show();
     }
 
+    /***
+     * This method takes the user to the customers gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void mainMenuCustomersClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/customers.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -44,7 +53,11 @@ public class mainMenuController implements Initializable {
         stage.show();
     }
 
-
+    /***
+     * This method takes the user to the reports gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void mainMenuReportsClick(ActionEvent actionEvent) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/reports.fxml"));
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();

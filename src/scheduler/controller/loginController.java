@@ -68,16 +68,9 @@ public class loginController implements Initializable {
                 condition = true;
             }
         }
-        if (condition == true){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Upcoming Appointment!\n\nAppointmentID: " + appID + "\nCurrent Time: " + currTime + "\nAppointment Time: " + appTime);
-            Optional<ButtonType> confirmation = alert.showAndWait();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "There are no appointments within the next 15 minutes");
-            Optional<ButtonType> confirmation = alert.showAndWait();
-        }
 
         createFile();
+
         if (usernameTextField.getText().isEmpty()) {
             if (Locale.getDefault().getLanguage() == "en") {alerts.alert("Username", "No username was provided.", "Please enter a valid username!");}
             else {alerts.alert("Nom d'Utilisateur", "Aucun nom d'utilisateur fourni.", "Veuillez saisir un nom d'utilisateur valide!");}
@@ -87,8 +80,8 @@ public class loginController implements Initializable {
             else {alerts.alert("Mot de passe", "Aucun mot de passe n'a été fourni.", "Veuillez saisir un mot de passe valide!");}
         }
         else {
-            boolean condition = userSearch.checkNameAndPassword(usernameTextField.getText(), passwordTextField.getText());
-            if (condition == true) {
+            boolean valid = userSearch.checkNameAndPassword(usernameTextField.getText(), passwordTextField.getText());
+            if (valid == true) {
                 successfulLogin();
                 Parent root = FXMLLoader.load(getClass().getResource("/scheduler/view/mainMenu.fxml"));
                 Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -97,6 +90,14 @@ public class loginController implements Initializable {
                 if (Locale.getDefault().getLanguage() == "en") {stage.setTitle("Main Menu");}
                 else {stage.setTitle("Menu Principal");}
                 stage.show();
+                if (condition == true){
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alert("Upcoming Appointment!", "Upcoming Appointment!\n\nAppointmentID: " + appID + "\nCurrent Time: " + currTime + "\nAppointment Time: " + appTime, "Check it out!");}
+                    else{alerts.alert("Rendez-vous à venir!", "Rendez-vous à venir !\n\nAppointmentID: " + appID + "\nCurrent Time: " + currTime + "\nAppointment Time: " + appTime, "Vérifiez-le!");}
+                }
+                else {
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alert("No Upcoming Appointments", "There are no appointments within the next 15 minutes", "Check it out!");}
+                    else{alerts.alert("Aucun rendez-vous à venir", "Il n'y a pas de rendez-vous dans les 15 prochaines minutes", "Vérifiez-le!");}
+                }
             }
             else {
                 unsuccessfulLogin();
@@ -106,7 +107,10 @@ public class loginController implements Initializable {
         }
     }
 
-
+    /***
+     * This method closes the program.  It first throws an alert asking if the user is sure they would like to close the program.
+     * @param actionEvent
+     */
     @FXML
     public void exitButtonClick(ActionEvent actionEvent) {
         if (Locale.getDefault().getLanguage() == "en"){
@@ -124,6 +128,10 @@ public class loginController implements Initializable {
         return "login_activity.txt";
     };
 
+    /***
+     * This method creates a new file to store the login and logout activity in the program. If the file has already
+     * been created, it will print out the files location.
+     */
     private void createFile(){
         try {
             File newFile = new File(logActivity.getFileName());
@@ -133,6 +141,9 @@ public class loginController implements Initializable {
         catch (IOException e){e.printStackTrace();}
     }
 
+    /***
+     * This method writes the login information for the successful logins.
+     */
     private void successfulLogin(){
         try {
             FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
@@ -145,6 +156,9 @@ public class loginController implements Initializable {
         catch (IOException e) {e.printStackTrace();}
     }
 
+    /***
+     * This method writes the login information for the UNsuccessful logins.
+     */
     private void unsuccessfulLogin() {
         try {
             FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
