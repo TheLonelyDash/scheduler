@@ -108,8 +108,11 @@ public class updateAppointmentController implements Initializable {
     }
 
 
-
-
+    /***
+     * Method that allows the user to abandon their changes and get redirected to the appointments gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void upAppCancelClick(ActionEvent actionEvent) throws IOException {
         if (Locale.getDefault().getLanguage() == "en"){
             if (alerts.alert("Cancel?", "Are you sure you'd like to cancel?", "Your changes will be lost.")){

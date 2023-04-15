@@ -108,10 +108,13 @@ public class updateCustomerController implements Initializable {
         }
     }
 
-
-
-
-
+    /***
+     * Method that saves the updated information for each customer. It ensures that all of the text fields are completed
+     * (combo boxes are always completed) and then asks if the user is ready to commit to the changes.  It then directs
+     * the user back to the customers gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void saveClick(ActionEvent actionEvent) throws IOException {
         boolean condition = evaluateEmptyTextField(nameText.getText(), addressText.getText(), postalCodeText.getText(), phoneText.getText());
         if (condition == true){
@@ -148,7 +151,7 @@ public class updateCustomerController implements Initializable {
                         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                         Scene scene = new Scene(root);
                         stage.setScene(scene);
-                        stage.setTitle("Customers");
+                        stage.setTitle("Clients");
                         stage.show();
                     }
                 }
@@ -161,7 +164,7 @@ public class updateCustomerController implements Initializable {
 
 
     /***
-     * this method takes the input from the textFields and ensures that they are filled out.
+     * This method takes the input from the textFields and ensures that they are filled out.
      * @param name
      * @param address
      * @param postalCode
@@ -170,39 +173,23 @@ public class updateCustomerController implements Initializable {
      */
     private boolean evaluateEmptyTextField(String name, String address, String postalCode, String phone){
         if (name.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Name", "The Name TextField is Empty!", "Please provide a Name.");
-            }
-            else{
-                alerts.alert("Sans nom", "Le champ de texte du nom est vide", "Veuillez fournir un nom.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Name", "The Name TextField is Empty!", "Please provide a Name.");}
+            else{alerts.alert("Sans nom", "Le champ de texte du nom est vide", "Veuillez fournir un nom.");}
             return false;
         }
         if (address.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Address", "The Address TextField is Empty!", "Please provide an Address.");
-            }
-            else{
-                alerts.alert("pas d'adresse", "le champ de texte de l'adresse est vide.", "Merci de fournir une adresse.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Address", "The Address TextField is Empty!", "Please provide an Address.");}
+            else{alerts.alert("pas d'adresse", "le champ de texte de l'adresse est vide.", "Merci de fournir une adresse.");}
             return false;
         }
         if (phone.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Phone Number", "The Phone Number TextField is Empty!", "Please provide a Phone Number.");
-            }
-            else{
-                alerts.alert("Pas de numéro de téléphone", "Le champ de texte du numéro de téléphone est vide !", "Veuillez fournir un numéro de téléphone.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Phone Number", "The Phone Number TextField is Empty!", "Please provide a Phone Number.");}
+            else{alerts.alert("Pas de numéro de téléphone", "Le champ de texte du numéro de téléphone est vide !", "Veuillez fournir un numéro de téléphone.");}
             return false;
         }
         if (postalCode.isEmpty()){
-            if (Locale.getDefault().getLanguage() == "en"){
-                alerts.alert("No Postal Code", "The Postal Code TextField is Empty!", "Please provide a postal code.");
-            }
-            else{
-                alerts.alert("Aucun code postal", "Le champ de texte du code postal est vide !", "Veuillez fournir un code postal.");
-            }
+            if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Postal Code", "The Postal Code TextField is Empty!", "Please provide a postal code.");}
+            else{alerts.alert("Aucun code postal", "Le champ de texte du code postal est vide !", "Veuillez fournir un code postal.");}
             return false;
         }
         return true;
@@ -248,7 +235,6 @@ public class updateCustomerController implements Initializable {
         setCountryComboBox();
         setDivisionIdComboBox();
 
-
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         updateCustomer.setText(rb.getString("updateCustomer"));
         save.setText(rb.getString("addAppSave"));
@@ -270,7 +256,6 @@ public class updateCustomerController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //divisionIdComboBox.getSelectionModel().select(selected.getCustomerDivisionID());
 
     }
 
