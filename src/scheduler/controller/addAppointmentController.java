@@ -62,6 +62,13 @@ public class addAppointmentController implements Initializable {
         return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
     }
 
+    /***
+     * This method retrieves a new appointment ID and then checks that all of the appointment textfields are filled out.  If they are filled out, it then checks that all of the combo boxes and date/times have been selected.
+     * If everything is filled out, it adds the appointment using the addAppointment method and redirects the user back to the appointments screen.
+     * @param actionEvent initializes the stage to move the user back to the appointments screen.
+     * @throws IOException
+     * @throws SQLException
+     */
     public void addAppSaveClick(ActionEvent actionEvent) throws IOException, SQLException {
         addAppIDText.setText(getID());
         boolean condition = appointmentCheck(
@@ -71,7 +78,7 @@ public class addAppointmentController implements Initializable {
                 addAppIDText.getText()
                 );
         if (condition == true){
-            boolean valid = appointmentSearch.addAppointment(
+            boolean condition2 = appointmentSearch.addAppointment(
                     addAppContactPick.getSelectionModel().getSelectedItem(),
                     addAppTitleText.getText(),
                     addAppDescriptionText.getText(),
@@ -82,7 +89,7 @@ public class addAppointmentController implements Initializable {
                     customerIDCombo.getSelectionModel().getSelectedItem(),
                     addAppUserIDCombo.getSelectionModel().getSelectedItem()
             );
-            if (valid != true){
+            if (condition2 != true){
                 if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Save failed.", "What the heck?! Are you sure everything is filled in?", "Please check that everything is valid.");}
                 else {alerts.alert("Échec de la sauvegarde.", "Que diable?! Es-tu sûr que tout est rempli ?", "Veuillez vérifier que tout est valide.");}
             }
@@ -97,6 +104,7 @@ public class addAppointmentController implements Initializable {
             }
         }
     }
+
 
     private String getID() throws SQLException {
         int [] arr = new int[appointmentSearch.getAllAppointments().size()];
