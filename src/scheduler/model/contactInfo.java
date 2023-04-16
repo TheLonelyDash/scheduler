@@ -1,5 +1,9 @@
 package scheduler.model;
 
+/***
+ * The contactInfo class is generally used as a model for the applications contacts.  It is useful for it's getters
+ * of contact ID and contact name.
+ */
 public class contactInfo {
     private int contact_ID;
     private String contactName;

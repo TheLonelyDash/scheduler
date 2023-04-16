@@ -3,6 +3,9 @@ package scheduler.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/***
+ * The appointment class is the model for all appointment objects.
+ */
 public class appointment {
     private int user_ID;
     private String description;
@@ -18,20 +21,7 @@ public class appointment {
     private String title;
     private int appointment_ID;
 
-    public appointment (
-                        int appointment_ID,
-                        String title,
-                        String description,
-                        String location,
-                        String type,
-                        LocalDate startDate,
-                        LocalDateTime startTime,
-                        LocalDate endDate,
-                        LocalDateTime endTime,
-                        int customer_ID,
-                        int user_ID,
-                        int contact_ID,
-                        String contactName){
+    public appointment (int appointment_ID, String title, String description, String location, String type, LocalDate startDate, LocalDateTime startTime, LocalDate endDate, LocalDateTime endTime, int customer_ID, int user_ID, int contact_ID, String contactName){
         this.appointment_ID = appointment_ID;
         this.title = title;
         this.description = description;

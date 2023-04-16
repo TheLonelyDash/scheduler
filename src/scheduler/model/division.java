@@ -1,5 +1,8 @@
 package scheduler.model;
 
+/***
+ * The division class is the model for the applications divisions.  It is generally used for it's getter of division ID.
+ */
 public class division {
 
     private int divisionId;

@@ -1,5 +1,8 @@
 package scheduler.model;
 
+/***
+ * The customer class is the model for customers in the application. Generally used for it's getters.
+ */
 public class customer {
 
     private int customerID;
@@ -10,15 +13,7 @@ public class customer {
     private String customerCountry;
     private int customerDivisionID;
 
-    public customer(
-            int customerID,
-            String customerName,
-            String customerPostalCode,
-            String customerPhoneNumber,
-            String customerAddress,
-            String customerCountry,
-            int customerDivisionID
-    ){
+    public customer(int customerID, String customerName, String customerPostalCode, String customerPhoneNumber, String customerAddress, String customerCountry, int customerDivisionID){
         this.customerAddress = customerAddress;
         this.customerCountry = customerCountry;
         this.customerDivisionID = customerDivisionID;

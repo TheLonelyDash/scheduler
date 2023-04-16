@@ -1,5 +1,8 @@
 package scheduler.model;
 
+/***
+ * The country class is the model for each country in the application.  It is generally used to get country names and IDs.
+ */
 public class country {
 
     private int countryId;
