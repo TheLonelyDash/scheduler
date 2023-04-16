@@ -175,6 +175,7 @@ public class customersController implements Initializable {
         customerAddressCol.setText(rb.getString("address"));
         customerCountryCol.setText(rb.getString("countrycol"));
         customerDivisionIDCol.setText(rb.getString("divisionID"));
+        customerRecords.setText(rb.getString("customerRecords"));
 
         try{
             customers = customerSearch.getAllCustomers();

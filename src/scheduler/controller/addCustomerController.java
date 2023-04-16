@@ -29,16 +29,24 @@ import java.util.ResourceBundle;
 
 public class addCustomerController implements Initializable {
 
-    @FXML Button save;
-    @FXML Button cancel;
-    @FXML Label addCustomer;
-    @FXML ComboBox<String> countryComboBox;
-    @FXML ComboBox<String> divisionIdComboBox;
+    @FXML private Button save;
+    @FXML private Button cancel;
+    @FXML private Label addCustomer;
+    @FXML private Label name;
+    @FXML private Label phone;
+    @FXML private Label address;
+    @FXML private Label postalCode;
+    @FXML private Label country;
+    @FXML private Label divisionId;
 
-    @FXML TextField nameText;
-    @FXML TextField phoneText;
-    @FXML TextField postalCodeText;
-    @FXML TextField addressText;
+
+    @FXML private ComboBox<String> countryComboBox;
+    @FXML private ComboBox<String> divisionIdComboBox;
+
+    @FXML private TextField nameText;
+    @FXML private TextField phoneText;
+    @FXML private TextField postalCodeText;
+    @FXML private TextField addressText;
 
     public void saveClick(ActionEvent actionEvent) throws IOException {
         boolean condition = evaluateEmptyTextField(nameText.getText(), addressText.getText(), postalCodeText.getText(), phoneText.getText());
@@ -210,8 +218,13 @@ public class addCustomerController implements Initializable {
         addCustomer.setText(rb.getString("addCustomer"));
         save.setText(rb.getString("addAppSave"));
         cancel.setText(rb.getString("addAppCancel"));
-
-
+        addCustomer.setText(rb.getString("addCustomer"));
+        name.setText(rb.getString("name"));
+        phone.setText(rb.getString("phonenumber"));
+        address.setText(rb.getString("address"));
+        postalCode.setText(rb.getString("postalcode"));
+        country.setText(rb.getString("countrycol"));
+        divisionId.setText(rb.getString("divisionID"));
 
     }
 }
