@@ -164,7 +164,7 @@ public class appointmentsController implements Initializable {
                 try {
                     boolean deleteSuccessful = appointmentSearch.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
                     if (deleteSuccessful) {
-                        if(Locale.getDefault().getLanguage()=="en"){alerts.alertI("Delete Complete!", "The " + selectedAppointment.getType() + " appointment with " + selectedAppointment.getContactName() + " has been cancelled!", "It's done.");}
+                        if(Locale.getDefault().getLanguage()=="en"){alerts.alertI("Delete Complete!", "The " + selectedAppointment.getType() + " appointment with " + selectedAppointment.getContactName() + " has been cancelled!\nDeleted Appointment ID: " + selectedAppointment.getAppointment_ID(), "It's done.");}
                         else{alerts.alertI("Supprimer terminé!", "Le rendez-vous " + selectedAppointment.getType() + " avec " + selectedAppointment.getContactName() +" a été annulé.", "C'est fait.");}
                         appointments = appointmentSearch.getAllAppointments();
                         appointmentsTableView.setItems(appointments);
