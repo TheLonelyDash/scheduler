@@ -15,8 +15,12 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * This class controls the main menu of the application, which consists of four buttons.
+ */
 public class mainMenuController implements Initializable {
 
+    //Buttons
     @FXML Button mainMenuAppointments;
     @FXML Button mainMenuCustomers;
     @FXML Button mainMenuReports;
@@ -38,6 +42,7 @@ public class mainMenuController implements Initializable {
         stage.show();
     }
 
+
     /***
      * This method takes the user to the customers gui.
      * @param actionEvent
@@ -53,6 +58,7 @@ public class mainMenuController implements Initializable {
         stage.show();
     }
 
+
     /***
      * This method takes the user to the reports gui.
      * @param actionEvent
@@ -67,6 +73,7 @@ public class mainMenuController implements Initializable {
         else {stage.setTitle("Menu des Rapports");}
         stage.show();
     }
+
 
     /***
      * This creates an alert when the user clicks on the log out button from the main menue.  If they choose OK to log out, it will direct them back to the log in screen.  Otherwise it will remove the alert and allow them to continue.
@@ -94,15 +101,9 @@ public class mainMenuController implements Initializable {
                 stage.show();
             }
         }
-
-
     }
 
-    /***
-     * This is the initializable method for the main menu.
-     * @param url this is the URL for the initializable method of the main menu.
-     * @param resourceBundle this is the resourceBundle for the main menu.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());

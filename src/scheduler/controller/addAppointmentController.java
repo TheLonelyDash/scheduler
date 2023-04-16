@@ -16,10 +16,8 @@ import scheduler.utilities.appointmentSearch;
 import scheduler.utilities.contactSearch;
 import scheduler.utilities.customerSearch;
 import scheduler.utilities.userSearch;
-
 import java.sql.SQLException;
 import java.time.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -28,11 +26,16 @@ import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * This class controls the gui when adding an appointment to the scheduler.
+ */
 public class addAppointmentController implements Initializable {
 
+    //Buttons
     @FXML private Button addAppSave;
     @FXML private Button addAppCancel;
 
+    //Labels
     @FXML private Label addAnAppointment;
     @FXML private Label addAppTitle;
     @FXML private Label addAppDescription;
@@ -46,8 +49,7 @@ public class addAppointmentController implements Initializable {
     @FXML private Label addAppCustomer;
     @FXML private Label addAppUser;
 
-
-
+    //Combo Boxes
     @FXML private ComboBox<Integer> customerIDCombo;
     @FXML private ComboBox<Integer> addAppUserIDCombo;
     @FXML private ComboBox addAppStartTimePick;
@@ -55,16 +57,21 @@ public class addAppointmentController implements Initializable {
     @FXML private ComboBox<String> addAppContactPick;
     @FXML private ComboBox addAppTypeCombo;
 
+    //Date Pickers
     @FXML private DatePicker addAppStartDatePick;
     @FXML private DatePicker addAppEndDatePick;
 
+    //Time Zone Conversions
     private ZonedDateTime startDTConversion;
     private ZonedDateTime endDTConversion;
 
+    //TextFields
     @FXML private TextField addAppTitleText;
     @FXML private TextField addAppDescriptionText;
     @FXML private TextField addAppLocation;
     @FXML private TextField addAppIDText;
+
+
 
     /***
      * Converts the local date and time to Eastern Standard Time.
@@ -74,6 +81,7 @@ public class addAppointmentController implements Initializable {
     private ZonedDateTime convertToEST(LocalDateTime time){
         return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
     }
+
 
     /***
      * This method retrieves a new appointment ID and then checks that all of the appointment textfields are filled out.  If they are filled out, it then checks that all of the combo boxes and date/times have been selected.
@@ -119,6 +127,12 @@ public class addAppointmentController implements Initializable {
     }
 
 
+    /***
+     * This method was going to be used to appropriate a new appointment ID when an appointment is created.  It appears not to work,
+     * but will be kept for future use.
+     * @return
+     * @throws SQLException
+     */
     private String getID() throws SQLException {
         int[] arr = new int[appointmentSearch.getAllAppointments().size()];
         for(int i = 0; i < appointmentSearch.getAllAppointments().size(); i++){
@@ -132,6 +146,7 @@ public class addAppointmentController implements Initializable {
         }
         return String.valueOf(answer);
     }
+
 
     /***
      * This method check that all the pickers and combo boxes have been utilized and returns an alert if they have not.
@@ -224,6 +239,7 @@ public class addAppointmentController implements Initializable {
             return false;
         };
 
+        //Initiate values for start and ends dates of appointments
         LocalDate startDate = addAppStartDatePick.getValue();
         LocalDate endDate = addAppEndDatePick.getValue();
 
@@ -326,6 +342,7 @@ public class addAppointmentController implements Initializable {
         }
     }
 
+
     /***
      * Method to populate the type combo box with options.
      */
@@ -351,6 +368,7 @@ public class addAppointmentController implements Initializable {
         addAppUserIDCombo.setItems(userIDs);
     }
 
+
     /***
      * Method to populate the customer ID combo box.
      */
@@ -368,6 +386,7 @@ public class addAppointmentController implements Initializable {
         }
         customerIDCombo.setItems(customerIDs);
     }
+
 
     /***
      * Method to populate the contacts combo box.
@@ -390,8 +409,9 @@ public class addAppointmentController implements Initializable {
         addAppContactPick.setItems(contacts);
     }
 
+
     /***
-     * Method that populates the time combobox
+     * Method that populates the time combo box
      */
     private void timeComboBoxes() {
         ObservableList<String> time = FXCollections.observableArrayList();
@@ -406,6 +426,7 @@ public class addAppointmentController implements Initializable {
         addAppStartTimePick.setItems(time);
         addAppEndTimePick.setItems(time);
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

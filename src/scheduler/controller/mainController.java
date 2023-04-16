@@ -5,6 +5,9 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/***
+ * This is the main controller method.
+ */
 public class mainController implements Initializable {
 
     @Override

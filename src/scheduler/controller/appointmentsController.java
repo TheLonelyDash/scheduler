@@ -22,21 +22,35 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/***
+ * This class controls the appointments gui.
+ */
 public class appointmentsController implements Initializable {
 
+    //Labels
     @FXML Label appointmentsAppointmentsLabel;
+
+    //Buttons
     @FXML Button addAppointment;
     @FXML Button updateAppointment;
     @FXML Button deleteAppointment;
     @FXML Button backAppointment;
+
+    //Radio Buttons
     @FXML RadioButton weekly;
     @FXML RadioButton monthly;
     @FXML RadioButton all;
+
+    //ToggleGroups
     @FXML private ToggleGroup toggleView;
 
+    //Lists
     static ObservableList<appointment> appointments;
+
+    //TableViews
     @FXML TableView<appointment> appointmentsTableView;
 
+    //TableColumns
     @FXML private TableColumn<?, ?> appointment_IDCol;
     @FXML private TableColumn<?, ?> titleCol;
     @FXML private TableColumn<?, ?> descriptionCol;
@@ -49,6 +63,11 @@ public class appointmentsController implements Initializable {
     @FXML private TableColumn<?, ?> user_IDCol;
 
 
+    /***
+     * This method controls the three radio buttons on the appointments screen. Each calls a method to organize the
+     * appointments by upcoming week, upcoming, month, or all appointments.
+     * @param event
+     */
     @FXML
     void viewToggle(ActionEvent event) {
         if (all.isSelected()) {
@@ -78,6 +97,7 @@ public class appointmentsController implements Initializable {
         }
     }
 
+
     /***
      * Method that takes the user to the add appointments gui.
      * @param actionEvent
@@ -92,6 +112,7 @@ public class appointmentsController implements Initializable {
         else {stage.setTitle("Ajouter un rendez-vous");}
         stage.show();
     }
+
 
     /***
      * Method that takes the user to the update appointments gui by first taking the selected item.  If no item has
@@ -117,6 +138,7 @@ public class appointmentsController implements Initializable {
             else{alerts.alert("Pas de choix", "Vous devez faire une sélection.", "Veuillez choisir un rendez-vous à mettre à jour.");}
         }
     }
+
 
     /***
      * This method deletes an appointment from the appointments table.  If the user does not make a selection, an alert is thrown
@@ -158,6 +180,7 @@ public class appointmentsController implements Initializable {
             }
         }
     }
+
 
     /***
      * Method that takes the user back to the main menu.

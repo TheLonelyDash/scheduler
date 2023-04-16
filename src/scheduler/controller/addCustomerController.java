@@ -27,10 +27,16 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * This class is used to control the add customer gui.
+ */
 public class addCustomerController implements Initializable {
 
+    //Buttons
     @FXML private Button save;
     @FXML private Button cancel;
+
+    //Labels
     @FXML private Label addCustomer;
     @FXML private Label name;
     @FXML private Label phone;
@@ -39,17 +45,25 @@ public class addCustomerController implements Initializable {
     @FXML private Label country;
     @FXML private Label divisionId;
 
-
+    //Combo Boxes
     @FXML private ComboBox<String> countryComboBox;
     @FXML private ComboBox<String> divisionIdComboBox;
 
+    //TextFields
     @FXML private TextField nameText;
     @FXML private TextField phoneText;
     @FXML private TextField postalCodeText;
     @FXML private TextField addressText;
 
+
+    /***
+     * This method is used to save the information of a new customer.  It first checks if the fields are filled.  If they are, then an alert will ask the user
+     * if they are ready to save. It then adds the customer to the database and moves the user to the customers gui.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void saveClick(ActionEvent actionEvent) throws IOException {
-        boolean condition = evaluateEmptyTextField(nameText.getText(), addressText.getText(), postalCodeText.getText(), phoneText.getText());
+        boolean condition = evaluateEmptyFields(nameText.getText(), addressText.getText(), postalCodeText.getText(), phoneText.getText());
         if (condition == true){
             try {
                 if (Locale.getDefault().getLanguage() == "en"){
@@ -80,6 +94,7 @@ public class addCustomerController implements Initializable {
         }
     }
 
+
     /***
      * This method asks the user if they are sure they would like to cancel their add customer action.  If so, it redirects them to the
      * customers screen. Otherwise, it allows tehm to continue to add a customer.
@@ -109,6 +124,7 @@ public class addCustomerController implements Initializable {
         }
     }
 
+
     /***
      * Method that populates the combo box on the add customer stage with the three available countries for the company.
      */
@@ -127,6 +143,7 @@ public class addCustomerController implements Initializable {
         }
         countryComboBox.setItems(ListOfCountries);
     }
+
 
     /***
      * Method that populates the combo box on the add and update customer stage with the three available countries for the company.
@@ -147,6 +164,7 @@ public class addCustomerController implements Initializable {
         divisionIdComboBox.setItems(ListOfDivisionIds);
     }
 
+
     /***
      * This method takes in the text parameters of the customer name, address, postal code, and phone number and if one of the textfields are empty upon saving, it will provide an alert.
      * @param name the customer name
@@ -155,7 +173,7 @@ public class addCustomerController implements Initializable {
      * @param phone the customer phone number
      * @return boolean true/false depending on if there are any empty textfields
      */
-    private boolean evaluateEmptyTextField(String name, String address, String postalCode, String phone){
+    private boolean evaluateEmptyFields(String name, String address, String postalCode, String phone){
         if (name.isEmpty()){
             if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Name", "The Name TextField is Empty!", "Please provide a Name.");}
             else{alerts.alert("Sans nom", "Le champ de texte du nom est vide", "Veuillez fournir un nom.");}
@@ -189,6 +207,7 @@ public class addCustomerController implements Initializable {
         return true;
     }
 
+
     /***
      * This method populates the division combobox so the user may choose what is available in their country.
      * @param event
@@ -207,6 +226,7 @@ public class addCustomerController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

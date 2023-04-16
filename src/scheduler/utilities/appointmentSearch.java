@@ -143,7 +143,6 @@ public class appointmentSearch {
         preparedStatement.setInt(7, customer_ID);
         preparedStatement.setInt(8, contact.getContact_ID());
         preparedStatement.setInt(9, user_ID);
-
         try {
             preparedStatement.execute();
             if (preparedStatement.getUpdateCount() > 0) {

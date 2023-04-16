@@ -28,9 +28,11 @@ import java.util.TimeZone;
 
 public class updateAppointmentController implements Initializable {
 
+    //Dates and Times
     private ZonedDateTime StartDateTimeConversion;
     private ZonedDateTime EndDateTimeConversion;
 
+    //Labels
     @FXML private Label updateAnAppointment;
     @FXML private Label upAppTitle;
     @FXML private Label upAppDescription;
@@ -44,31 +46,53 @@ public class updateAppointmentController implements Initializable {
     @FXML private Label upAppCustomer;
     @FXML private Label upAppUser;
 
+    //Buttons
     @FXML private Button upAppSave;
     @FXML private Button upAppCancel;
+
+    //Combo Boxes
     @FXML private ComboBox<String> upTypeCombo;
     @FXML private ComboBox<Integer> upUserIDCombo;
     @FXML private ComboBox<String> upAppContactPick;
     @FXML private ComboBox<Integer> upCustomerCombo;
     @FXML private ComboBox<String> upAppStartTimePick;
     @FXML private ComboBox<String> upAppEndTimePick;
+
+    //Text Fields
     @FXML private TextField upAppTitleText;
     @FXML private TextField upAppDescriptionText;
     @FXML private TextField locationCombo;
     @FXML private TextField upAppIDText;
 
+    //Date Pickers
     @FXML DatePicker upAppStartDatePick;
     @FXML DatePicker upAppEndDatePick;
 
+
+    /***
+     * The selected appointment for modification.
+     */
     private static appointment selectedAppointment;
 
+
+    /***
+     * Method that gets the selected appointment
+     * @param appointment
+     */
     public static void getSelectedAppointment(appointment appointment) {
         selectedAppointment = appointment;
     }
 
+    /***
+     * A method that converts the local time zone into the time zone of the user.
+     * @param time
+     * @param zoneId
+     * @return
+     */
     private ZonedDateTime convertTZ(LocalDateTime time, String zoneId) {
         return ZonedDateTime.of(time, ZoneId.of(zoneId));
     }
+
 
     /***
      * This method saves the updates of a selected appointment.
@@ -148,6 +172,7 @@ public class updateAppointmentController implements Initializable {
         }
     }
 
+
     /***
      * This method populates the type combo box with options.
      */
@@ -157,6 +182,7 @@ public class updateAppointmentController implements Initializable {
         else{types.addAll("Séance de Planification", "Compte Rendu", "Autre");}
         upTypeCombo.setItems(types);
     }
+
 
     /***
      * This method populates the User ID combo box with the available user IDs
@@ -176,6 +202,7 @@ public class updateAppointmentController implements Initializable {
         upUserIDCombo.setItems(userIDs);
     }
 
+
     /***
      * This method populates the customer ID combo box with the available customer information.
      */
@@ -193,6 +220,7 @@ public class updateAppointmentController implements Initializable {
         }
         upCustomerCombo.setItems(customerIDs);
     }
+
 
     /***
      * This method populates the contact combo box with the names of the available contacts.
@@ -215,6 +243,7 @@ public class updateAppointmentController implements Initializable {
         upAppContactPick.setItems(contacts);
     }
 
+
     /***
      * This method populates the time comboboxes with available times
      */
@@ -230,6 +259,7 @@ public class updateAppointmentController implements Initializable {
         upAppStartTimePick.setItems(time);
         upAppEndTimePick.setItems(time);
     }
+
 
     /***
      * This method checks all the inputs to ensure that they are completed.  If not completed, an alert informs the
@@ -337,16 +367,11 @@ public class updateAppointmentController implements Initializable {
             return false;
         };
 
-
-
         // Check for overlapping appointments
-
         LocalDateTime selectedStart = startDate.atTime(startTime);
         LocalDateTime selectedEnd = endDate.atTime(endTime);
-
         LocalDateTime proposedAppointmentStart;
         LocalDateTime proposedAppointmentEnd;
-
 
         try {
             ObservableList<appointment> appointments = appointmentSearch.getAppointmentsByCustomerID((Integer) upCustomerCombo.getSelectionModel().getSelectedItem());
@@ -376,16 +401,19 @@ public class updateAppointmentController implements Initializable {
             else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
+
         if (EndDateTimeConversion.toLocalTime().isAfter(LocalTime.of(22, 0))) {
             if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
             else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
+
         if (StartDateTimeConversion.toLocalTime().isBefore(LocalTime.of(8, 0))) {
             if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
             else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
             return false;
         }
+
         if (EndDateTimeConversion.toLocalTime().isBefore(LocalTime.of(8, 0))) {
             if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can only be within the business hours of 08:00 - 22:00 EST.", "Please provide correct times.");}
             else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent avoir lieu que pendant les heures ouvrables de 08h00 à 22h00 HNE.", "Veuillez fournir des heures correctes.");}
@@ -395,8 +423,9 @@ public class updateAppointmentController implements Initializable {
         return true;
     }
 
+
     /***
-     * This is a method that converts a time into Easter Standard Time
+     * This is a method that converts a time into Eastern Standard Time
      * @param time
      * @return
      */

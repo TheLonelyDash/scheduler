@@ -27,9 +27,15 @@ import java.time.Month;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * This class controls the reports gui.
+ */
 public class reportsController implements Initializable {
 
+    //Buttons
     @FXML private Button reportBackButton;
+
+    //Labels
     @FXML private Label reportScheduler;
     @FXML private Label usa;
     @FXML private Label uk;
@@ -52,11 +58,18 @@ public class reportsController implements Initializable {
     @FXML private Label other;
     @FXML private Label customersPerCountry;
 
+    //Tabs
     @FXML private Tab scheduleTab;
     @FXML private Tab totalAppTab;
     @FXML private Tab totalCountryTab;
+
+    //Lists
     static ObservableList<appointment> appointments;
+
+    //Table Views
     @FXML private TableView<appointment> reportsScheduleTableView;
+
+    //Table Columns
     @FXML private TableColumn<?, ?> appIDCol;
     @FXML private TableColumn titleCol;
     @FXML private TableColumn<?, ?> typeCol1;
@@ -65,10 +78,13 @@ public class reportsController implements Initializable {
     @FXML private TableColumn<?, ?> endCol;
     @FXML private TableColumn<?, ?> custIDCol;
 
+    //Text Fields
     @FXML private TextField planningSessionsField;
     @FXML private TextField debriefingField;
     @FXML private TextField otherField;
-
+    @FXML private TextField canadaText;
+    @FXML private TextField usaText;
+    @FXML private TextField ukText;
     @FXML private TextField january;
     @FXML private TextField february;
     @FXML private TextField march;
@@ -82,11 +98,11 @@ public class reportsController implements Initializable {
     @FXML private TextField november;
     @FXML private TextField december;
 
-    @FXML private TextField canadaText;
-    @FXML private TextField usaText;
-    @FXML private TextField ukText;
 
-
+    /***
+     * This method counts the number of customers in each country.  It creates a list for each country, parses through
+     * all the customers and adds them to their respective lists.  Then, their sizes are produced in their respective textfields.
+     */
     public void totalCountries() {
         ObservableList<Integer> usa = FXCollections.observableArrayList();
         ObservableList<Integer> uk = FXCollections.observableArrayList();
@@ -111,15 +127,18 @@ public class reportsController implements Initializable {
         }
     }
 
+
     /***
-     * This method collects the information on all of the appointments required in reports.
+     * This method collects the information on all of the appointments required in reports. Lists are made for all months
+     * and all types.  Then the appointments are parsed and if their type or months match, they are added to their list.
+     * The size of each list is then used to count.
      */
     public void totalAppointments() {
-
+        //Types Lists
         ObservableList<String> planningSessions = FXCollections.observableArrayList();
         ObservableList<String> debriefings = FXCollections.observableArrayList();
         ObservableList<String> other = FXCollections.observableArrayList();
-
+        //Months Lists
         ObservableList<Integer> janMonth = FXCollections.observableArrayList();
         ObservableList<Integer> febMonth = FXCollections.observableArrayList();
         ObservableList<Integer> marMonth = FXCollections.observableArrayList();
@@ -140,11 +159,12 @@ public class reportsController implements Initializable {
                     String type = appointment.getType();
                     LocalDate month = appointment.getStartDate();
 
+                    //Add appointments to their respective types list.
                     if (type.equals("Planning Session") || type.equals("Séance de Planification")) {planningSessions.add(type);}
                     if (type.equals("De-Briefing") || type.equals("Compte Rendu")) {debriefings.add(type);}
                     if (type.equals("other") || type.equals("Autre")) {other.add(type);}
 
-
+                    //Add appointments to their respective months list.
                     if (month.getMonth().equals(Month.of(1))) {janMonth.add(month.getMonthValue());}
                     if (month.getMonth().equals(Month.of(2))) {febMonth.add(month.getMonthValue());}
                     if (month.getMonth().equals(Month.of(3))) {marMonth.add(month.getMonthValue());}
@@ -159,6 +179,7 @@ public class reportsController implements Initializable {
                     if (month.getMonth().equals(Month.of(12))) {decMonth.add(month.getMonthValue());}
                 }
             }
+            //Populate the text fields in the reports gui.
             planningSessionsField.setText(String.valueOf(planningSessions.size()));
             debriefingField.setText(String.valueOf(debriefings.size()));
             otherField.setText(String.valueOf(other.size()));
@@ -216,14 +237,12 @@ public class reportsController implements Initializable {
             e.printStackTrace();
         }
 
-
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         reportBackButton.setText(rb.getString("back"));
         reportScheduler.setText(rb.getString("reportScheduler"));
         scheduleTab.setText(rb.getString("schedule"));
         totalAppTab.setText(rb.getString("totalAppTab"));
         totalCountryTab.setText(rb.getString("totalCountryTab"));
-
         appIDCol.setText(rb.getString("appointmentID"));
         titleCol.setText(rb.getString("title"));
         typeCol1.setText(rb.getString("type"));

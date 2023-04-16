@@ -24,14 +24,22 @@ import java.util.ResourceBundle;
 
 public class customersController implements Initializable {
 
+    //Buttons
     @FXML Button back;
     @FXML Button deleteCustomer;
     @FXML Button updateCustomer;
     @FXML Button addCustomer;
+
+    //Labels
     @FXML Label customerRecords;
 
+    //Lists
     static ObservableList<customer> customers;
+
+    //Table Views
     @FXML private TableView<customer> customerTableView;
+
+    //Table Columns
     @FXML TableColumn<?,?> customerIdCol;
     @FXML TableColumn<?,?> customerNameCol;
     @FXML TableColumn<?,?> customerPostalCodeCol;
@@ -39,6 +47,7 @@ public class customersController implements Initializable {
     @FXML TableColumn<?,?> customerCountryCol;
     @FXML TableColumn<?,?> customerAddressCol;
     @FXML TableColumn<?,?> customerDivisionIDCol;
+
 
     /***
      * A method that directs the user to the add customer gui.
@@ -54,6 +63,7 @@ public class customersController implements Initializable {
         else{stage.setTitle("Ajouter un Client");}
         stage.show();
     }
+
 
     /***
      * A method that directs the user to the update customer gui.  It first checks to see if the user has selected a customer

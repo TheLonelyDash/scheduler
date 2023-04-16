@@ -34,31 +34,56 @@ interface LogActivity {
     public String getFileName();
 }
 
-
+/***
+ * This class controls the login screen of the application.
+ */
 public class loginController implements Initializable {
 
+    //Labels
     @FXML Label loginLabel;
     @FXML Label userNameLabel;
     @FXML Label passwordLabel;
     @FXML Label locationLabel;
+
+    //Buttons
     @FXML Button loginButton;
     @FXML Button exitButton;
+
+    //Text Fields
     @FXML TextField usernameTextField;
     @FXML TextField passwordTextField;
     @FXML TextField locationTextField;
     @FXML TextField zoneIDTextField;
+
+    //Dates and Times
     @FXML LocalDateTime start;
     @FXML LocalDateTime appTime;
     @FXML LocalDateTime currTime;
+
+    //Other Variables
     Integer appID;
     boolean condition;
 
+    //LAMBDA EXPRESSION: Reduces code and increases readability for the creation of the login_activity text file!
+    LogActivity logActivity = () -> {
+        return "login_activity.txt";
+    };
+
+
+    /***
+     * This method starts by creating a file to store login activity.  If it already exists, it writes the successful
+     * or unsuccessful information to the txt file. It then checks the user name and password against the database.  If
+     * successful, it will move the user to the next gui and inform them whether or not an appointment is scheduled
+     * in the next 15 minutes.
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     public void loginButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
-
+        //Check to see if there are any upcoming appointments.
         ObservableList<appointment> getAllAppointments = appointmentSearch.getAllAppointments();
         LocalDateTime currentTimePlus15 = LocalDateTime.now().plusMinutes(15);
-
         for (appointment appointment: getAllAppointments){
             start = appointment.getStartTime();
             if (start.isBefore(currentTimePlus15) && start.isAfter(LocalDateTime.now())){
@@ -68,9 +93,9 @@ public class loginController implements Initializable {
                 condition = true;
             }
         }
-
+        //Create a txt file
         createFile();
-
+        //Check to see if user name and password are filled out. If so, check them against the database and allow them in!
         if (usernameTextField.getText().isEmpty()) {
             if (Locale.getDefault().getLanguage() == "en") {alerts.alert("Username", "No username was provided.", "Please enter a valid username!");}
             else {alerts.alert("Nom d'Utilisateur", "Aucun nom d'utilisateur fourni.", "Veuillez saisir un nom d'utilisateur valide!");}
@@ -107,6 +132,7 @@ public class loginController implements Initializable {
         }
     }
 
+
     /***
      * This method closes the program.  It first throws an alert asking if the user is sure they would like to close the program.
      * @param actionEvent
@@ -123,10 +149,6 @@ public class loginController implements Initializable {
         }
     }
 
-    //LAMBDA EXPRESSION: Reduces code and increases readability for the creation of the login_activity text file!
-    LogActivity logActivity = () -> {
-        return "login_activity.txt";
-    };
 
     /***
      * This method creates a new file to store the login and logout activity in the program. If the file has already
@@ -140,6 +162,7 @@ public class loginController implements Initializable {
         }
         catch (IOException e){e.printStackTrace();}
     }
+
 
     /***
      * This method writes the login information for the successful logins.
@@ -155,6 +178,7 @@ public class loginController implements Initializable {
         }
         catch (IOException e) {e.printStackTrace();}
     }
+
 
     /***
      * This method writes the login information for the UNsuccessful logins.

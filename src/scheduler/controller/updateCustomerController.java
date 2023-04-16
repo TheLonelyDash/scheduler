@@ -28,10 +28,16 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/***
+ * This class controlls the update customer gui.
+ */
 public class updateCustomerController implements Initializable {
 
+    //Buttons
     @FXML Button save;
     @FXML Button cancel;
+
+    //Labels
     @FXML Label updateCustomer;
     @FXML Label name;
     @FXML Label address;
@@ -39,8 +45,12 @@ public class updateCustomerController implements Initializable {
     @FXML Label phone;
     @FXML Label country;
     @FXML Label divisionId;
+
+    //Combo Boxes
     @FXML ComboBox<String> countryComboBox;
     @FXML ComboBox<String> divisionIdComboBox;
+
+    //Text Fields
     @FXML TextField idText;
     @FXML TextField nameText;
     @FXML TextField phoneText;
@@ -49,6 +59,7 @@ public class updateCustomerController implements Initializable {
 
     private static customer selected;
 
+
     /***
      * This method retrieves the selected customer from the customersController.
      * @param customer
@@ -56,7 +67,8 @@ public class updateCustomerController implements Initializable {
     public static void getSelected(customer customer){
         selected = customer;
     }
-    
+
+
     /***
      * Method that populates the combo box on the add and update customer stage with the three available countries for the company.
      */
@@ -75,6 +87,7 @@ public class updateCustomerController implements Initializable {
         }
         countryComboBox.setItems(ListOfCountries);
     }
+
 
     /***
      * Method that populates the combo box on the add and update customer stage with the available divisions for the company.
@@ -95,6 +108,7 @@ public class updateCustomerController implements Initializable {
         divisionIdComboBox.setItems(ListOfDivisionIds);
     }
 
+
     /***
      * Updates the division dropdown box with divisions based on the country selected.
      * @param event
@@ -113,6 +127,7 @@ public class updateCustomerController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     /***
      * Method that saves the updated information for each customer. It ensures that all of the text fields are completed
@@ -168,7 +183,6 @@ public class updateCustomerController implements Initializable {
     }
 
 
-
     /***
      * This method takes the input from the textFields and ensures that they are filled out.
      * @param name
@@ -183,25 +197,27 @@ public class updateCustomerController implements Initializable {
             else{alerts.alert("Sans nom", "Le champ de texte du nom est vide", "Veuillez fournir un nom.");}
             return false;
         }
+
         if (address.isEmpty()){
             if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Address", "The Address TextField is Empty!", "Please provide an Address.");}
             else{alerts.alert("pas d'adresse", "le champ de texte de l'adresse est vide.", "Merci de fournir une adresse.");}
             return false;
         }
+
         if (phone.isEmpty()){
             if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Phone Number", "The Phone Number TextField is Empty!", "Please provide a Phone Number.");}
             else{alerts.alert("Pas de numéro de téléphone", "Le champ de texte du numéro de téléphone est vide !", "Veuillez fournir un numéro de téléphone.");}
             return false;
         }
+
         if (postalCode.isEmpty()){
             if (Locale.getDefault().getLanguage() == "en"){alerts.alert("No Postal Code", "The Postal Code TextField is Empty!", "Please provide a postal code.");}
             else{alerts.alert("Aucun code postal", "Le champ de texte du code postal est vide !", "Veuillez fournir un code postal.");}
             return false;
         }
+
         return true;
     }
-
-
 
 
     /***
