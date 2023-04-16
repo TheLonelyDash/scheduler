@@ -208,8 +208,8 @@ public class reportsController implements Initializable {
             titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
             descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
             typeCol1.setCellValueFactory(new PropertyValueFactory<>("type"));
-            startCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-            endCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+            startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+            endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
             custIDCol.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
         }
         catch (Exception e){
