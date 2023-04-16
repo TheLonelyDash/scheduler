@@ -55,12 +55,12 @@ public class appointmentSearch {
     public static ObservableList<appointment> getAppointmentsByMonth() throws SQLException {
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
         LocalDateTime todaysDate = LocalDateTime.now();
-        LocalDateTime lastMonth = todaysDate.minusDays(30);
-        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
+        LocalDateTime nextMonth = todaysDate.plusDays(30);
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start > ? AND Start < ?;";
         DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
         preparedStatement.setDate(1, java.sql.Date.valueOf(todaysDate.toLocalDate()));
-        preparedStatement.setDate(2, java.sql.Date.valueOf(lastMonth.toLocalDate()));
+        preparedStatement.setDate(2, java.sql.Date.valueOf(nextMonth.toLocalDate()));
         try {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
