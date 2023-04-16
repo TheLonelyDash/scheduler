@@ -94,12 +94,12 @@ public class appointmentSearch {
     public static ObservableList<appointment> getAppointmentsByWeek() throws SQLException {
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
         LocalDateTime todaysDate = LocalDateTime.now();
-        LocalDateTime lastWeek = todaysDate.minusDays(7);
-        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
+        LocalDateTime nextWeek = todaysDate.plusDays(7);
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start > ? AND Start < ?;";
         DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
         preparedStatement.setDate(1, java.sql.Date.valueOf(todaysDate.toLocalDate()));
-        preparedStatement.setDate(2, java.sql.Date.valueOf(lastWeek.toLocalDate()));
+        preparedStatement.setDate(2, java.sql.Date.valueOf(nextWeek.toLocalDate()));
         try {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
