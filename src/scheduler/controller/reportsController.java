@@ -29,41 +29,62 @@ import java.util.ResourceBundle;
 
 public class reportsController implements Initializable {
 
-    @FXML Button reportBackButton;
-    @FXML Label reportScheduler;
-    @FXML Tab scheduleTab;
-    @FXML Tab totalAppTab;
-    @FXML Tab totalCountryTab;
+    @FXML private Button reportBackButton;
+    @FXML private Label reportScheduler;
+    @FXML private Label usa;
+    @FXML private Label uk;
+    @FXML private Label appByMonthLabel;
+    @FXML private Label janLabel;
+    @FXML private Label febLabel;
+    @FXML private Label marLabel;
+    @FXML private Label aprLabel;
+    @FXML private Label mayLabel;
+    @FXML private Label junLabel;
+    @FXML private Label julLabel;
+    @FXML private Label augLabel;
+    @FXML private Label sepLabel;
+    @FXML private Label octLabel;
+    @FXML private Label novLabel;
+    @FXML private Label decLabel;
+    @FXML private Label appByTypeLabel;
+    @FXML private Label planningSessions;
+    @FXML private Label debriefing;
+    @FXML private Label other;
+    @FXML private Label customersPerCountry;
+
+    @FXML private Tab scheduleTab;
+    @FXML private Tab totalAppTab;
+    @FXML private Tab totalCountryTab;
     static ObservableList<appointment> appointments;
-    @FXML TableView<appointment> reportsScheduleTableView;
-    @FXML TableColumn<?, ?> appIDCol;
-    @FXML TableColumn titleCol;
-    @FXML TableColumn<?, ?> typeCol1;
-    @FXML TableColumn<?, ?> descriptionCol;
-    @FXML TableColumn<?, ?> startCol;
-    @FXML TableColumn<?, ?> endCol;
-    @FXML TableColumn<?, ?> custIDCol;
+    @FXML private TableView<appointment> reportsScheduleTableView;
+    @FXML private TableColumn<?, ?> appIDCol;
+    @FXML private TableColumn titleCol;
+    @FXML private TableColumn<?, ?> typeCol1;
+    @FXML private TableColumn<?, ?> descriptionCol;
+    @FXML private TableColumn<?, ?> startCol;
+    @FXML private TableColumn<?, ?> endCol;
+    @FXML private TableColumn<?, ?> custIDCol;
 
-    @FXML TextField planningSessionsField;
-    @FXML TextField debriefingField;
-    @FXML TextField otherField;
+    @FXML private TextField planningSessionsField;
+    @FXML private TextField debriefingField;
+    @FXML private TextField otherField;
 
-    @FXML TextField january;
-    @FXML TextField february;
-    @FXML TextField march;
-    @FXML TextField april;
-    @FXML TextField may;
-    @FXML TextField june;
-    @FXML TextField july;
-    @FXML TextField august;
-    @FXML TextField september;
-    @FXML TextField october;
-    @FXML TextField november;
-    @FXML TextField december;
+    @FXML private TextField january;
+    @FXML private TextField february;
+    @FXML private TextField march;
+    @FXML private TextField april;
+    @FXML private TextField may;
+    @FXML private TextField june;
+    @FXML private TextField july;
+    @FXML private TextField august;
+    @FXML private TextField september;
+    @FXML private TextField october;
+    @FXML private TextField november;
+    @FXML private TextField december;
 
-    @FXML TextField canadaText;
-    @FXML TextField usaText;
-    @FXML TextField ukText;
+    @FXML private TextField canadaText;
+    @FXML private TextField usaText;
+    @FXML private TextField ukText;
 
 
     public void totalCountries() {
@@ -201,5 +222,33 @@ public class reportsController implements Initializable {
         scheduleTab.setText(rb.getString("schedule"));
         totalAppTab.setText(rb.getString("totalAppTab"));
         totalCountryTab.setText(rb.getString("totalCountryTab"));
+
+        appIDCol.setText(rb.getString("appointmentID"));
+        titleCol.setText(rb.getString("title"));
+        typeCol1.setText(rb.getString("type"));
+        descriptionCol.setText(rb.getString("description"));
+        startCol.setText(rb.getString("startdateandtime"));
+        endCol.setText(rb.getString("enddateandtime"));
+        custIDCol.setText(rb.getString("customerID"));
+        appByMonthLabel.setText(rb.getString("appByMonth"));
+        janLabel.setText(rb.getString("jan"));
+        febLabel.setText(rb.getString("feb"));
+        marLabel.setText(rb.getString("mar"));
+        aprLabel.setText(rb.getString("apr"));
+        mayLabel.setText(rb.getString("may"));
+        junLabel.setText(rb.getString("jun"));
+        julLabel.setText(rb.getString("jul"));
+        augLabel.setText(rb.getString("aug"));
+        sepLabel.setText(rb.getString("sep"));
+        octLabel.setText(rb.getString("oct"));
+        novLabel.setText(rb.getString("nov"));
+        decLabel.setText(rb.getString("dec"));
+        appByTypeLabel.setText(rb.getString("appByType"));
+        planningSessions.setText(rb.getString("planningSession"));
+        debriefing.setText(rb.getString("debriefing"));
+        other.setText(rb.getString("other"));
+        customersPerCountry.setText(rb.getString("customersPerCountry"));
+        usa.setText(rb.getString("usa"));
+        uk.setText(rb.getString("uk"));
     }
 }

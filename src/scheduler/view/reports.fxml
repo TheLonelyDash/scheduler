@@ -36,23 +36,23 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                        <Label layoutX="145.0" layoutY="35.0" text="Appointments by Month">
+                        <Label fx:id="appByMonthLabel" layoutX="145.0" layoutY="35.0" text="Appointments by Month">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Label layoutX="47.0" layoutY="91.0" text="January:" />
-                        <Label layoutX="47.0" layoutY="130.0" text="February:" />
-                        <Label layoutX="47.0" layoutY="173.0" text="March:" />
-                        <Label layoutX="47.0" layoutY="213.0" text="April:" />
-                        <Label layoutX="48.0" layoutY="249.0" text="May:" />
-                        <Label layoutX="48.0" layoutY="289.0" text="June:" />
-                        <Label layoutX="253.0" layoutY="91.0" text="July:" />
-                        <Label layoutX="253.0" layoutY="130.0" text="August:" />
-                        <Label layoutX="253.0" layoutY="173.0" text="September:" />
-                        <Label layoutX="251.0" layoutY="213.0" text="October:" />
-                        <Label layoutX="251.0" layoutY="249.0" text="November:" />
-                        <Label layoutX="251.0" layoutY="289.0" text="December:" />
+                        <Label fx:id="janLabel" layoutX="47.0" layoutY="91.0" text="January:" />
+                        <Label fx:id="febLabel" layoutX="47.0" layoutY="130.0" text="February:" />
+                        <Label fx:id="marLabel" layoutX="47.0" layoutY="173.0" text="March:" />
+                        <Label fx:id="aprLabel" layoutX="47.0" layoutY="213.0" text="April:" />
+                        <Label fx:id="mayLabel" layoutX="48.0" layoutY="249.0" text="May:" />
+                        <Label fx:id="junLabel" layoutX="48.0" layoutY="289.0" text="June:" />
+                        <Label fx:id="julLabel" layoutX="253.0" layoutY="91.0" text="July:" />
+                        <Label fx:id="augLabel" layoutX="253.0" layoutY="130.0" text="August:" />
+                        <Label fx:id="sepLabel" layoutX="253.0" layoutY="173.0" text="September:" />
+                        <Label fx:id="octLabel" layoutX="251.0" layoutY="213.0" text="October:" />
+                        <Label fx:id="novLabel" layoutX="251.0" layoutY="249.0" text="November:" />
+                        <Label fx:id="decLabel" layoutX="251.0" layoutY="289.0" text="December:" />
                         <TextField fx:id="january" editable="false" layoutX="116.0" layoutY="87.0" prefHeight="25.0" prefWidth="79.0" />
                         <TextField fx:id="february" editable="false" layoutX="116.0" layoutY="126.0" prefHeight="25.0" prefWidth="80.0" />
                         <TextField fx:id="march" editable="false" layoutX="116.0" layoutY="169.0" prefHeight="25.0" prefWidth="80.0" />
@@ -68,14 +68,14 @@
                         <TextField fx:id="planningSessionsField" editable="false" layoutX="720.0" layoutY="100.0" prefHeight="25.0" prefWidth="127.0" />
                         <TextField fx:id="debriefingField" editable="false" layoutX="720.0" layoutY="152.0" prefHeight="25.0" prefWidth="128.0" />
                         <TextField fx:id="otherField" editable="false" layoutX="720.0" layoutY="201.0" prefHeight="25.0" prefWidth="126.0" />
-                        <Label layoutX="626.0" layoutY="35.0" text="Appointments by Type">
+                        <Label fx:id="appByTypeLabel" layoutX="626.0" layoutY="35.0" text="Appointments by Type">
                            <font>
                               <Font size="22.0" />
                            </font>
                         </Label>
-                        <Label layoutX="617.0" layoutY="104.0" text="Planning Session:" />
-                        <Label layoutX="646.0" layoutY="156.0" text="De-Briefing:" />
-                        <Label layoutX="676.0" layoutY="205.0" text="Other:" />
+                        <Label fx:id="planningSessions" layoutX="600.0" layoutY="104.0" text="Planning Session:" />
+                        <Label fx:id="debriefing" layoutX="600.0" layoutY="156.0" text="De-Briefing:" />
+                        <Label fx:id="other" layoutX="600.0" layoutY="201.0" text="Other:" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -84,22 +84,22 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="338.0" layoutY="30.0" text="Customers Per Country">
+                        <Label fx:id="customersPerCountry" layoutX="338.0" layoutY="30.0" text="Customers Per Country">
                            <font>
                               <Font size="39.0" />
                            </font>
                         </Label>
-                        <Label layoutX="201.0" layoutY="125.0" text="Canada">
+                        <Label layoutX="167.0" layoutY="135.0" text="Canada">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="514.0" layoutY="125.0" text="USA">
+                        <Label fx:id="usa" layoutX="462.0" layoutY="135.0" text="USA">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="805.0" layoutY="125.0" text="U.K.">
+                        <Label fx:id="uk" layoutX="751.0" layoutY="135.0" text="U.K.">
                            <font>
                               <Font size="24.0" />
                            </font>
