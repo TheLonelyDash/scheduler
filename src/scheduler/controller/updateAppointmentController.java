@@ -153,7 +153,8 @@ public class updateAppointmentController implements Initializable {
      */
     private void typeComboBox() {
         ObservableList<String> types = FXCollections.observableArrayList();
-        types.addAll("Planning Session", "De-Briefing", "other");
+        if(Locale.getDefault().getLanguage() == "en"){types.addAll("Planning Session", "De-Briefing", "Other");}
+        else{types.addAll("Séance de Planification", "Compte Rendu", "Autre");}
         upTypeCombo.setItems(types);
     }
 

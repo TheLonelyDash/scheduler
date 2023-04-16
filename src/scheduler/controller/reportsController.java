@@ -140,9 +140,10 @@ public class reportsController implements Initializable {
                     String type = appointment.getType();
                     LocalDate month = appointment.getStartDate();
 
-                    if (type.equals("Planning Session")) {planningSessions.add(type);}
-                    if (type.equals("De-Briefing")) {debriefings.add(type);}
-                    if (type.equals("other")) {other.add(type);}
+                    if (type.equals("Planning Session") || type.equals("Séance de Planification")) {planningSessions.add(type);}
+                    if (type.equals("De-Briefing") || type.equals("Compte Rendu")) {debriefings.add(type);}
+                    if (type.equals("other") || type.equals("Autre")) {other.add(type);}
+
 
                     if (month.getMonth().equals(Month.of(1))) {janMonth.add(month.getMonthValue());}
                     if (month.getMonth().equals(Month.of(2))) {febMonth.add(month.getMonthValue());}
