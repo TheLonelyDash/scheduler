@@ -2,7 +2,10 @@ package scheduler.utilities;
 
 import java.sql.*;
 
-public class DBQuery {
+/***
+ * The dbSearch class is used for general SQL searching of the database.
+ */
+public class dbSearch {
 
     private static PreparedStatement statement;
 

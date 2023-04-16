@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/***
+ * The JDBC (Java DataBase Connection) Class is used to connect to the available database.
+ */
 public class JDBC {
 
     //First part of jdbc URL
@@ -60,7 +63,7 @@ public class JDBC {
 
 
     /***
-     * Establishes a database connection.
+     * This method establishes a database connection.
      */
     public static Connection openConnection(){
         try {
@@ -77,7 +80,7 @@ public class JDBC {
     }
 
     /***
-     * Closes the database connection.
+     * This method closes the database connection.
      */
     public static void closeConnection(){
         try {

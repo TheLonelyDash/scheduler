@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /***
- * The customerSearch class is used to acces the customer table in the database.
+ * The customerSearch class is used to access the customer table in the database.
  */
 public class customerSearch {
 
@@ -22,8 +22,8 @@ public class customerSearch {
     public static ObservableList<customer> getAllCustomers() throws SQLException {
         ObservableList<customer> customers = FXCollections.observableArrayList();
         String statement = "SELECT * FROM customers AS c INNER JOIN first_level_divisions AS d ON c.Division_ID = d.Division_ID INNER JOIN countries AS co ON co.Country_ID=d.COUNTRY_ID;";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        dbSearch.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
         try {
             preparedStatement.executeQuery();
             ResultSet resultSet = preparedStatement.getResultSet();
@@ -61,8 +61,8 @@ public class customerSearch {
     public static boolean addCustomer(String name, String address, String postalCode, String phone, String division) throws SQLException{
         division newDivision = divisionSearch.getDivisionID(division);
         String statement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        dbSearch.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
         preparedStatement.setString(1, name);
         preparedStatement.setString(2, address);
         preparedStatement.setString(3, postalCode);
@@ -92,8 +92,8 @@ public class customerSearch {
     public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, String division) throws SQLException{
         division newDivision = divisionSearch.getDivisionID(division);
         String statement = "UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        dbSearch.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
         preparedStatement.setString(1, name);
         preparedStatement.setString(2, address);
         preparedStatement.setString(3, postalCode);
@@ -117,8 +117,8 @@ public class customerSearch {
      */
     public static void deleteCustomer(int customerId) throws SQLException{
         String statement = "DELETE from customers WHERE Customer_Id=?";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        dbSearch.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
         preparedStatement.setInt(1, customerId);
         try {
             preparedStatement.execute();

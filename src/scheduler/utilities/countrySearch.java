@@ -21,8 +21,8 @@ public class countrySearch {
     public static ObservableList<country> getAllCountries() throws SQLException{
         ObservableList<country> countries = FXCollections.observableArrayList();
         String statement = "SELECT * FROM countries;";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        dbSearch.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
         try {
             preparedStatement.executeQuery();
             ResultSet resultSet = preparedStatement.getResultSet();
@@ -48,8 +48,8 @@ public class countrySearch {
      */
     public static country getCountryId(String country) throws SQLException {
         String queryStatement = "SELECT * FROM countries WHERE Country=?";
-        DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
-        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+        dbSearch.setPreparedStatement(JDBC.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
         preparedStatement.setString(1, country);
         try {
             preparedStatement.execute();
