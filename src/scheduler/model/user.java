@@ -1,5 +1,8 @@
 package scheduler.model;
 
+/***
+ * The user class is the model for the users in the application.  It is only used to get a user ID.
+ */
 public class user {
     private String username;
     private String password;
