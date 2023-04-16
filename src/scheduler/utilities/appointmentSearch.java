@@ -180,9 +180,7 @@ public static boolean deleteAppointment(int appointmentId) throws SQLException{
 
     public static ObservableList<appointment> getAppointmentsByCustomerID(int CustomerID) throws SQLException {
         ObservableList<appointment> appointments = FXCollections.observableArrayList();
-
         String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Customer_ID=?;";
-
         DBQuery.setPreparedStatement(JDBC.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
         preparedStatement.setInt(1, CustomerID);
@@ -246,12 +244,6 @@ public static boolean deleteAppointment(int appointmentId) throws SQLException{
         }
         return null;
     }
-
-
-
-
-
-
 
 
 

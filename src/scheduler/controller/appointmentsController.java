@@ -209,8 +209,8 @@ public class appointmentsController implements Initializable {
             locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
             contactCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
             typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-            startDateCol.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-            endDateCol.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+            startDateCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+            endDateCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
             customer_IDCol.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
             user_IDCol.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
         }
