@@ -267,16 +267,12 @@ public class addAppointmentController implements Initializable {
                 possAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
 
                 if (possAppointmentStart.isAfter(selectedStart) && possAppointmentStart.isBefore(selectedEnd)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Appointments must not overlap with existing customer appointments.");
-                    alert.showAndWait();
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
                 } else if (possAppointmentEnd.isAfter(selectedStart) && possAppointmentEnd.isBefore(selectedEnd)) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Appointments must not overlap with existing customer appointments.");
-                    alert.showAndWait();
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
                 }
             }

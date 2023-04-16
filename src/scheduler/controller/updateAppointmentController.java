@@ -370,20 +370,20 @@ public class updateAppointmentController implements Initializable {
         // Check for overlapping appointments
         LocalDateTime selectedStart = startDate.atTime(startTime);
         LocalDateTime selectedEnd = endDate.atTime(endTime);
-        LocalDateTime proposedAppointmentStart;
-        LocalDateTime proposedAppointmentEnd;
+        LocalDateTime possAppointmentStart;
+        LocalDateTime possAppointmentEnd;
 
         try {
             ObservableList<appointment> appointments = appointmentSearch.getAppointmentsByCustomerID((Integer) upCustomerCombo.getSelectionModel().getSelectedItem());
             for (appointment appointment: appointments) {
-                proposedAppointmentStart = appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime());
-                proposedAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
+                possAppointmentStart = appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime());
+                possAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
 
-                if (proposedAppointmentStart.isAfter(selectedStart) && proposedAppointmentStart.isBefore(selectedEnd)) {
+                if (possAppointmentStart.isAfter(selectedStart) && possAppointmentStart.isBefore(selectedEnd)) {
                     if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
                     else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
-                } else if (proposedAppointmentEnd.isAfter(selectedStart) && proposedAppointmentEnd.isBefore(selectedEnd)) {
+                } else if (possAppointmentEnd.isAfter(selectedStart) && possAppointmentEnd.isBefore(selectedEnd)) {
                     if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
                     else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
