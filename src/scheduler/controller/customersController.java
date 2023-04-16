@@ -168,6 +168,13 @@ public class customersController implements Initializable {
         deleteCustomer.setText(rb.getString("deleteCustomer"));
         updateCustomer.setText(rb.getString("updateCustomer"));
         addCustomer.setText(rb.getString("addCustomer"));
+        customerIdCol.setText(rb.getString("customerID"));
+        customerNameCol.setText(rb.getString("name"));
+        customerPostalCodeCol.setText(rb.getString("postalcode"));
+        customerPhoneNumberCol.setText(rb.getString("phonenumber"));
+        customerAddressCol.setText(rb.getString("address"));
+        customerCountryCol.setText(rb.getString("countrycol"));
+        customerDivisionIDCol.setText(rb.getString("divisionID"));
 
         try{
             customers = customerSearch.getAllCustomers();
