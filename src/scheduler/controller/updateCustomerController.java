@@ -33,6 +33,12 @@ public class updateCustomerController implements Initializable {
     @FXML Button save;
     @FXML Button cancel;
     @FXML Label updateCustomer;
+    @FXML Label name;
+    @FXML Label address;
+    @FXML Label postalCode;
+    @FXML Label phone;
+    @FXML Label country;
+    @FXML Label divisionId;
     @FXML ComboBox<String> countryComboBox;
     @FXML ComboBox<String> divisionIdComboBox;
     @FXML TextField idText;
@@ -239,6 +245,12 @@ public class updateCustomerController implements Initializable {
         updateCustomer.setText(rb.getString("updateCustomer"));
         save.setText(rb.getString("addAppSave"));
         cancel.setText(rb.getString("addAppCancel"));
+        name.setText(rb.getString("name"));
+        phone.setText(rb.getString("phonenumber"));
+        address.setText(rb.getString("address"));
+        postalCode.setText(rb.getString("postalcode"));
+        country.setText(rb.getString("countrycol"));
+        divisionId.setText(rb.getString("divisionID"));
 
         idText.setText(Integer.toString(selected.getCustomerID()));
         nameText.setText(selected.getCustomerName());
