@@ -8,7 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/***
+ * The contactSearch class is used to search through the contacts table in the database.
+ */
 public class contactSearch {
+
+    /***
+     * This method return all of the contacts in the table in the database.
+     * @return
+     * @throws SQLException
+     */
     public static ObservableList<contactInfo> getAllContacts() throws SQLException{
         ObservableList<contactInfo> contacts = FXCollections.observableArrayList();
         String statement = "SELECT * FROM contacts AS c INNER JOIN appointments AS a ON c.Contact_ID = a.Contact_ID;";
@@ -32,6 +41,13 @@ public class contactSearch {
         }
     }
 
+
+    /***
+     * This method returns contacts by their contact Name.
+     * @param contactName
+     * @return
+     * @throws SQLException
+     */
     public static contactInfo getContactId(String contactName) throws SQLException{
         String statement = "SELECT * FROM contacts WHERE Contact_Name=?";
         JDBC.setPreparedStatement(JDBC.getConnection(), statement);
@@ -46,7 +62,6 @@ public class contactSearch {
                         resultSet.getString("Contact_Name"),
                         resultSet.getString("Email")
                 );
-
                 return newContact;
             }
         } catch (Exception e) {

@@ -9,6 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/***
+ * The customerSearch class is used to acces the customer table in the database.
+ */
 public class customerSearch {
 
     /***
@@ -45,7 +48,16 @@ public class customerSearch {
     }
 
 
-
+    /***
+     * This method adds a customer object to the customers table in the database.
+     * @param name
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param division
+     * @return
+     * @throws SQLException
+     */
     public static boolean addCustomer(String name, String address, String postalCode, String phone, String division) throws SQLException{
         division newDivision = divisionSearch.getDivisionID(division);
         String statement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";
@@ -66,6 +78,17 @@ public class customerSearch {
     }
 
 
+    /***
+     * This method updates the information of a customer in the customers table of the database.
+     * @param customerId
+     * @param name
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param division
+     * @return
+     * @throws SQLException
+     */
     public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, String division) throws SQLException{
         division newDivision = divisionSearch.getDivisionID(division);
         String statement = "UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
@@ -87,6 +110,11 @@ public class customerSearch {
     }
 
 
+    /***
+     * This method removes or deletes a customer from the customers table of the database.
+     * @param customerId
+     * @throws SQLException
+     */
     public static void deleteCustomer(int customerId) throws SQLException{
         String statement = "DELETE from customers WHERE Customer_Id=?";
         DBQuery.setPreparedStatement(JDBC.getConnection(), statement);
