@@ -64,7 +64,9 @@ public class loginController implements Initializable {
     Integer appID;
     boolean condition;
 
-    //LAMBDA EXPRESSION: Reduces code and increases readability for the creation of the login_activity text file!
+    /***
+     * LAMBDA EXPRESSION: Reduces code and increases readability for the creation of the login_activity text file!
+     */
     LogActivity logActivity = () -> {
         return "login_activity.txt";
     };

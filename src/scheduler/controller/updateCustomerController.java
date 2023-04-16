@@ -249,8 +249,12 @@ public class updateCustomerController implements Initializable {
     }
 
 
-
-
+    /***
+     * This initialization method starts the customer controller
+     * LAMBDA EXPRESSION: Used as a work around so that the correct DivisionID is matched in the combo box when the box is populated.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
