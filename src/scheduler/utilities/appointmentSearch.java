@@ -55,6 +55,7 @@ public class appointmentSearch {
         }
     }
 
+
     /***
      * This method creates a list which stores all of the appointments within the next thirty days of the current date.
      * It is then connected to the Monthly radiobutton which populates these appointments on the appointmentsTableView.

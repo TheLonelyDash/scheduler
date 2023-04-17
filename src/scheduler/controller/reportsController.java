@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import scheduler.model.alerts;
 import scheduler.model.appointment;
 import scheduler.model.country;
 import scheduler.model.customer;
@@ -34,29 +35,22 @@ public class reportsController implements Initializable {
 
     //Buttons
     @FXML private Button reportBackButton;
+    @FXML private Button getResultButton;
 
     //Labels
     @FXML private Label reportScheduler;
     @FXML private Label usa;
     @FXML private Label uk;
-    @FXML private Label appByMonthLabel;
-    @FXML private Label janLabel;
-    @FXML private Label febLabel;
-    @FXML private Label marLabel;
-    @FXML private Label aprLabel;
-    @FXML private Label mayLabel;
-    @FXML private Label junLabel;
-    @FXML private Label julLabel;
-    @FXML private Label augLabel;
-    @FXML private Label sepLabel;
-    @FXML private Label octLabel;
-    @FXML private Label novLabel;
-    @FXML private Label decLabel;
-    @FXML private Label appByTypeLabel;
-    @FXML private Label planningSessions;
-    @FXML private Label debriefing;
-    @FXML private Label other;
+    @FXML private Label totalAppLabel;
+    @FXML private Label monthLabel;
+    @FXML private Label typeLabel;
+    @FXML private Label resultLabel;
+    @FXML private Label totalsLabel;
     @FXML private Label customersPerCountry;
+
+    //Combo Boxes
+    @FXML private ComboBox monthComboBox;
+    @FXML private ComboBox typeComboBox;
 
     //Tabs
     @FXML private Tab scheduleTab;
@@ -79,25 +73,88 @@ public class reportsController implements Initializable {
     @FXML private TableColumn<?, ?> custIDCol;
 
     //Text Fields
-    @FXML private TextField planningSessionsField;
-    @FXML private TextField debriefingField;
-    @FXML private TextField otherField;
     @FXML private TextField canadaText;
     @FXML private TextField usaText;
     @FXML private TextField ukText;
-    @FXML private TextField january;
-    @FXML private TextField february;
-    @FXML private TextField march;
-    @FXML private TextField april;
-    @FXML private TextField may;
-    @FXML private TextField june;
-    @FXML private TextField july;
-    @FXML private TextField august;
-    @FXML private TextField september;
-    @FXML private TextField october;
-    @FXML private TextField november;
-    @FXML private TextField december;
 
+
+
+    public void getResultClick(ActionEvent actionEvent) throws SQLException {
+        ObservableList<appointment> appointments = appointmentSearch.getAllAppointments();
+        ObservableList<Integer> monthAndType = FXCollections.observableArrayList();
+        boolean condition = checkBoxes();
+        if (condition == true){
+            if(appointments != null){
+                String typeBox = (String) typeComboBox.getSelectionModel().getSelectedItem();
+                String typeBox2 = (String) typeComboBox.getSelectionModel().getSelectedItem();
+
+                if (typeBox == "Planning Session" || typeBox == "Séance de Planification"){
+                    typeBox = "Planning Session";
+                    typeBox2 = "Séance de Planification";
+                }
+                else if (typeBox == "De-Briefing" || typeBox == "Compte Rendu") {
+                    typeBox = "De-Briefing";
+                    typeBox2 = "Compte Rendu";
+                }
+                else if (typeBox == "Other" || typeBox == "Autre"){
+                    typeBox = "Other";
+                    typeBox2 = "Autre";
+                }
+
+                int monthBox = Integer.parseInt((String) monthComboBox.getSelectionModel().getSelectedItem());
+                System.out.println(monthBox);
+
+                for (appointment appointment: appointments){
+                    String type = appointment.getType();
+                    LocalDate month = appointment.getStartDate();
+                    if (type.equals(typeBox) && month.getMonth().equals(Month.of(monthBox))){
+                        monthAndType.add(1);
+                    }
+                    if (type.equals(typeBox2) && month.getMonth().equals(Month.of(monthBox))){
+                        monthAndType.add(1);
+                    }
+                }
+            }
+        }
+        totalsLabel.setText(String.valueOf(monthAndType.size()));
+    }
+
+    /***
+     * This method checks whether the two combo boxes have been selected.
+     * @return
+     */
+    public boolean checkBoxes(){
+        if(monthComboBox.getSelectionModel().isEmpty()){
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Missing!", "You are missing a Month!", "Please select a Month.");}
+            else{alerts.alertE("Manquant !", "Il vous manque un mois !", "Veuillez sélectionner un mois.");}
+            return false;
+        }
+        if(typeComboBox.getSelectionModel().isEmpty()){
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Missing!", "You are missing a Type!", "Please select a Type.");}
+            else{alerts.alertE("Manquant !", "Il vous manque un type !", "Veuillez sélectionner un type.");}
+            return false;
+        }
+        return true;
+    }
+
+    /***
+     * This method populates the type Combo Box for selection
+     */
+    private void typeComboBox() {
+        ObservableList<String> types = FXCollections.observableArrayList();
+        if(Locale.getDefault().getLanguage() == "en"){types.addAll("Planning Session", "De-Briefing", "Other");}
+        else{types.addAll("Séance de Planification", "Compte Rendu", "Autre");}
+        typeComboBox.setItems(types);
+    }
+
+    /***
+     * This method populates the month Combo Box for selection
+     */
+    private void monthComboBox() {
+        ObservableList<String> month = FXCollections.observableArrayList();
+        month.addAll("1", "2", "3", "4", "5", "6", "7", "8", "9","10", "11", "12");
+        monthComboBox.setItems(month);
+    }
 
     /***
      * This method counts the number of customers in each country.  It creates a list for each country, parses through
@@ -128,77 +185,7 @@ public class reportsController implements Initializable {
     }
 
 
-    /***
-     * This method collects the information on all of the appointments required in reports. Lists are made for all months
-     * and all types.  Then the appointments are parsed and if their type or months match, they are added to their list.
-     * The size of each list is then used to count.
-     */
-    public void totalAppointments() {
-        //Types Lists
-        ObservableList<String> planningSessions = FXCollections.observableArrayList();
-        ObservableList<String> debriefings = FXCollections.observableArrayList();
-        ObservableList<String> other = FXCollections.observableArrayList();
-        //Months Lists
-        ObservableList<Integer> janMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> febMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> marMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> aprMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> mayMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> junMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> julMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> augMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> sepMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> octMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> novMonth = FXCollections.observableArrayList();
-        ObservableList<Integer> decMonth = FXCollections.observableArrayList();
 
-        try {
-            ObservableList<appointment> appointments = appointmentSearch.getAllAppointments();
-            if (appointments != null) {
-                for (appointment appointment : appointments) {
-                    String type = appointment.getType();
-                    LocalDate month = appointment.getStartDate();
-
-                    //Add appointments to their respective types list.
-                    if (type.equals("Planning Session") || type.equals("Séance de Planification")) {planningSessions.add(type);}
-                    if (type.equals("De-Briefing") || type.equals("Compte Rendu")) {debriefings.add(type);}
-                    if (type.equals("other") || type.equals("Autre")) {other.add(type);}
-
-                    //Add appointments to their respective months list.
-                    if (month.getMonth().equals(Month.of(1))) {janMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(2))) {febMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(3))) {marMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(4))) {aprMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(5))) {mayMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(6))) {junMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(7))) {julMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(8))) {augMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(9))) {sepMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(10))) {octMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(11))) {novMonth.add(month.getMonthValue());}
-                    if (month.getMonth().equals(Month.of(12))) {decMonth.add(month.getMonthValue());}
-                }
-            }
-            //Populate the text fields in the reports gui.
-            planningSessionsField.setText(String.valueOf(planningSessions.size()));
-            debriefingField.setText(String.valueOf(debriefings.size()));
-            otherField.setText(String.valueOf(other.size()));
-            january.setText(String.valueOf(janMonth.size()));
-            february.setText(String.valueOf(febMonth.size()));
-            march.setText(String.valueOf(marMonth.size()));
-            april.setText(String.valueOf(aprMonth.size()));
-            may.setText(String.valueOf(mayMonth.size()));
-            june.setText(String.valueOf(junMonth.size()));
-            july.setText(String.valueOf(julMonth.size()));
-            august.setText(String.valueOf(augMonth.size()));
-            september.setText(String.valueOf(sepMonth.size()));
-            october.setText(String.valueOf(octMonth.size()));
-            november.setText(String.valueOf(novMonth.size()));
-            december.setText(String.valueOf(decMonth.size()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     /***
@@ -217,9 +204,11 @@ public class reportsController implements Initializable {
     }
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        totalAppointments();
+        typeComboBox();
+        monthComboBox();
         totalCountries();
 
         try {
@@ -250,23 +239,6 @@ public class reportsController implements Initializable {
         startCol.setText(rb.getString("startdateandtime"));
         endCol.setText(rb.getString("enddateandtime"));
         custIDCol.setText(rb.getString("customerID"));
-        appByMonthLabel.setText(rb.getString("appByMonth"));
-        janLabel.setText(rb.getString("jan"));
-        febLabel.setText(rb.getString("feb"));
-        marLabel.setText(rb.getString("mar"));
-        aprLabel.setText(rb.getString("apr"));
-        mayLabel.setText(rb.getString("may"));
-        junLabel.setText(rb.getString("jun"));
-        julLabel.setText(rb.getString("jul"));
-        augLabel.setText(rb.getString("aug"));
-        sepLabel.setText(rb.getString("sep"));
-        octLabel.setText(rb.getString("oct"));
-        novLabel.setText(rb.getString("nov"));
-        decLabel.setText(rb.getString("dec"));
-        appByTypeLabel.setText(rb.getString("appByType"));
-        planningSessions.setText(rb.getString("planningSession"));
-        debriefing.setText(rb.getString("debriefing"));
-        other.setText(rb.getString("other"));
         customersPerCountry.setText(rb.getString("customersPerCountry"));
         usa.setText(rb.getString("usa"));
         uk.setText(rb.getString("uk"));
