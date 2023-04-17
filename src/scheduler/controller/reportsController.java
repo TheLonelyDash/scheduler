@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import scheduler.model.*;
 import scheduler.utilities.appointmentSearch;
 import scheduler.utilities.contactSearch;
-import scheduler.utilities.countrySearch;
 import scheduler.utilities.customerSearch;
 
 import java.io.IOException;
@@ -39,12 +38,12 @@ public class reportsController implements Initializable {
     @FXML private Label reportScheduler;
     @FXML private Label usa;
     @FXML private Label uk;
+    @FXML private Label totalsLabel;
+    @FXML private Label customersPerCountry;
+    @FXML private Label chooseContact;
     @FXML private Label totalAppLabel;
     @FXML private Label monthLabel;
     @FXML private Label typeLabel;
-    @FXML private Label resultLabel;
-    @FXML private Label totalsLabel;
-    @FXML private Label customersPerCountry;
 
     //Combo Boxes
     @FXML private ComboBox monthComboBox;
@@ -274,5 +273,10 @@ public class reportsController implements Initializable {
         customersPerCountry.setText(rb.getString("customersPerCountry"));
         usa.setText(rb.getString("usa"));
         uk.setText(rb.getString("uk"));
+        chooseContact.setText(rb.getString("chooseContact"));
+        totalAppLabel.setText(rb.getString("totalAppLabel"));
+        monthLabel.setText(rb.getString("monthLabel"));
+        typeLabel.setText(rb.getString("typeLabel"));
+        getResultButton.setText(rb.getString("getResultButton"));
     }
 }
