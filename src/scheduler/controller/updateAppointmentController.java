@@ -121,19 +121,36 @@ public class updateAppointmentController implements Initializable {
                         Integer.parseInt(upAppIDText.getText()));
 
                 if (condition2 == true) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Successfully updated appointment");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.isPresent() && (result.get() ==  ButtonType.OK)) {
-                        try {
-                            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                            Parent scene = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
-                            stage.setScene(new Scene(scene));
-                            stage.show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                    if(Locale.getDefault().getLanguage()=="en"){
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Successfully updated appointment");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.isPresent() && (result.get() ==  ButtonType.OK)) {
+                            try {
+                                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                                Parent scene = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
+                                stage.setScene(new Scene(scene));
+                                stage.show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-                } else {
+                    else{
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Rendez-vous mis à jour avec succès");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.isPresent() && (result.get() ==  ButtonType.OK)) {
+                            try {
+                                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                                Parent scene = FXMLLoader.load(getClass().getResource("/scheduler/view/appointments.fxml"));
+                                stage.setScene(new Scene(scene));
+                                stage.show();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                else {
                     if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Failed to update appointment", "Honesly, nobody knows why.");}
                     else{alerts.alertE("Erreur", "Échec de la mise à jour du rendez-vous", "Honnêtement, personne ne sait pourquoi.");}
                 }
@@ -297,7 +314,7 @@ public class updateAppointmentController implements Initializable {
 
         if (upTypeCombo.getSelectionModel().isEmpty()) {
             if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Type is a requirement", "Please provide a type.");}
-            else{alerts.alertE("Erreur", "Le type est une exigence", "Veuillez fournir un type.");}
+            else{alerts.alertE("Erreur", "Le type est une exigence", "Veuillez fournir un taper.");}
             return false;
         }
 
