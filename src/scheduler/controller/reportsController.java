@@ -12,11 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import scheduler.model.alerts;
-import scheduler.model.appointment;
-import scheduler.model.country;
-import scheduler.model.customer;
+import scheduler.model.*;
 import scheduler.utilities.appointmentSearch;
+import scheduler.utilities.contactSearch;
 import scheduler.utilities.countrySearch;
 import scheduler.utilities.customerSearch;
 
@@ -51,6 +49,7 @@ public class reportsController implements Initializable {
     //Combo Boxes
     @FXML private ComboBox monthComboBox;
     @FXML private ComboBox typeComboBox;
+    @FXML private ComboBox contactBox;
 
     //Tabs
     @FXML private Tab scheduleTab;
@@ -157,6 +156,34 @@ public class reportsController implements Initializable {
     }
 
     /***
+     * This method sets the items in the contacts box.
+     */
+    private void setContactBox(){
+        ObservableList<String> ListOfContacts = FXCollections.observableArrayList();
+        try{
+            ObservableList<contactInfo> contacts = contactSearch.getAllContacts();
+            if (contacts != null){
+                for(contactInfo contactInfo: contacts){
+                    if (ListOfContacts.size() == 0){
+                        ListOfContacts.add(contactInfo.getContactName());
+                    }
+                    else if (ListOfContacts.size() != 0){
+                        if (ListOfContacts.contains(contactInfo.getContactName())){
+                            continue;
+                        }
+                        else{
+                            ListOfContacts.add(contactInfo.getContactName());
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        contactBox.setItems(ListOfContacts);
+    }
+
+    /***
      * This method counts the number of customers in each country.  It creates a list for each country, parses through
      * all the customers and adds them to their respective lists.  Then, their sizes are produced in their respective textfields.
      */
@@ -203,16 +230,9 @@ public class reportsController implements Initializable {
         stage.show();
     }
 
-
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        typeComboBox();
-        monthComboBox();
-        totalCountries();
-
+    public void setTable(ActionEvent actionEvent){
         try {
-            appointments = appointmentSearch.getAllAppointments();
+            appointments = appointmentSearch.getAllAppointmentsByName((String) contactBox.getSelectionModel().getSelectedItem());
             reportsScheduleTableView.setItems(appointments);
             appIDCol.setCellValueFactory(new PropertyValueFactory<>("appointment_ID"));
             titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -225,6 +245,18 @@ public class reportsController implements Initializable {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        typeComboBox();
+        monthComboBox();
+        setContactBox();
+        totalCountries();
+
+
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());
         reportBackButton.setText(rb.getString("back"));

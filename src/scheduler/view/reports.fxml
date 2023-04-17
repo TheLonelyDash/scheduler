@@ -36,7 +36,7 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                        <Label fx:id="totalAppLabel" layoutX="150.0" layoutY="66.0" text="Total Appointments">
+                        <Label fx:id="totalAppLabel" layoutX="94.0" layoutY="57.0" text="Total Appointments by Month and Type">
                            <font>
                               <Font size="22.0" />
                            </font>
@@ -112,10 +112,16 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <Button fx:id="reportBackButton" layoutX="442.0" layoutY="487.0" mnemonicParsing="false" onAction="#reportBackButtonClick" prefHeight="51.0" prefWidth="186.0" text="Back">
+        <Button fx:id="reportBackButton" layoutX="832.0" layoutY="481.0" mnemonicParsing="false" onAction="#reportBackButtonClick" prefHeight="51.0" prefWidth="186.0" text="Back">
             <font>
                 <Font size="24.0" />
             </font>
         </Button>
+      <ComboBox fx:id="contactBox" layoutX="319.0" layoutY="495.0" onAction="#setTable" prefWidth="150.0" />
+      <Label layoutX="47.0" layoutY="482.0" text="Choose Contact">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

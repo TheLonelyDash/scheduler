@@ -57,6 +57,46 @@ public class appointmentSearch {
 
 
     /***
+     * This is a method that utilizes an inner join to combine all appointments by their contact_ID,  then gets them for use!
+     * @return
+     * @throws SQLException
+     */
+    public static ObservableList<appointment> getAllAppointmentsByName(String Contact_Name) throws SQLException {
+        ObservableList<appointment> appointments = FXCollections.observableArrayList();
+        String statement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Contact_Name=?;";
+        JDBC.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = JDBC.getPreparedStatement();
+        preparedStatement.setString(1, Contact_Name);
+        try {
+            preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                appointment newAppointment = new appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
+                );
+                appointments.add(newAppointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("ERROR!" + e.getMessage());
+            return null;
+        }
+    }
+
+
+    /***
      * This method creates a list which stores all of the appointments within the next thirty days of the current date.
      * It is then connected to the Monthly radiobutton which populates these appointments on the appointmentsTableView.
      * @return

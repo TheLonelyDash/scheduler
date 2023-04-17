@@ -36,7 +36,7 @@ public class contactSearch {
             }
             return contacts;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.getMessage();
             return null;
         }
     }
@@ -69,6 +69,8 @@ public class contactSearch {
         }
         return null;
     }
+
+
 
 
 }
