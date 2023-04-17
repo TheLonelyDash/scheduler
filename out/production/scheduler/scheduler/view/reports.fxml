@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="1069.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scheduler.controller.reportsController">
+    <children>
+        <Label fx:id="reportScheduler" layoutX="25.0" layoutY="27.0" text="The Scheduler - Reports">
+            <font>
+                <Font size="36.0" />
+            </font>
+        </Label>
+        <TabPane fx:id="tabs" layoutX="25.0" layoutY="110.0" prefHeight="367.0" prefWidth="1021.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="scheduleTab" text="Schedule">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="reportsScheduleTableView" layoutX="14.0" layoutY="14.0" prefHeight="247.0" prefWidth="993.0">
+                                    <columns>
+                                        <TableColumn fx:id="appIDCol" prefWidth="101.0" text="Appointment ID" />
+                                        <TableColumn fx:id="titleCol" minWidth="9.0" prefWidth="126.0" text="Title" />
+                                        <TableColumn fx:id="typeCol1" prefWidth="75.0" text="Type" />
+                                        <TableColumn fx:id="descriptionCol" prefWidth="312.0" text="Description" />
+                                        <TableColumn fx:id="startCol" prefWidth="129.0" text="Start Date/Time" />
+                                        <TableColumn fx:id="endCol" prefWidth="139.0" text="End Date/Time" />
+                                        <TableColumn fx:id="custIDCol" prefWidth="110.0" text="Customer ID" />
+                                    </columns>
+                                </TableView>
+                        <ComboBox fx:id="contactBox" layoutX="335.0" layoutY="284.0" onAction="#setTable" prefHeight="36.0" prefWidth="176.0" />
+                        <Label fx:id="chooseContact" layoutX="14.0" layoutY="277.0" text="Choose Contact">
+                           <font>
+                              <Font size="34.0" />
+                           </font>
+                        </Label>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="totalAppTab" text="Total Appointments">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                        <Label fx:id="totalAppLabel" layoutX="94.0" layoutY="57.0" text="Total Appointments by Month and Type">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="monthComboBox" layoutX="230.0" layoutY="124.0" prefHeight="25.0" prefWidth="164.0" promptText="Select" />
+                        <ComboBox fx:id="typeComboBox" layoutX="230.0" layoutY="170.0" prefHeight="25.0" prefWidth="165.0" promptText="Select" />
+                        <Label fx:id="totalsLabel" layoutX="688.0" layoutY="100.0" text="0">
+                           <font>
+                              <Font size="96.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="monthLabel" layoutX="138.0" layoutY="123.0" text="Month:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="typeLabel" layoutX="155.0" layoutY="169.0" text="Type:">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="getResultButton" layoutX="230.0" layoutY="215.0" mnemonicParsing="false" onAction="#getResultClick" prefHeight="53.0" prefWidth="165.0" text="Get Result">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="totalCountryTab" text="Total Country">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="customersPerCountry" layoutX="338.0" layoutY="30.0" text="Customers Per Country">
+                           <font>
+                              <Font size="39.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="167.0" layoutY="135.0" text="Canada">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="usa" layoutX="462.0" layoutY="135.0" text="USA">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="uk" layoutX="751.0" layoutY="135.0" text="U.K.">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="canadaText" editable="false" layoutX="167.0" layoutY="182.0" prefHeight="51.0" prefWidth="131.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="usaText" editable="false" layoutX="462.0" layoutY="182.0" prefHeight="51.0" prefWidth="128.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="ukText" editable="false" layoutX="751.0" layoutY="182.0" prefHeight="51.0" prefWidth="114.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Button fx:id="reportBackButton" layoutX="832.0" layoutY="481.0" mnemonicParsing="false" onAction="#reportBackButtonClick" prefHeight="51.0" prefWidth="186.0" text="Back">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

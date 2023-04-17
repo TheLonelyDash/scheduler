@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.ToggleGroup?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1198.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scheduler.controller.appointmentsController">
+    <children>
+        <Label layoutX="38.0" layoutY="14.0" prefHeight="64.0" prefWidth="210.0" text="The Scheduler">
+            <font>
+                <Font size="32.0" />
+            </font>
+        </Label>
+        <TableView fx:id="appointmentsTableView" layoutX="37.0" layoutY="78.0" prefHeight="392.0" prefWidth="1125.0">
+            <columns>
+                <TableColumn fx:id="appointment_IDCol" prefWidth="100.0" text="Appointment_ID" />
+                <TableColumn fx:id="titleCol" prefWidth="89.0" text="Title" />
+                <TableColumn fx:id="descriptionCol" prefWidth="162.0" text="Description" />
+                <TableColumn fx:id="locationCol" prefWidth="124.0" text="Location" />
+                <TableColumn fx:id="contactCol" prefWidth="108.0" text="Contact" />
+                <TableColumn fx:id="typeCol" prefWidth="83.0" text="Type" />
+                <TableColumn fx:id="startDateCol" prefWidth="121.0" text="Start Date &amp; Time" />
+                <TableColumn fx:id="endDateCol" prefWidth="123.0" text="End Date &amp; Time" />
+                <TableColumn fx:id="customer_IDCol" prefWidth="95.0" text="Customer_ID" />
+                <TableColumn fx:id="user_IDCol" prefWidth="119.0" text="User_ID" />
+            </columns>
+        </TableView>
+        <Button fx:id="updateAppointment" layoutX="425.0" layoutY="501.0" mnemonicParsing="false" onAction="#updateAppointmentClick" prefHeight="35.0" prefWidth="352.0" text="Update Appointment">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button fx:id="addAppointment" layoutX="38.0" layoutY="499.0" mnemonicParsing="false" onAction="#addAppointmentClick" prefHeight="39.0" prefWidth="352.0" text="Add Appointment">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button fx:id="deleteAppointment" layoutX="810.0" layoutY="503.0" mnemonicParsing="false" onAction="#deleteAppointmentClick" prefHeight="35.0" prefWidth="352.0" text="Delete Appointment">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        <Button fx:id="backAppointment" layoutX="425.0" layoutY="554.0" mnemonicParsing="false" onAction="#backAppointmentClick" prefHeight="39.0" prefWidth="352.0" text="BACK">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Button>
+
+        <RadioButton fx:id="all"  layoutX="1108.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewToggle" selected="true" text="All">
+            <font>
+                <Font size="16.0" />
+            </font>
+            <toggleGroup>
+                <ToggleGroup fx:id="toggleView"/>
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="monthly" toggleGroup="$toggleView" layoutX="958.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewToggle" prefHeight="25.0" prefWidth="117.0" text="Monthly">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </RadioButton>
+        <RadioButton fx:id="weekly" toggleGroup="$toggleView" layoutX="797.0" layoutY="37.0" mnemonicParsing="false" onAction="#viewToggle" prefHeight="25.0" prefWidth="151.0" text="Weekly">
+            <font>
+                <Font size="16.0" />
+            </font>
+            </RadioButton>
+
+
+
+
+      <Label fx:id="appointmentsAppointmentsLabel" layoutX="446.0" layoutY="11.0" text="Appointments">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

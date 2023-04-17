@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scheduler.controller.loginController">
+    <children>
+        <Label layoutX="155.0" layoutY="14.0" prefHeight="65.0" prefWidth="292.0" text="The Scheduler" textAlignment="CENTER">
+            <font>
+                <Font size="45.0" />
+            </font>
+        </Label>
+        <Label fx:id="loginLabel" layoutX="160.0" layoutY="80.0" prefHeight="30.0" prefWidth="280.0" text="Login" textAlignment="CENTER">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="userNameLabel" layoutX="50.0" layoutY="150.0" prefHeight="27.0" prefWidth="149.0" text="Username:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label fx:id="passwordLabel" layoutX="50.0" layoutY="200.0" prefHeight="27.0" prefWidth="150.0" text="Password:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <TextField fx:id="usernameTextField" layoutX="210.0" layoutY="150.0" prefHeight="25.0" prefWidth="295.0" />
+        <TextField fx:id="passwordTextField" layoutX="210.0" layoutY="200.0" prefHeight="25.0" prefWidth="295.0" />
+        <TextField fx:id="locationTextField" editable="false" layoutX="211.0" layoutY="252.0" prefHeight="25.0" prefWidth="292.0" />
+        <Label fx:id="locationLabel" layoutX="50.0" layoutY="250.0" prefHeight="27.0" prefWidth="150.0" text="Language:">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Button fx:id="loginButton" layoutX="97.0" layoutY="365.0" mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="50.0" prefWidth="194.0" text="Login">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="exitButton" layoutX="310.0" layoutY="365.0" mnemonicParsing="false" onAction="#exitButtonClick" prefHeight="50.0" prefWidth="194.0" text="Exit">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+      <TextField fx:id="zoneIDTextField" editable="false" layoutX="211.0" layoutY="305.0" prefHeight="25.0" prefWidth="292.0" />
+      <Label layoutX="50.0" layoutY="304.0" text="ZoneID:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

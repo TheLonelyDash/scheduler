@@ -166,7 +166,7 @@ public class addAppointmentController implements Initializable {
 
         if (addAppEndTimePick.getSelectionModel().isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose an end time!", "Please choose a end time.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de end time!", "Veuillez choisir un end time.");}
+            else {alerts.alert("Informations manquantes", "Hey ! Vous n'avez pas choisi d'heure de fin !", "Veuillez choisir une heure de fin.");}
             return false;
         }
 
@@ -178,55 +178,55 @@ public class addAppointmentController implements Initializable {
 
         if (customerIDCombo.getSelectionModel().isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a customer ID!", "Please choose a customer ID.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de customer ID!", "Veuillez choisir un customer ID.");}
+            else {alerts.alert("Informations manquantes", "Hey ! Vous n'avez pas choisi d'identifiant client !", "Veuillez choisir un identifiant client.");}
             return false;
         }
 
         if (addAppUserIDCombo.getSelectionModel().isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a user ID!", "Please choose a user ID.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de user ID!", "Veuillez choisir un user ID.");}
+            else {alerts.alert("Informations manquantes", "Hey ! Vous n'avez pas choisi d'ID utilisateur !", "Veuillez choisir un ID utilisateur.");}
             return false;
         }
 
         if (title.isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a title!", "Please choose a title.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de title!", "Veuillez choisir un title.");}
+            else {alerts.alert("Infos manquantes", "Hé ! Vous n'avez pas choisi de titre !", "Veuillez choisir un titre.");}
             return false;
         }
 
         if (description.isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a description!", "Please choose a description.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de description!", "Veuillez choisir un description.");}
+            else {alerts.alert("Informations manquantes", "Hé ! Vous n'avez pas choisi de description !", "Veuillez choisir une description.");}
             return false;
         }
 
         if (location.isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a location!", "Please choose a location.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de location!", "Veuillez choisir un location.");}
+            else {alerts.alert("Informations manquantes", "Hé ! Vous n'avez pas choisi de lieu !", "Veuillez choisir un lieu.");}
             return false;
         }
 
         if (appointmentID.isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose an appointment ID!", "Please choose an appointment ID.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de appointment ID!", "Veuillez choisir un appointment ID.");}
+            else {alerts.alert("Infos manquantes", "Hey ! Vous n'avez pas choisi d'identifiant de rendez-vous !", "Veuillez choisir un identifiant de rendez-vous.");}
             return false;
         }
 
         if(addAppTypeCombo.getSelectionModel().isEmpty()){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a type!", "Please choose a type.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de type!", "Veuillez choisir un type.");}
+            else {alerts.alert("Informations manquantes", "Hé ! Vous n'avez pas choisi de type !", "Veuillez choisir un type.");}
             return false;
         }
 
         if (addAppStartDatePick.getValue() == null){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a start date!", "Please choose a start date.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de start date!", "Veuillez choisir un start date.");}
+            else {alerts.alert("Informations manquantes", "Hey ! Vous n'avez pas choisi de date de début !", "Veuillez choisir une date de début.");}
             return false;
         }
 
         if (addAppEndDatePick.getValue() == null){
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Missing Info", "Hey! You didn't choose a end date!", "Please choose a end date.");}
-            else {alerts.alert("Informations manquantes", "Hé! Vous n'avez pas choisi de end date!", "Veuillez choisir un end date.");}
+            else {alerts.alert("Informations manquantes", "Hey ! Vous n'avez pas choisi de date de fin !", "Veuillez choisir une date de fin.");}
             return false;
         }
 
