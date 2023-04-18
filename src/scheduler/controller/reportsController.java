@@ -229,6 +229,10 @@ public class reportsController implements Initializable {
         stage.show();
     }
 
+    /***
+     * This method sets all of the values in the customer table view when the combo box has a selection made.
+     * @param actionEvent
+     */
     public void setTable(ActionEvent actionEvent){
         try {
             appointments = appointmentSearch.getAllAppointmentsByName((String) contactBox.getSelectionModel().getSelectedItem());
@@ -255,6 +259,20 @@ public class reportsController implements Initializable {
         setContactBox();
         totalCountries();
 
+        try {
+            appointments = appointmentSearch.getAllAppointments();
+            reportsScheduleTableView.setItems(appointments);
+            appIDCol.setCellValueFactory(new PropertyValueFactory<>("appointment_ID"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            typeCol1.setCellValueFactory(new PropertyValueFactory<>("type"));
+            startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+            endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+            custIDCol.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
 
         ResourceBundle rb = ResourceBundle.getBundle("language/language", Locale.getDefault());

@@ -252,6 +252,12 @@ public class appointmentSearch {
     }
 }
 
+    /***
+     * This method accesses the database and deletes all appointments that have a common customer_ID.
+     * @param CustomerID
+     * @return
+     * @throws SQLException
+     */
     public static boolean deleteAppointmentByCustomerID(Integer CustomerID) throws SQLException{
         String queryStatement = "DELETE FROM appointments WHERE Customer_ID=?;";
         dbSearch.setPreparedStatement(JDBC.getConnection(), queryStatement);

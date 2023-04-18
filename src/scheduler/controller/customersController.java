@@ -135,7 +135,7 @@ public class customersController implements Initializable {
 
 
     /***
-     * This method is supposed to check if there are current appointments for a customer.
+     * This method checks if there are current appointments for a customer.
      * @param selected
      * @return
      */
@@ -169,6 +169,7 @@ public class customersController implements Initializable {
         else{stage.setTitle("Menu principal");}
         stage.show();
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
