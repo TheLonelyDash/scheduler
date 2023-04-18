@@ -107,8 +107,15 @@ public class customersController implements Initializable {
         }
         //Check if there are any appointments
         boolean condition = checkForAppointments(selectedCustomer);
+        Optional<ButtonType> result;
+        if(Locale.getDefault().getLanguage()=="en"){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you'd like to delete? All appointments will also be deleted.");
+            result = alert.showAndWait();}
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Êtes-vous sûr de vouloir supprimer ? Tous les rendez-vous seront également supprimés.");
+            result = alert.showAndWait();}
         //If there are outstanding appointments, delete them
-        if (condition != true) {
+        if (condition != true && result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 appointmentSearch.deleteAppointmentByCustomerID(selectedCustomer.getCustomerID());
             } catch (SQLException e) {
