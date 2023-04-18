@@ -65,7 +65,7 @@ public class contactSearch {
                 return newContact;
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.getMessage();
         }
         return null;
     }

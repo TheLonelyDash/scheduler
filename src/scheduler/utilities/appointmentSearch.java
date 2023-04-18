@@ -397,7 +397,7 @@ public class appointmentSearch {
             }
             return true;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.getMessage();
             return false;
         }
     }

@@ -62,7 +62,7 @@ public class countrySearch {
                 return newCountry;
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.getMessage();
         }
         return null;
     }

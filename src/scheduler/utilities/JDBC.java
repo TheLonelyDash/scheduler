@@ -74,7 +74,7 @@ public class JDBC {
             System.out.println("The connection was successful to the DB");
         }
         catch(Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
+            e.getMessage();
         }
         return connection;
     }
@@ -88,7 +88,7 @@ public class JDBC {
             System.out.println("The connection was CLOSED");
         }
         catch(Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
+            e.getMessage();
         }
     }
 

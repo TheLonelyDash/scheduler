@@ -88,7 +88,7 @@ public class divisionSearch {
             }
             return divisions;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            e.getMessage();
             return null;
         }
     }

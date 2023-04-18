@@ -43,6 +43,7 @@ public class loginController implements Initializable {
     @FXML Label userNameLabel;
     @FXML Label passwordLabel;
     @FXML Label locationLabel;
+    @FXML Label zoneIDTextField;
 
     //Buttons
     @FXML Button loginButton;
@@ -52,7 +53,7 @@ public class loginController implements Initializable {
     @FXML TextField usernameTextField;
     @FXML TextField passwordTextField;
     @FXML TextField locationTextField;
-    @FXML TextField zoneIDTextField;
+
 
     //Dates and Times
     @FXML LocalDateTime start;

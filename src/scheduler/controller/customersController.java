@@ -128,6 +128,8 @@ public class customersController implements Initializable {
             customers = customerSearch.getAllCustomers();
             customerTableView.setItems(customers);
             customerTableView.refresh();
+            if(Locale.getDefault().getLanguage()=="en"){alerts.alertI("Delete Complete!", selectedCustomer.getCustomerName() + " has been deleted.", "It's done.");}
+            else{alerts.alertI("Supprimer terminé!", selectedCustomer.getCustomerName() + " a été supprimé.", "C'est fait.");}
         } catch (SQLException e) {
             e.printStackTrace();
         }
