@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class customersController implements Initializable {
@@ -94,41 +95,34 @@ public class customersController implements Initializable {
      * @param actionEvent
      */
     public void deleteCustomerClick(ActionEvent actionEvent) {
+        //Get the selected customer
         customer selectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
-        if (selectedCustomer == null){
-            if (Locale.getDefault().getLanguage() == "en") {alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");}
-            else {alerts.alert("Pas de choix.", "Un client n'a pas été sélectionné!", "Veuillez faire une sélection à supprimer.");}
-        }
-        else {
-            boolean condition = checkForAppointments(selectedCustomer);
+        //Check that the user has made a selection
+        if (selectedCustomer == null) {
             if (Locale.getDefault().getLanguage() == "en") {
-                alerts.alert("Are you sure?", "You are about to delete a customer.", "All customer information will be lost.");
-                if (condition == true){
-                    try {
-                        customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
-                        customers = customerSearch.getAllCustomers();
-                        customerTableView.setItems(customers);
-                        customerTableView.refresh();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{alerts.alert("Error", "You cannot delete a customer who has an active appointment.", "Please remove all appointments first.");}
+                alerts.alert("No selection", "A customer was not selected!", "Please make a selection for deletion.");
+            } else {
+                alerts.alert("Pas de choix.", "Un client n'a pas été sélectionné!", "Veuillez faire une sélection à supprimer.");
             }
-            else {
-                alerts.alert("es-tu sûr?", "Vous êtes sur le point de supprimer un client.", "Toutes les informations client seront perdues.");
-                if (condition == true){
-                    try {
-                        customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
-                        customers = customerSearch.getAllCustomers();
-                        customerTableView.setItems(customers);
-                        customerTableView.refresh();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{alerts.alert("Erreur", "Vous ne pouvez pas supprimer un client qui a un rendez-vous actif.", "Veuillez d'abord supprimer tous les rendez-vous.");}
+        }
+        //Check if there are any appointments
+        boolean condition = checkForAppointments(selectedCustomer);
+        //If there are outstanding appointments, delete them
+        if (condition != true) {
+            try {
+                appointmentSearch.deleteAppointmentByCustomerID(selectedCustomer.getCustomerID());
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
+        }
+        //Delete the customer
+        try {
+            customerSearch.deleteCustomer(customerTableView.getSelectionModel().getSelectedItem().getCustomerID());
+            customers = customerSearch.getAllCustomers();
+            customerTableView.setItems(customers);
+            customerTableView.refresh();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

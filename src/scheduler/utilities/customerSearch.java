@@ -128,6 +128,27 @@ public class customerSearch {
         }
     }
 
+    /***
+     * This method removes or deletes a customer from the customers table of the database.
+     * @param Customer_Name
+     * @throws SQLException
+     * @return
+     */
+    public static boolean deleteCustomerByName(String Customer_Name) throws SQLException{
+        String statement = "DELETE from customers WHERE Customer_Name=?";
+        dbSearch.setPreparedStatement(JDBC.getConnection(), statement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
+        preparedStatement.setString(1, Customer_Name);
+        try {
+            preparedStatement.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Huh, for some reason it didn't get deleted.");
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 
 }

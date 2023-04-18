@@ -252,6 +252,26 @@ public class appointmentSearch {
     }
 }
 
+    public static boolean deleteAppointmentByCustomerID(Integer CustomerID) throws SQLException{
+        String queryStatement = "DELETE FROM appointments WHERE Customer_ID=?;";
+        dbSearch.setPreparedStatement(JDBC.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = dbSearch.getPreparedStatement();
+        preparedStatement.setInt(1, CustomerID);
+        try{
+            preparedStatement.execute();
+            if (preparedStatement.getUpdateCount() > 0) {
+                System.out.println("Success!");
+            } else {
+                System.out.println("Not really successful, huh?");
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     /***
      * This method searches the database for appointments with a specific customer ID.
      * @param CustomerID
