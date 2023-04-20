@@ -268,10 +268,6 @@ public class addAppointmentController implements Initializable {
 
                 possAppointmentStart = appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime());
                 possAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
-                System.out.println(possAppointmentStart);
-                System.out.println(possAppointmentEnd);
-                System.out.println(selectedStart);
-                System.out.println(selectedEnd);
 
                 if (possAppointmentStart.isAfter(selectedStart) && possAppointmentStart.isBefore(selectedEnd)) {
                     if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
