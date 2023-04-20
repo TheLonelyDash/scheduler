@@ -122,8 +122,8 @@ public class loginController implements Initializable {
                     else{alerts.alert("Rendez-vous à venir!", "Rendez-vous à venir !\n\nAppointmentID: " + appID + "\nCurrent Time: " + currTime + "\nAppointment Time: " + appTime, "Vérifiez-le!");}
                 }
                 else {
-                    if(Locale.getDefault().getLanguage()=="en"){alerts.alert("No Upcoming Appointments", "There are no appointments within the next 15 minutes", "Check it out!");}
-                    else{alerts.alert("Aucun rendez-vous à venir", "Il n'y a pas de rendez-vous dans les 15 prochaines minutes", "Vérifiez-le!");}
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alert("No Upcoming Appointments", "There are no upcoming appointments.", "Check it out!");}
+                    else{alerts.alert("Aucun rendez-vous à venir", "Il n'y a pas de rendez-vous à venir.", "Vérifiez-le!");}
                 }
             }
             else {

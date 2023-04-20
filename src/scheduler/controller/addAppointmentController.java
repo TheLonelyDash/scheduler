@@ -233,6 +233,7 @@ public class addAppointmentController implements Initializable {
         LocalTime startTime = LocalTime.parse((CharSequence) addAppStartTimePick.getSelectionModel().getSelectedItem());
         LocalTime endTime = LocalTime.parse((CharSequence) addAppEndTimePick.getSelectionModel().getSelectedItem());
 
+        //Checks if the end time is before start time.
         if (endTime.isBefore(startTime)) {
             if(Locale.getDefault().getLanguage() == "en"){alerts.alert("Incorrect information", "Hey! Check your times are correct!", "Ensure your times are valid.");}
             else {alerts.alert("Informations incorrectes", "Hé! Vous vérifiez que vos temps sont corrects!", "Assurez-vous que vos temps sont valides.");}
@@ -262,15 +263,37 @@ public class addAppointmentController implements Initializable {
 
         try {
             ObservableList<appointment> appointments = appointmentSearch.getAppointmentsByCustomerID(customerIDCombo.getSelectionModel().getSelectedItem());
+
             for (appointment appointment: appointments) {
+
                 possAppointmentStart = appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime());
                 possAppointmentEnd = appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime());
+                System.out.println(possAppointmentStart);
+                System.out.println(possAppointmentEnd);
+                System.out.println(selectedStart);
+                System.out.println(selectedEnd);
 
                 if (possAppointmentStart.isAfter(selectedStart) && possAppointmentStart.isBefore(selectedEnd)) {
                     if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
                     else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
-                } else if (possAppointmentEnd.isAfter(selectedStart) && possAppointmentEnd.isBefore(selectedEnd)) {
+                }
+                else if (possAppointmentEnd.isAfter(selectedStart) && possAppointmentEnd.isBefore(selectedEnd)) {
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
+                    return false;
+                }
+                else if (possAppointmentStart.equals(selectedStart)){
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
+                    return false;
+                }
+                else if (possAppointmentEnd.equals(selectedEnd)){
+                    if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
+                    else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
+                    return false;
+                }
+                else if (possAppointmentStart.isBefore(selectedStart) && possAppointmentEnd.isAfter(selectedEnd)){
                     if(Locale.getDefault().getLanguage()=="en"){alerts.alertE("Error", "Appointments can't overlap with existing appointments.", "Please provide correct dates.");}
                     else{alerts.alertE("Erreur", "Les rendez-vous ne peuvent pas se chevaucher avec des rendez-vous existants.", "Veuillez fournir des dates correctes.");}
                     return false;
