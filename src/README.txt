@@ -5,9 +5,9 @@ Application Date:		        April 20, 2023
 Project Purpose: 		        To provide a desktop GUI scheduling application.
 
 Author Information:		        The Lonely Dash (Topher Shortt)
-				                1062 Lockhart Circle
-				                Sarnia, Ontario N7S 2E5
-				                226-792-4777
+				                *** Lockhart Circle
+				                SOMEWHERE, Ontario *** ***
+				                226-792-****
 
 IDE Information:		        IntelliJ IDEA 2021.1.3 (Community Edition)
 				                Build #IC-211.7628.21, built on June 30, 2021
